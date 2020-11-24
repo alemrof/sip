@@ -8,6 +8,8 @@
     - danych
     - przypadki użycia klas
 
+Aplikacja zostanie stworzona jako samodzielny system a architekturze *klient - serwer*. Kod będzie zorganizowany według wzorca monolit z podziałem na moduły funkcjonalne i podziałem na część frontendową i backendową. Frontend odpowiada za interfejs użytkowniak, interakcję z sytemem i prezentację danych. Backend odpowiadza za zarządzanie, modyfiakcje, przechowywanie i udostępnianie danych (administracja). Dane z backendu będą udostępnane frontendowi poprzez API.
+
 ## Środowisko tworzenia aplikacji
 
 - język programowania
