@@ -28,6 +28,10 @@ Aplikacja zostanie stworzona jako samodzielny system a architekturze *klient - s
 
 - struktura bazy danych (diagram)
 
+[Model ERD](https://lucid.app/lucidchart/invitations/accept/b159eb18-5e39-4430-a0bb-e2351735fe51)
+
+![Database ERD][database-erd]
+
 ## Projekt interfejsu użytkownika
 
 - najważniejsze okna tworzonej aplikacji
@@ -44,3 +48,4 @@ Aplikacja zostanie stworzona jako samodzielny system a architekturze *klient - s
 ## Główne funkcje systemu (Sposób ich wywołania i parametry)
 
 
+[database-erd]: ./img/database-erd-lucidchart.png
