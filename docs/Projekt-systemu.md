@@ -12,6 +12,16 @@ Aplikacja zostanie stworzona jako samodzielny system a architekturze *klient - s
 
 ![Architektura trój warstwowa][triple-layer-arch]
 
+### API
+
+API udostępniane przez Backend ma dostarczać danych z bazy potrzebnych do wypełnienia interfejsów użytkownika.
+
+Endpointy backend:
+- `/sieci-sklepow` - ma zwracać liste wszystkich sieci sklepów 
+- `/sklady-budowalne` - ma zwracać listę wszystkich sklepów budowlanych
+- `/kategorie-produktów` - ma zwracać listę wszystkich kategorii produktów
+- `/produkty` - ma zwracać listę wszystkich produktów
+
 ## Środowisko tworzenia aplikacji
 
 - język programowania
@@ -24,6 +34,7 @@ Aplikacja zostanie stworzona jako samodzielny system a architekturze *klient - s
         - SQL
 - kompilator i środowisko
     - Do edycji kodu źródłowego developer może używać dowolnego edytora, wszystkie potrzebne narzędzia są dostępne z poziomu CLI
+    - Aplikacja bedzie serwowana przez Apache HTTP Serwer
 - szablon projektu
 
 ## Struktury danych
@@ -38,7 +49,7 @@ Aplikacja zostanie stworzona jako samodzielny system a architekturze *klient - s
 
 - najważniejsze okna tworzonej aplikacji
 - wymagania co do rozmiaru okna
-    - dokładne rozmiary podstawowych elementów interfejsu
+    Interfejs ma być responsywny. Korzystanie z niego ma być możliwe na różnych rozdzielczościach ekranów desktopowych. Wersji na ekrany użądzeń mobilnych w tej wersji nie przewidujemy.
 
 ## Wykorzystane zasoby
 
@@ -47,7 +58,20 @@ Aplikacja zostanie stworzona jako samodzielny system a architekturze *klient - s
 - klasy, wzorce projektowe, szablony
 - dane multimedialne, modele
 
+- Open Layers - komponent mapowy
+- Nominati - geokodowanie, zwracanie informacji o punkcie/markerze
+
 ## Główne funkcje systemu (Sposób ich wywołania i parametry)
+
+- Wyświetlanie mapy
+- Naniesienie na mapę obiektów (składy budowlane)
+- Naniesienie na mapę pozycji użytkownika
+    - poprzez interfej postawienie markera na mapie.
+- Dodawanie i edycja obiektów dla administratora
+- Prezentacja informacji o wybranym obiekcie
+- Wyliczanie drogi pomiedzy obiektami
+- Scalanie markerów przy zmniejszaniu skali
+    - Pomniejszenie mapy poprzez interfejs lub scroll myszy
 
 
 [database-erd]: ./img/database-erd-lucidchart.png
