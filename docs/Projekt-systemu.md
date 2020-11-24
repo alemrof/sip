@@ -10,6 +10,8 @@
 
 Aplikacja zostanie stworzona jako samodzielny system a architekturze *klient - serwer*. Kod będzie zorganizowany według wzorca monolit z podziałem na moduły funkcjonalne i podziałem na część frontendową i backendową. Frontend odpowiada za interfejs użytkowniak, interakcję z sytemem i prezentację danych. Backend odpowiadza za zarządzanie, modyfiakcje, przechowywanie i udostępnianie danych (administracja). Dane z backendu będą udostępnane frontendowi poprzez API.
 
+![Architektura trój warstwowa][triple-layer-arch]
+
 ## Środowisko tworzenia aplikacji
 
 - język programowania
@@ -49,3 +51,4 @@ Aplikacja zostanie stworzona jako samodzielny system a architekturze *klient - s
 
 
 [database-erd]: ./img/database-erd-lucidchart.png
+[triple-layer-arch]: ./img/architektura-trojwarstwowa-klient-serwer.jpg
