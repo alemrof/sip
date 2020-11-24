@@ -11,7 +11,15 @@
 ## Środowisko tworzenia aplikacji
 
 - język programowania
+    - Frotend (Technologie Web)
+        - HTML
+        - CSS
+        - Javascript
+    - Backend
+        - PHP
+        - SQL
 - kompilator i środowisko
+    - Do edycji kodu źródłowego developer może używać dowolnego edytora, wszystkie potrzebne narzędzia są dostępne z poziomu CLI
 - szablon projektu
 
 ## Struktury danych
