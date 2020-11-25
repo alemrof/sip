@@ -8,7 +8,7 @@
     - danych
     - przypadki użycia klas
 
-Aplikacja zostanie stworzona jako samodzielny system a architekturze *klient - serwer*. Kod będzie zorganizowany według wzorca monolit z podziałem na moduły funkcjonalne i podziałem na część frontendową i backendową. Frontend odpowiada za interfejs użytkowniak, interakcję z sytemem i prezentację danych. Backend odpowiadza za zarządzanie, modyfiakcje, przechowywanie i udostępnianie danych (administracja). Dane z backendu będą udostępnane frontendowi poprzez API.
+Aplikacja zostanie stworzona jako samodzielny system o architekturze *klient - serwer*. Kod będzie zorganizowany według wzorca monolit z podziałem na moduły funkcjonalne, część frontendową i backendową. Frontend odpowiada za interfejs użytkownika, interakcję z sytemem i prezentację danych. Backend odpowiadza za zarządzanie, modyfiakcje, przechowywanie i udostępnianie danych (administracja). Dane z backendu będą udostępnane frontendowi poprzez API.
 
 ![Architektura trój warstwowa][triple-layer-arch]
 
@@ -18,7 +18,7 @@ API udostępniane przez Backend ma dostarczać danych z bazy potrzebnych do wype
 
 Endpointy backend:
 - `/sieci-sklepow` - ma zwracać liste wszystkich sieci sklepów 
-- `/sklady-budowalne` - ma zwracać listę wszystkich sklepów budowlanych
+- `/sklady-budowlane` - ma zwracać listę wszystkich sklepów budowlanych
 - `/kategorie-produktów` - ma zwracać listę wszystkich kategorii produktów
 - `/produkty` - ma zwracać listę wszystkich produktów
 
@@ -49,7 +49,7 @@ Endpointy backend:
 
 - najważniejsze okna tworzonej aplikacji
 - wymagania co do rozmiaru okna
-    Interfejs ma być responsywny. Korzystanie z niego ma być możliwe na różnych rozdzielczościach ekranów desktopowych. Wersji na ekrany użądzeń mobilnych w tej wersji nie przewidujemy.
+    Interfejs ma być responsywny. Korzystanie z niego ma być możliwe na różnych rozdzielczościach ekranów desktopowych. Wersji na ekrany urządzeń mobilnych w tej wersji nie przewidujemy.
 
 ## Wykorzystane zasoby
 
