@@ -8,6 +8,10 @@
     - danych
     - przypadki użycia klas
 
+[Przypadki użycia](https://lucid.app/lucidchart/invitations/accept/5aeeff3c-66a8-4277-9b84-76ac267686b8)
+
+ ![Przypadki użycia][use-cases]   
+
 Aplikacja zostanie stworzona jako samodzielny system o architekturze *klient - serwer*. Kod będzie zorganizowany według wzorca monolit z podziałem na moduły funkcjonalne, część frontendową i backendową. Frontend odpowiada za interfejs użytkownika, interakcję z sytemem i prezentację danych. Backend odpowiadza za zarządzanie, modyfiakcje, przechowywanie i udostępnianie danych (administracja). Dane z backendu będą udostępnane frontendowi poprzez API.
 
 ![Architektura trój warstwowa][triple-layer-arch]
