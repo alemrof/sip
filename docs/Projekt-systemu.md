@@ -5,12 +5,13 @@
 - model oraz struktura na poziomie głównych bloków funkcjonalnych
 - diagramy
     - przepływ sterowania
+        - [uwierzytelnianie](https://lucid.app/lucidchart/invitations/accept/8f8b7b4d-717c-455a-8884-1de739772dbf)
+        ![uwierzytelnianie][sd-auth]
+        - [dodawanie składów](https://lucid.app/lucidchart/invitations/accept/0ab9f03f-5ef8-4bf6-a1f0-a548879ab0ac)
+        ![dodawanie składów][sd-add-asset]
     - danych
-    - przypadki użycia klas
-
-[Przypadki użycia](https://lucid.app/lucidchart/invitations/accept/5aeeff3c-66a8-4277-9b84-76ac267686b8)
-
- ![Przypadki użycia][use-cases]   
+    - [przypadki użycia klas](https://lucid.app/lucidchart/invitations/accept/5aeeff3c-66a8-4277-9b84-76ac267686b8)
+    ![Przypadki użycia][use-cases]   
 
 Aplikacja zostanie stworzona jako samodzielny system o architekturze *klient - serwer*. Kod będzie zorganizowany według wzorca monolit z podziałem na moduły funkcjonalne, część frontendową i backendową. Frontend odpowiada za interfejs użytkownika, interakcję z sytemem i prezentację danych. Backend odpowiadza za zarządzanie, modyfiakcje, przechowywanie i udostępnianie danych (administracja). Dane z backendu będą udostępnane frontendowi poprzez API.
 
@@ -80,3 +81,6 @@ Endpointy backend:
 
 [database-erd]: ./img/database-erd-lucidchart.png
 [triple-layer-arch]: ./img/architektura-trojwarstwowa-klient-serwer.jpg
+[sd-auth]: ./img/sd-auth.png
+[sd-add-asset]: ./img/sd-add-asset.png
+[use-cases]: ./img/use-cases.png
