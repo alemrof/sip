@@ -1,23 +1,74 @@
 # Projekt Systemu
 
-## Architektura systemu
+## Wstęp
 
-- model oraz struktura na poziomie głównych bloków funkcjonalnych
-- diagramy
-    - przepływ sterowania
-        - [uwierzytelnianie](https://lucid.app/lucidchart/invitations/accept/8f8b7b4d-717c-455a-8884-1de739772dbf)
+Projekt ma za cel mplementacje internetowego portalu, który dostarczać będzie informacji m. in. o lokalizacji i innych cechach określonego rodzaju obiektów z danego obszaru. Wybranymi przez nas obiektami są składy budowlane. Przykładowe dane opisujące konkretny obiekt to: nazwa punktu, ew. przynależność do sieci tego rodzaju punktów, oferta (kategorie produktów), ceny najbardziej popularnych produktów, lokalizacja geograficzna punktu usługowego. Portal będzie dodatkowo umożliwiał dodatkowe funkcjonalności.
+
+
+## Aktorzy
+
+ - bezpośredni użytkownicy aplikacji,
+ - administratorzy,
+ - twórcy oraz osoby zaangażowane w jej utrzymanie.
+
+
+## Główne funkcje systemu (Sposób ich wywołania i parametry)
+
+- Wyświetlanie mapy
+- Znajdowanie trasy
+- Wyszukiwanie składu
+- Naniesienie na mapę obiektów (składy budowlane)
+- Naniesienie na mapę pozycji użytkownika
+    - poprzez interfej postawienie markera na mapie.
+- Dodawanie i edycja obiektów dla administratora
+- Prezentacja informacji o wybranym obiekcie
+- Wyliczanie drogi pomiedzy obiektami
+- Scalanie markerów przy zmniejszaniu skali
+    - Pomniejszenie mapy poprzez interfejs lub scroll myszy
+- Znajdowanie składu
+- Trasowanie
+
+
+## Przypadki użycia
+
+[Diagram online](https://lucid.app/lucidchart/invitations/accept/5aeeff3c-66a8-4277-9b84-76ac267686b8)
+    ![Przypadki użycia][use-cases] 
+
+
+
+## Diagramy sekwencji
+
+[Uwierzytelnianie diagram online](https://lucid.app/lucidchart/invitations/accept/8f8b7b4d-717c-455a-8884-1de739772dbf)
         ![uwierzytelnianie][sd-auth]
-        - [dodawanie składów](https://lucid.app/lucidchart/invitations/accept/0ab9f03f-5ef8-4bf6-a1f0-a548879ab0ac)
+[Dodawanie składów diagram online](https://lucid.app/lucidchart/invitations/accept/0ab9f03f-5ef8-4bf6-a1f0-a548879ab0ac)
         ![dodawanie składów][sd-add-asset]
-    - danych
-    - [przypadki użycia klas](https://lucid.app/lucidchart/invitations/accept/5aeeff3c-66a8-4277-9b84-76ac267686b8)
-    ![Przypadki użycia][use-cases]   
+
+
+
+## Struktury danych i bazy danych
+
+### Bazy danych
+
+<span style="color:red">TODO: ERD: informacja o użytkownika i baza użytkowników (admin, regular user)</span>
+
+[Model ERD](https://lucid.app/lucidchart/invitations/accept/b159eb18-5e39-4430-a0bb-e2351735fe51)
+
+![Database ERD][database-erd]
+
+
+
+## Architektura, technologia i narzędzia
+
+### Architektura systemu
 
 Aplikacja zostanie stworzona jako samodzielny system o architekturze *klient - serwer*. Kod będzie zorganizowany według wzorca monolit z podziałem na moduły funkcjonalne, część frontendową i backendową. Frontend odpowiada za interfejs użytkownika, interakcję z sytemem i prezentację danych. Backend odpowiadza za zarządzanie, modyfiakcje, przechowywanie i udostępnianie danych (administracja). Dane z backendu będą udostępnane frontendowi poprzez API.
 
 ![Architektura trój warstwowa][triple-layer-arch]
 
-### API
+
+#### API
+
+Będzie używane API REST w JSON
 
 API udostępniane przez Backend ma dostarczać danych z bazy potrzebnych do wypełnienia interfejsów użytkownika.
 
@@ -27,7 +78,8 @@ Endpointy backend:
 - `/kategorie-produktów` - ma zwracać listę wszystkich kategorii produktów
 - `/produkty` - ma zwracać listę wszystkich produktów
 
-## Środowisko tworzenia aplikacji
+
+### Środowisko tworzenia aplikacji
 
 - język programowania
     - Frotend (Technologie Web)
@@ -36,28 +88,18 @@ Endpointy backend:
         - Javascript
     - Backend
         - PHP
-        - SQL
+        - SQL (MariaDB mysql)
 - kompilator i środowisko
     - Do edycji kodu źródłowego developer może używać dowolnego edytora, wszystkie potrzebne narzędzia są dostępne z poziomu CLI
     - Aplikacja bedzie serwowana przez Apache HTTP Serwer
 - szablon projektu
 
-## Struktury danych
-
-- struktura bazy danych (diagram)
-
-[Model ERD](https://lucid.app/lucidchart/invitations/accept/b159eb18-5e39-4430-a0bb-e2351735fe51)
-
-![Database ERD][database-erd]
-
-## Projekt interfejsu użytkownika
-
-- najważniejsze okna tworzonej aplikacji
-- wymagania co do rozmiaru okna
-    Interfejs ma być responsywny. Korzystanie z niego ma być możliwe na różnych rozdzielczościach ekranów desktopowych. Wersji na ekrany urządzeń mobilnych w tej wersji nie przewidujemy.
 
 ## Wykorzystane zasoby
-asdadasdada
+
+<span style="color:red">TODO: Rozbudować, usunąć pozycje placeholderowe - w kategorie wrzucić wyspecyfikować wykorzystane zasoby, lub usnac kategorie.</span>
+<span style="color:red">TODO: frameworki, szablony. uzupełnić migracja bazy, framework symfony / laravel etc.</span>
+
 - biblioteki graficzne
 - algorytmy
 - klasy, wzorce projektowe, szablony
@@ -66,17 +108,14 @@ asdadasdada
 - Open Layers - komponent mapowy
 - Nominati - geokodowanie, zwracanie informacji o punkcie/markerze
 
-## Główne funkcje systemu (Sposób ich wywołania i parametry)
+## Projekt interfejsu użytkownika
 
-- Wyświetlanie mapy
-- Naniesienie na mapę obiektów (składy budowlane)
-- Naniesienie na mapę pozycji użytkownika
-    - poprzez interfej postawienie markera na mapie.
-- Dodawanie i edycja obiektów dla administratora
-- Prezentacja informacji o wybranym obiekcie
-- Wyliczanie drogi pomiedzy obiektami
-- Scalanie markerów przy zmniejszaniu skali
-    - Pomniejszenie mapy poprzez interfejs lub scroll myszy
+- najważniejsze okna tworzonej aplikacji
+- wymagania co do rozmiaru okna
+    Interfejs ma być responsywny. Korzystanie z niego ma być możliwe na różnych rozdzielczościach ekranów desktopowych. Wersji na ekrany urządzeń mobilnych w tej wersji nie przewidujemy.
+
+
+
 
 
 [database-erd]: ./img/database-erd-lucidchart.png
