@@ -1,5 +1,53 @@
 # Projekt Systemu
 
+<span style="color:red">TODO: </span>
+
+
+
+## Wstęp
+
+<span style="color:red">TODO: w paru zdania, co to za system </span>
+
+
+
+## Aktorzy
+
+<span style="color:red">TODO: Co system może zaoferować</span>
+
+
+
+## Przypadki użycia
+
+<span style="color:red">TODO: uzupełnić</span>
+
+
+
+## Diagramy sekwencji
+
+<span style="color:red">TODO: uzupełnić </span>
+<span style="color:red">TODO: diagramy sekwencji dla przypadków użycia są niżej i wystarczą dwa, nie trzeba wszystkich</span>
+
+
+
+## Struktury danych i bazy danych
+
+### Bazy danych
+
+<span style="color:red">TODO: ERD: informacja o użytkownika i baza użytkowników (admin, regular user)</span>
+
+
+
+## Architektura, technologia i narzędzia
+
+
+## Projekt interfejsu
+
+
+
+
+
+---
+
 ## Architektura systemu
 
 - model oraz struktura na poziomie głównych bloków funkcjonalnych
@@ -19,6 +67,8 @@ Aplikacja zostanie stworzona jako samodzielny system o architekturze *klient - s
 
 ### API
 
+<span style="color:red">TODO: Dopisac że to API REST w JSON</span>
+
 API udostępniane przez Backend ma dostarczać danych z bazy potrzebnych do wypełnienia interfejsów użytkownika.
 
 Endpointy backend:
@@ -29,6 +79,8 @@ Endpointy backend:
 
 ## Środowisko tworzenia aplikacji
 
+<span style="color:red">TODO: mariadb mysql</span>
+
 - język programowania
     - Frotend (Technologie Web)
         - HTML
@@ -36,7 +88,7 @@ Endpointy backend:
         - Javascript
     - Backend
         - PHP
-        - SQL
+        - SQL 
 - kompilator i środowisko
     - Do edycji kodu źródłowego developer może używać dowolnego edytora, wszystkie potrzebne narzędzia są dostępne z poziomu CLI
     - Aplikacja bedzie serwowana przez Apache HTTP Serwer
@@ -58,6 +110,9 @@ Endpointy backend:
 
 ## Wykorzystane zasoby
 
+<span style="color:red">TODO: Rozbudować, usunąć pozycje placeholderowe - w kategorie wrzucić wyspecyfikować wykorzystane zasoby, lub usnac kategorie.</span>
+<span style="color:red">TODO: frameworki, szablony. uzupełnić migracja bazy, framework symfony / laravel etc.</span>
+
 - biblioteki graficzne
 - algorytmy
 - klasy, wzorce projektowe, szablony
@@ -77,6 +132,8 @@ Endpointy backend:
 - Wyliczanie drogi pomiedzy obiektami
 - Scalanie markerów przy zmniejszaniu skali
     - Pomniejszenie mapy poprzez interfejs lub scroll myszy
+- Znajdowanie składu
+- Trasowanie
 
 
 [database-erd]: ./img/database-erd-lucidchart.png
