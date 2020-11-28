@@ -1,58 +1,6 @@
 # Projekt Systemu
 
-## Wstęp
-
-<span style="color:red">TODO: w paru zdania, co to za system </span>
-
-
-
-## Aktorzy
-
-<span style="color:red">TODO: Co system może zaoferować</span>
-
-## Główne funkcje systemu (Sposób ich wywołania i parametry)
-
-- Wyświetlanie mapy
-- Naniesienie na mapę obiektów (składy budowlane)
-- Naniesienie na mapę pozycji użytkownika
-    - poprzez interfej postawienie markera na mapie.
-- Dodawanie i edycja obiektów dla administratora
-- Prezentacja informacji o wybranym obiekcie
-- Wyliczanie drogi pomiedzy obiektami
-- Scalanie markerów przy zmniejszaniu skali
-    - Pomniejszenie mapy poprzez interfejs lub scroll myszy
-- Znajdowanie składu
-- Trasowanie
-
-
-## Przypadki użycia
-
-<span style="color:red">TODO: uzupełnić</span>
-
-
-
-## Diagramy sekwencji
-
-<span style="color:red">TODO: uzupełnić </span>
-<span style="color:red">TODO: diagramy sekwencji dla przypadków użycia są niżej i wystarczą dwa, nie trzeba wszystkich</span>
-
-
-
-## Struktury danych i bazy danych
-
-### Bazy danych
-
-<span style="color:red">TODO: ERD: informacja o użytkownika i baza użytkowników (admin, regular user)</span>
-
-[Model ERD](https://lucid.app/lucidchart/invitations/accept/b159eb18-5e39-4430-a0bb-e2351735fe51)
-
-![Database ERD][database-erd]
-
-
-
-## Architektura, technologia i narzędzia
-
-### Architektura systemu
+## Architektura systemu
 
 - model oraz struktura na poziomie głównych bloków funkcjonalnych
 - diagramy
@@ -69,10 +17,7 @@ Aplikacja zostanie stworzona jako samodzielny system o architekturze *klient - s
 
 ![Architektura trój warstwowa][triple-layer-arch]
 
-
-#### API
-
-<span style="color:red">TODO: Dopisac że to API REST w JSON</span>
+### API
 
 API udostępniane przez Backend ma dostarczać danych z bazy potrzebnych do wypełnienia interfejsów użytkownika.
 
@@ -82,10 +27,7 @@ Endpointy backend:
 - `/kategorie-produktów` - ma zwracać listę wszystkich kategorii produktów
 - `/produkty` - ma zwracać listę wszystkich produktów
 
-
-### Środowisko tworzenia aplikacji
-
-<span style="color:red">TODO: mariadb mysql</span>
+## Środowisko tworzenia aplikacji
 
 - język programowania
     - Frotend (Technologie Web)
@@ -94,18 +36,28 @@ Endpointy backend:
         - Javascript
     - Backend
         - PHP
-        - SQL 
+        - SQL
 - kompilator i środowisko
     - Do edycji kodu źródłowego developer może używać dowolnego edytora, wszystkie potrzebne narzędzia są dostępne z poziomu CLI
     - Aplikacja bedzie serwowana przez Apache HTTP Serwer
 - szablon projektu
 
+## Struktury danych
+
+- struktura bazy danych (diagram)
+
+[Model ERD](https://lucid.app/lucidchart/invitations/accept/b159eb18-5e39-4430-a0bb-e2351735fe51)
+
+![Database ERD][database-erd]
+
+## Projekt interfejsu użytkownika
+
+- najważniejsze okna tworzonej aplikacji
+- wymagania co do rozmiaru okna
+    Interfejs ma być responsywny. Korzystanie z niego ma być możliwe na różnych rozdzielczościach ekranów desktopowych. Wersji na ekrany urządzeń mobilnych w tej wersji nie przewidujemy.
 
 ## Wykorzystane zasoby
-
-<span style="color:red">TODO: Rozbudować, usunąć pozycje placeholderowe - w kategorie wrzucić wyspecyfikować wykorzystane zasoby, lub usnac kategorie.</span>
-<span style="color:red">TODO: frameworki, szablony. uzupełnić migracja bazy, framework symfony / laravel etc.</span>
-
+asdadasdada
 - biblioteki graficzne
 - algorytmy
 - klasy, wzorce projektowe, szablony
@@ -114,14 +66,17 @@ Endpointy backend:
 - Open Layers - komponent mapowy
 - Nominati - geokodowanie, zwracanie informacji o punkcie/markerze
 
-## Projekt interfejsu użytkownika
+## Główne funkcje systemu (Sposób ich wywołania i parametry)
 
-- najważniejsze okna tworzonej aplikacji
-- wymagania co do rozmiaru okna
-    Interfejs ma być responsywny. Korzystanie z niego ma być możliwe na różnych rozdzielczościach ekranów desktopowych. Wersji na ekrany urządzeń mobilnych w tej wersji nie przewidujemy.
-
-
-
+- Wyświetlanie mapy
+- Naniesienie na mapę obiektów (składy budowlane)
+- Naniesienie na mapę pozycji użytkownika
+    - poprzez interfej postawienie markera na mapie.
+- Dodawanie i edycja obiektów dla administratora
+- Prezentacja informacji o wybranym obiekcie
+- Wyliczanie drogi pomiedzy obiektami
+- Scalanie markerów przy zmniejszaniu skali
+    - Pomniejszenie mapy poprzez interfejs lub scroll myszy
 
 
 [database-erd]: ./img/database-erd-lucidchart.png
