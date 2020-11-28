@@ -1,9 +1,5 @@
 # Projekt Systemu
 
-<span style="color:red">TODO: </span>
-
-
-
 ## Wstęp
 
 <span style="color:red">TODO: w paru zdania, co to za system </span>
