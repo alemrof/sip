@@ -14,6 +14,19 @@
 
 <span style="color:red">TODO: Co system może zaoferować</span>
 
+## Główne funkcje systemu (Sposób ich wywołania i parametry)
+
+- Wyświetlanie mapy
+- Naniesienie na mapę obiektów (składy budowlane)
+- Naniesienie na mapę pozycji użytkownika
+    - poprzez interfej postawienie markera na mapie.
+- Dodawanie i edycja obiektów dla administratora
+- Prezentacja informacji o wybranym obiekcie
+- Wyliczanie drogi pomiedzy obiektami
+- Scalanie markerów przy zmniejszaniu skali
+    - Pomniejszenie mapy poprzez interfejs lub scroll myszy
+- Znajdowanie składu
+- Trasowanie
 
 
 ## Przypadki użycia
@@ -35,20 +48,15 @@
 
 <span style="color:red">TODO: ERD: informacja o użytkownika i baza użytkowników (admin, regular user)</span>
 
+[Model ERD](https://lucid.app/lucidchart/invitations/accept/b159eb18-5e39-4430-a0bb-e2351735fe51)
+
+![Database ERD][database-erd]
+
 
 
 ## Architektura, technologia i narzędzia
 
-
-## Projekt interfejsu
-
-
-
-
-
----
-
-## Architektura systemu
+### Architektura systemu
 
 - model oraz struktura na poziomie głównych bloków funkcjonalnych
 - diagramy
@@ -65,7 +73,8 @@ Aplikacja zostanie stworzona jako samodzielny system o architekturze *klient - s
 
 ![Architektura trój warstwowa][triple-layer-arch]
 
-### API
+
+#### API
 
 <span style="color:red">TODO: Dopisac że to API REST w JSON</span>
 
@@ -77,7 +86,8 @@ Endpointy backend:
 - `/kategorie-produktów` - ma zwracać listę wszystkich kategorii produktów
 - `/produkty` - ma zwracać listę wszystkich produktów
 
-## Środowisko tworzenia aplikacji
+
+### Środowisko tworzenia aplikacji
 
 <span style="color:red">TODO: mariadb mysql</span>
 
@@ -94,19 +104,6 @@ Endpointy backend:
     - Aplikacja bedzie serwowana przez Apache HTTP Serwer
 - szablon projektu
 
-## Struktury danych
-
-- struktura bazy danych (diagram)
-
-[Model ERD](https://lucid.app/lucidchart/invitations/accept/b159eb18-5e39-4430-a0bb-e2351735fe51)
-
-![Database ERD][database-erd]
-
-## Projekt interfejsu użytkownika
-
-- najważniejsze okna tworzonej aplikacji
-- wymagania co do rozmiaru okna
-    Interfejs ma być responsywny. Korzystanie z niego ma być możliwe na różnych rozdzielczościach ekranów desktopowych. Wersji na ekrany urządzeń mobilnych w tej wersji nie przewidujemy.
 
 ## Wykorzystane zasoby
 
@@ -121,19 +118,14 @@ Endpointy backend:
 - Open Layers - komponent mapowy
 - Nominati - geokodowanie, zwracanie informacji o punkcie/markerze
 
-## Główne funkcje systemu (Sposób ich wywołania i parametry)
+## Projekt interfejsu użytkownika
 
-- Wyświetlanie mapy
-- Naniesienie na mapę obiektów (składy budowlane)
-- Naniesienie na mapę pozycji użytkownika
-    - poprzez interfej postawienie markera na mapie.
-- Dodawanie i edycja obiektów dla administratora
-- Prezentacja informacji o wybranym obiekcie
-- Wyliczanie drogi pomiedzy obiektami
-- Scalanie markerów przy zmniejszaniu skali
-    - Pomniejszenie mapy poprzez interfejs lub scroll myszy
-- Znajdowanie składu
-- Trasowanie
+- najważniejsze okna tworzonej aplikacji
+- wymagania co do rozmiaru okna
+    Interfejs ma być responsywny. Korzystanie z niego ma być możliwe na różnych rozdzielczościach ekranów desktopowych. Wersji na ekrany urządzeń mobilnych w tej wersji nie przewidujemy.
+
+
+
 
 
 [database-erd]: ./img/database-erd-lucidchart.png
