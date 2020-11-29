@@ -59,9 +59,13 @@ Aplikacja będzie również umożliwiała wyznaczenia trasy z lokalizacji użytk
 
 <span style="color:red">TODO: ERD: informacja o użytkownika i baza użytkowników (admin, regular user)</span>
 
-[Model ERD](https://lucid.app/lucidchart/invitations/accept/b159eb18-5e39-4430-a0bb-e2351735fe51)
+[Model ERD - diagram online](https://lucid.app/lucidchart/invitations/accept/b159eb18-5e39-4430-a0bb-e2351735fe51)
 
 ![Database ERD][database-erd]
+
+[Użytkownicy ERD - diagram online](https://lucid.app/lucidchart/c521093a-395e-4a88-8700-66d41719ca26/edit?page=RiGS_3jDUBzA#?folder_id=home&browser=icon)
+
+![Użytkownicy ERD][users-erd]
 
 
 
@@ -129,3 +133,4 @@ Endpointy backend:
 [sd-auth]: ./img/sd-auth.png
 [sd-add-asset]: ./img/sd-add-asset.png
 [use-cases]: ./img/use-cases.png
+[users-erd]: ./img/users-erd.png
