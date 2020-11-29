@@ -1,15 +1,22 @@
-# Projekt Systemu
+# Projekt Systemu - Składy budowlane
 
 ## Wstęp
 
-Projekt ma za cel mplementacje internetowego portalu, który dostarczać będzie informacji m. in. o lokalizacji i innych cechach określonego rodzaju obiektów z danego obszaru. Wybranymi przez nas obiektami są składy budowlane. Przykładowe dane opisujące konkretny obiekt to: nazwa punktu, ew. przynależność do sieci tego rodzaju punktów, oferta (kategorie produktów), ceny najbardziej popularnych produktów, lokalizacja geograficzna punktu usługowego. Portal będzie dodatkowo umożliwiał dodatkowe funkcjonalności.
+Projekt ma za cel implementacje aplikacji internetowego dostarczającej informacji o składach budowlanych. Aplikacja będzie umożliwiała wyszukanie lokalnych składów budowlanych, przegląd ich najpopularniejszego asortymentu z podziałem na kategorie oraz innych przydatnych informacji takich jak: 
+- godziny otwarcia
+- przynależność do sieci sklepów
+- oferta - podzielona na kategorie
+- ceny najbarziej popularnych produktów
+- lokalizacja geograficzna
+
+Aplikacja będzie również umożliwiała wyznaczenia trasy z lokalizacji użytkownika do wybranego składu budowlanego.
 
 
 ## Aktorzy
 
-- bezpośredni użytkownicy aplikacji,
-- administratorzy,
-- twórcy oraz osoby zaangażowane w jej utrzymanie.
+- Bezpośredni użytkownicy aplikacji,
+- Administratorzy,
+- Twórcy oraz osoby zaangażowane w jej utrzymanie.
 
 
 ## Główne funkcje systemu (Sposób ich wywołania i parametry)
