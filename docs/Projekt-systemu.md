@@ -31,17 +31,18 @@ Projekt ma za cel mplementacje internetowego portalu, który dostarczać będzie
 
 ## Przypadki użycia
 
-[Diagram online](https://lucid.app/lucidchart/invitations/accept/5aeeff3c-66a8-4277-9b84-76ac267686b8)
-    ![Przypadki użycia][use-cases] 
+[Przypadki użycia - diagram online](https://lucid.app/lucidchart/invitations/accept/5aeeff3c-66a8-4277-9b84-76ac267686b8)
+![Przypadki użycia][use-cases] 
 
 
 
 ## Diagramy sekwencji
 
-[Uwierzytelnianie diagram online](https://lucid.app/lucidchart/invitations/accept/8f8b7b4d-717c-455a-8884-1de739772dbf)
-        ![uwierzytelnianie][sd-auth]
-[Dodawanie składów diagram online](https://lucid.app/lucidchart/invitations/accept/0ab9f03f-5ef8-4bf6-a1f0-a548879ab0ac)
-        ![dodawanie składów][sd-add-asset]
+[Uwierzytelnianie - diagram online](https://lucid.app/lucidchart/invitations/accept/8f8b7b4d-717c-455a-8884-1de739772dbf)
+![uwierzytelnianie][sd-auth]
+
+[Dodawanie składów - diagram online](https://lucid.app/lucidchart/invitations/accept/0ab9f03f-5ef8-4bf6-a1f0-a548879ab0ac)
+![dodawanie składów][sd-add-asset]
 
 
 
@@ -66,11 +67,10 @@ Aplikacja zostanie stworzona jako samodzielny system o architekturze *klient - s
 ![Architektura trój warstwowa][triple-layer-arch]
 
 
-#### API
+### API
 
-Będzie używane API REST w JSON
-
-API udostępniane przez Backend ma dostarczać danych z bazy potrzebnych do wypełnienia interfejsów użytkownika.
+Backend aplikacji udostepnia dane poprzez REST API z danymi w formacie JSON.
+API ma dostarczać danych z bazy potrzebnych do wypełnienia interfejsów użytkownika.
 
 Endpointy backend:
 - `/sieci-sklepow` - ma zwracać liste wszystkich sieci sklepów 
@@ -88,11 +88,10 @@ Endpointy backend:
         - Javascript
     - Backend
         - PHP
-        - SQL (MariaDB mysql)
+        - SQL (MySql - MariaDB)
 - kompilator i środowisko
     - Do edycji kodu źródłowego developer może używać dowolnego edytora, wszystkie potrzebne narzędzia są dostępne z poziomu CLI
     - Aplikacja bedzie serwowana przez Apache HTTP Serwer
-- szablon projektu
 
 
 ## Wykorzystane zasoby
