@@ -105,22 +105,16 @@ Endpointy backend:
 
 ## Wykorzystane zasoby
 
-<span style="color:red">TODO: Rozbudować, usunąć pozycje placeholderowe - w kategorie wrzucić wyspecyfikować wykorzystane zasoby, lub usnac kategorie.</span>
-<span style="color:red">TODO: frameworki, szablony. uzupełnić migracja bazy, framework symfony / laravel etc.</span>
-
-- biblioteki graficzne
-- algorytmy
-- klasy, wzorce projektowe, szablony
-- dane multimedialne, modele
-
 - Open Layers - komponent mapowy
 - Nominati - geokodowanie, zwracanie informacji o punkcie/markerze
+
+
 
 ## Projekt interfejsu użytkownika
 
 - najważniejsze okna tworzonej aplikacji
 - wymagania co do rozmiaru okna
-    Interfejs ma być responsywny. Korzystanie z niego ma być możliwe na różnych rozdzielczościach ekranów desktopowych. Wersji na ekrany urządzeń mobilnych w tej wersji nie przewidujemy.
+    Interfejs będzie responsywny. Korzystanie z niego ma być możliwe na różnych rozdzielczościach ekranów desktopowych. Wersji na ekrany urządzeń mobilnych w tej wersji nie przewidujemy.
 
 
 
