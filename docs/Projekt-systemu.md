@@ -112,7 +112,6 @@ Endpointy backend:
 
 ## Projekt interfejsu użytkownika
 
-- najważniejsze okna tworzonej aplikacji
 - wymagania co do rozmiaru okna
     Interfejs będzie responsywny. Korzystanie z niego ma być możliwe na różnych rozdzielczościach ekranów desktopowych. Wersji na ekrany urządzeń mobilnych w tej wersji nie przewidujemy.
 
