@@ -7,9 +7,9 @@ Projekt ma za cel mplementacje internetowego portalu, który dostarczać będzie
 
 ## Aktorzy
 
- - bezpośredni użytkownicy aplikacji,
- - administratorzy,
- - twórcy oraz osoby zaangażowane w jej utrzymanie.
+- bezpośredni użytkownicy aplikacji,
+- administratorzy,
+- twórcy oraz osoby zaangażowane w jej utrzymanie.
 
 
 ## Główne funkcje systemu (Sposób ich wywołania i parametry)
