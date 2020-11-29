@@ -2,17 +2,21 @@
 
 ## Wstęp
 
-<span style="color:red">TODO: w paru zdania, co to za system </span>
-
+Projekt ma za cel mplementacje internetowego portalu, który dostarczać będzie informacji m. in. o lokalizacji i innych cechach określonego rodzaju obiektów z danego obszaru. Wybranymi przez nas obiektami są składy budowlane. Przykładowe dane opisujące konkretny obiekt to: nazwa punktu, ew. przynależność do sieci tego rodzaju punktów, oferta (kategorie produktów), ceny najbardziej popularnych produktów, lokalizacja geograficzna punktu usługowego. Portal będzie dodatkowo umożliwiał dodatkowe funkcjonalności.
 
 
 ## Aktorzy
 
-<span style="color:red">TODO: Co system może zaoferować</span>
+ - bezpośredni użytkownicy aplikacji,
+ - administratorzy,
+ - twórcy oraz osoby zaangażowane w jej utrzymanie.
+
 
 ## Główne funkcje systemu (Sposób ich wywołania i parametry)
 
 - Wyświetlanie mapy
+- Znajdowanie trasy
+- Wyszukiwanie składu
 - Naniesienie na mapę obiektów (składy budowlane)
 - Naniesienie na mapę pozycji użytkownika
     - poprzez interfej postawienie markera na mapie.
@@ -27,14 +31,17 @@
 
 ## Przypadki użycia
 
-<span style="color:red">TODO: uzupełnić</span>
+[Diagram online](https://lucid.app/lucidchart/invitations/accept/5aeeff3c-66a8-4277-9b84-76ac267686b8)
+    ![Przypadki użycia][use-cases] 
 
 
 
 ## Diagramy sekwencji
 
-<span style="color:red">TODO: uzupełnić </span>
-<span style="color:red">TODO: diagramy sekwencji dla przypadków użycia są niżej i wystarczą dwa, nie trzeba wszystkich</span>
+[Uwierzytelnianie diagram online](https://lucid.app/lucidchart/invitations/accept/8f8b7b4d-717c-455a-8884-1de739772dbf)
+        ![uwierzytelnianie][sd-auth]
+[Dodawanie składów diagram online](https://lucid.app/lucidchart/invitations/accept/0ab9f03f-5ef8-4bf6-a1f0-a548879ab0ac)
+        ![dodawanie składów][sd-add-asset]
 
 
 
@@ -54,17 +61,6 @@
 
 ### Architektura systemu
 
-- model oraz struktura na poziomie głównych bloków funkcjonalnych
-- diagramy
-    - przepływ sterowania
-        - [uwierzytelnianie](https://lucid.app/lucidchart/invitations/accept/8f8b7b4d-717c-455a-8884-1de739772dbf)
-        ![uwierzytelnianie][sd-auth]
-        - [dodawanie składów](https://lucid.app/lucidchart/invitations/accept/0ab9f03f-5ef8-4bf6-a1f0-a548879ab0ac)
-        ![dodawanie składów][sd-add-asset]
-    - danych
-    - [przypadki użycia klas](https://lucid.app/lucidchart/invitations/accept/5aeeff3c-66a8-4277-9b84-76ac267686b8)
-    ![Przypadki użycia][use-cases]   
-
 Aplikacja zostanie stworzona jako samodzielny system o architekturze *klient - serwer*. Kod będzie zorganizowany według wzorca monolit z podziałem na moduły funkcjonalne, część frontendową i backendową. Frontend odpowiada za interfejs użytkownika, interakcję z sytemem i prezentację danych. Backend odpowiadza za zarządzanie, modyfiakcje, przechowywanie i udostępnianie danych (administracja). Dane z backendu będą udostępnane frontendowi poprzez API.
 
 ![Architektura trój warstwowa][triple-layer-arch]
@@ -72,7 +68,7 @@ Aplikacja zostanie stworzona jako samodzielny system o architekturze *klient - s
 
 #### API
 
-<span style="color:red">TODO: Dopisac że to API REST w JSON</span>
+Będzie używane API REST w JSON
 
 API udostępniane przez Backend ma dostarczać danych z bazy potrzebnych do wypełnienia interfejsów użytkownika.
 
@@ -85,8 +81,6 @@ Endpointy backend:
 
 ### Środowisko tworzenia aplikacji
 
-<span style="color:red">TODO: mariadb mysql</span>
-
 - język programowania
     - Frotend (Technologie Web)
         - HTML
@@ -94,7 +88,7 @@ Endpointy backend:
         - Javascript
     - Backend
         - PHP
-        - SQL 
+        - SQL (MariaDB mysql)
 - kompilator i środowisko
     - Do edycji kodu źródłowego developer może używać dowolnego edytora, wszystkie potrzebne narzędzia są dostępne z poziomu CLI
     - Aplikacja bedzie serwowana przez Apache HTTP Serwer
