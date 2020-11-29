@@ -26,14 +26,14 @@ Aplikacja będzie również umożliwiała wyznaczenia trasy z lokalizacji użytk
 - Wyszukiwanie składu
 - Naniesienie na mapę obiektów (składy budowlane)
 - Naniesienie na mapę pozycji użytkownika
-    - poprzez interfej postawienie markera na mapie.
+    - poprzez interfejs postawienie markera na mapie.
 - Dodawanie i edycja obiektów dla administratora
 - Prezentacja informacji o wybranym obiekcie
 - Wyliczanie drogi pomiedzy obiektami
 - Scalanie markerów przy zmniejszaniu skali
     - Pomniejszenie mapy poprzez interfejs lub scroll myszy
 - Znajdowanie składu
-- Trasowanie
+- Trasowanie - wyznacznie trasy z punktu np. lokalizacji użytkownika do wybranego składu budowlanego
 
 
 ## Przypadki użycia
@@ -56,8 +56,6 @@ Aplikacja będzie również umożliwiała wyznaczenia trasy z lokalizacji użytk
 ## Struktury danych i bazy danych
 
 ### Bazy danych
-
-<span style="color:red">TODO: ERD: informacja o użytkownika i baza użytkowników (admin, regular user)</span>
 
 [Model ERD - diagram online](https://lucid.app/lucidchart/invitations/accept/b159eb18-5e39-4430-a0bb-e2351735fe51)
 
