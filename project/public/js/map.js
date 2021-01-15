@@ -70,11 +70,16 @@ select.on('select', function(e) {
     let selectedWarehouse = findWarehouse(e.target.getFeatures().item(0).getId())
     if (selectedWarehouse !== null) {
         let coordinates = e.target.getFeatures().item(0).getGeometry().getCoordinates();
+        popup.setPosition(coordinates);
+
         let warehouseName = document.querySelector('#warehouse-name');
         warehouseName.innerHTML = selectedWarehouse.name;
+        let warehouseCompany = document.querySelector('#warehouse-company');
+        warehouseCompany.innerHTML = selectedWarehouse.company.name;
         let warehouseLocation = document.querySelector('#warehouse-location');
         warehouseLocation.innerHTML = selectedWarehouse.location.coordinates;
-        popup.setPosition(coordinates);
+        let editLink = document.querySelector('#edit-link');
+        editLink.href = `http://localhost:8000/admin/warehouses/${selectedWarehouse.id}/edit`;
     }
 });
 
@@ -97,6 +102,6 @@ addWarehouse.addEventListener('click', function (e) {
 let stopDrawing = document.querySelector('#stopDrawing');
 stopDrawing.addEventListener('click', function (e) {
     map.removeInteraction(draw);
-    map.removeInteraction(snap);
+    // map.removeInteraction(snap);
 })
 

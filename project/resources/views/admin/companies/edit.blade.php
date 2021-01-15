@@ -11,9 +11,7 @@
     <div class="row">
         <div class="col-md-10 col-lg-8 col-xl-6">
             <div class="card">
-                <div class="card-header bg-dark text-white">
-                  Sieć sklepów
-                </div>
+                <div class="card-header bg-dark text-white">Sieć sklepów</div>
                 <div class="card-body">
                     <form action="{{route('companies.update', $company->id)}}" method="POST">
                       {{csrf_field()}}

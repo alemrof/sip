@@ -18,6 +18,7 @@ class CreateWarehousesTable extends Migration
             // $table->foreignId('company_id')->constrained()->onDelete('cascade');
             $table->foreignId('company_id')->default(1);
             $table->string('name')->default('test');
+            $table->string('address')->default('test');
             $table->point('location')->nullable();
             $table->timestamps();
         });
