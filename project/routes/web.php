@@ -19,11 +19,12 @@ use Grimzy\LaravelMysqlSpatial\Types\Point;
 */
 
 Auth::routes();
+Route::resource('/admin/companies', App\Http\Controllers\CompanyController::class);
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/admin', [App\Http\Controllers\AdminsController::class, 'index'])->name('admin.index');
 Route::get('/warehouse/{warehouse}', [App\Http\Controllers\WarehouseController::class, 'show'])->name('warehouse');
-Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+// Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('/generatedata', function() {
     User::create(['name'=>'Tomasz Formela', 'email'=>'tomek@tomek.com', 'password'=>'tomek123']);

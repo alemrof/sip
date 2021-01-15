@@ -6,7 +6,7 @@
     console.log(warehouses);
   </script>
 
-  <div id="map" class="map mt-3 border border-dark" style="height: 700px"></div>
+  <div id="map" class="map mt-3 border border-dark" style="height: 600px"></div>
   <div class="my-1">
     <button class="btn btn-info" id="addWarehouse">Dodaj skład</button>
     <button class="btn btn-danger" id="stopDrawing">Zatrzymaj rysowanie</button>
