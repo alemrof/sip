@@ -20,13 +20,10 @@ use Illuminate\Support\Facades\Hash;
 */
 
 Auth::routes();
-Route::resource('/admin/companies', App\Http\Controllers\CompanyController::class);
-Route::resource('/admin/warehouses', App\Http\Controllers\WarehouseController::class);
+Route::resource('/companies', App\Http\Controllers\CompanyController::class);
+Route::resource('/warehouses', App\Http\Controllers\WarehouseController::class);
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/admin', [App\Http\Controllers\AdminsController::class, 'index'])->name('admin.index');
-Route::get('/warehouse/{warehouse}', [App\Http\Controllers\WarehouseController::class, 'show'])->name('warehouse');
-// Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('/generatedata', function() {
     User::create(['name'=>'Tomasz Formela', 'email'=>'tomek@tomek.com', 'password'=>Hash::make('tomek123')]);
@@ -38,5 +35,3 @@ Route::get('/generatedata', function() {
     Warehouse::create(['name'=>'Skład 2', 'company_id'=>2, 'address'=>'ul. Grunwaldzka 149, 81-450 Gdańsk', 'location'=> new Point(54.35313340101314, 18.521470337609315)]);
     echo 'data generated';
 });
-
-// Hash::make($data['password'])

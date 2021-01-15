@@ -16,7 +16,7 @@ class WarehouseController extends Controller
     public function index()
     {
         $warehouses = Warehouse::with('company')->get();
-        return view('admin.warehouses.index', ['warehouses' => $warehouses]);
+        return view('warehouses.index', ['warehouses' => $warehouses]);
     }
 
     /**
@@ -27,7 +27,7 @@ class WarehouseController extends Controller
     public function create()
     {
         $companies = Company::all();
-        return view('admin.warehouses.create', ['companies' => $companies]);
+        return view('warehouses.create', ['companies' => $companies]);
     }
 
     /**
@@ -39,11 +39,13 @@ class WarehouseController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'=>'required|max:10'
+            'name'=>'required|max:15',
+            'company_id'=>'required',
+            'address'=>'required|max:40'
         ]);
         Warehouse::create($request->all());
 
-        return redirect('/admin/warehouses');
+        return redirect('/warehouses');
     }
 
     /**
@@ -56,9 +58,9 @@ class WarehouseController extends Controller
     {
         $warehouse = Warehouse::with('company')->find($id);
         if ($warehouse) {
-            return view('admin.warehouses.show', compact('warehouse'));
+            return view('warehouses.show', compact('warehouse'));
         } else {
-            return redirect('/admin/warehouses');
+            return redirect('/warehouses');
         }
     }
 
@@ -72,12 +74,11 @@ class WarehouseController extends Controller
     {
         $warehouse = Warehouse::with('company')->find($id);
         $companies = Company::all();
-        // return view('admin.warehouses.create', ['companies' => $companies]);
 
         if ($warehouse) {
-            return view('admin.warehouses.edit', compact('warehouse', 'companies'));
+            return view('warehouses.edit', compact('warehouse', 'companies'));
         } else {
-            return redirect('/admin/warehouses');
+            return redirect('/warehouses');
         }
     }
 
@@ -91,10 +92,17 @@ class WarehouseController extends Controller
     public function update(Request $request, $id)
     {
         $warehouse = Warehouse::find($id);
+
         if ($warehouse) {
+            $this->validate($request, [
+                'name'=>'required|max:15',
+                'company_id'=>'required',
+                'address'=>'required|max:40'
+            ]);
+            
             Warehouse::find($id)->update($request->all());
         }
-        return redirect('/admin/warehouses');
+        return redirect('/warehouses');
     }
 
     /**
@@ -109,6 +117,6 @@ class WarehouseController extends Controller
         if ($warehouse) {
             Warehouse::find($id)->delete();
         }
-        return redirect('/admin/warehouses');
+        return redirect('/warehouses');
     }
 }

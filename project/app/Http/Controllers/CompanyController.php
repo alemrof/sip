@@ -15,7 +15,7 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = Company::all();
-        return view('admin.companies.index', ['companies' => $companies]);
+        return view('companies.index', ['companies' => $companies]);
     }
 
     /**
@@ -25,7 +25,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        return view('admin.companies.create');
+        return view('companies.create');
     }
 
     /**
@@ -37,15 +37,11 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'=>'required|unique:companies|max:10'
+            'name'=>'required|unique:companies|max:18'
         ]);
 
-        $name = $request['name'];
-        $company = Company::where('name', $name)->take(1)->get();
-        if ($company == null) {
-            Company::create($request->all());
-        }
-        return redirect('/admin/companies');
+        Company::create($request->all());
+        return redirect('/companies');
     }
 
     /**
@@ -58,9 +54,9 @@ class CompanyController extends Controller
     {
         $company = Company::find($id);
         if ($company) {
-            return view('admin.companies.show', compact('company'));
+            return view('companies.show', compact('company'));
         } else {
-            return redirect('/admin/companies');
+            return redirect('/companies');
         }
     }
 
@@ -74,9 +70,9 @@ class CompanyController extends Controller
     {
         $company = Company::find($id);
         if ($company) {
-            return view('admin.companies.edit', compact('company'));
+            return view('companies.edit', compact('company'));
         } else {
-            return redirect('/admin/companies');
+            return redirect('/companies');
         }
     }
 
@@ -91,9 +87,12 @@ class CompanyController extends Controller
     {
         $company = Company::find($id);
         if ($company) {
+            $this->validate($request, [
+                'name'=>'required|unique:companies|max:18'
+            ]);
             Company::find($id)->update($request->all());
         }
-        return redirect('/admin/companies');
+        return redirect('/companies');
     }
 
     /**
@@ -108,6 +107,6 @@ class CompanyController extends Controller
         if ($company) {
             Company::find($id)->delete();
         }
-        return redirect('/admin/companies');
+        return redirect('/companies');
     }
 }

@@ -79,7 +79,7 @@ select.on('select', function(e) {
         let warehouseLocation = document.querySelector('#warehouse-location');
         warehouseLocation.innerHTML = selectedWarehouse.location.coordinates;
         let editLink = document.querySelector('#edit-link');
-        editLink.href = `http://localhost:8000/admin/warehouses/${selectedWarehouse.id}/edit`;
+        editLink.href = `http://localhost:8000/warehouses/${selectedWarehouse.id}/edit`;
     }
 });
 

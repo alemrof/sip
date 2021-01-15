@@ -1,10 +1,10 @@
-<x-admin-master>
+@extends('layouts.master')
 
-    @section('custom-styles')
-         
-    @endsection
+@section('custom-styles')
+        
+@endsection
 
-    @section('content')
+@section('content')
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Wyświetlanie sieci sklepów</h1>
     {{-- <p class="mb-4">Wypełnij wszystkie pola formularza</p> --}}
@@ -26,7 +26,7 @@
                 </li>
                 <li class="list-group-item d-flex">
                     <a href="{{route('companies.edit', $company->id)}}" type="button" class="btn btn-primary">Edytuj</a>
-                    <form action="/admin/companies/{{$company->id}}" method="POST" class="ml-2">
+                    <form action="/companies/{{$company->id}}" method="POST" class="ml-2">
                         {{csrf_field()}}
                         <input type="hidden" name="_method" value="DELETE">
                         <input class="btn btn-danger" type="submit" value="Usuń">
@@ -36,10 +36,8 @@
         </div>
     </div>
 
-    @endsection
+@endsection
 
-    @section('custom-scripts')
-         
-    @endsection
-    
-</x-admin-master>
+@section('custom-scripts')
+        
+@endsection

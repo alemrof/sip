@@ -40,10 +40,10 @@
 
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
-      <x-admin-sidebar-brand></x-admin-sidebar-brand>
-      <x-admin-dashboard></x-admin-dashboard>
-      <x-admin-components></x-admin-components>
-      <x-admin-addons></x-admin-addons>
+      <x-sidebar-brand></x-sidebar-brand>
+      {{-- <x-dashboard></x-dashboard> --}}
+      <x-components></x-components>
+      {{-- <x-addons></x-addons> --}}
 
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
@@ -58,7 +58,7 @@
 
       <!-- Main Content -->
       <div id="content">
-        <x-admin-topbar></x-admin-topbar>
+        <x-topbar></x-topbar>
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
@@ -72,7 +72,7 @@
       </div>
       <!-- End of Main Content -->
 
-      <x-admin-footer></x-admin-footer>
+      <x-footer></x-footer>
 
     </div>
     <!-- End of Content Wrapper -->
@@ -85,7 +85,7 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <x-admin-logout-modal></x-admin-logout-modal>
+  <x-logout-modal></x-logout-modal>
 
   <!-- Bootstrap core JavaScript-->
   <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
