@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Warehouse;
 use App\Models\Company;
+use Grimzy\LaravelMysqlSpatial\Types\Point;
 
 class WarehouseController extends Controller
 {
@@ -118,5 +119,30 @@ class WarehouseController extends Controller
             Warehouse::find($id)->delete();
         }
         return redirect('/warehouses');
+    }
+
+    public function editMap($id)
+    {
+        $warehouses = Warehouse::with('company')->get();
+        $warehouses = $warehouses->where('location', '!=' ,null);
+
+        if ($warehouses) {
+            return view('warehouses.editMap', compact('warehouses', 'id'));
+        } else {
+            return redirect('/warehouses');
+        }
+    }
+
+    public function updateMap(Request $request, $id)
+    {
+        $warehouse = Warehouse::find($id);
+        
+        if ($warehouse) {
+            $newLocation = new Point($request->lon, $request->lat);
+            $warehouse->location = $newLocation;
+            $warehouse->save();
+        } 
+
+        return redirect('/');
     }
 }

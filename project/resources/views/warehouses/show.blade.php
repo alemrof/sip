@@ -38,11 +38,12 @@
             </li>
             <div class="hl"></div>
             <li class="list-group-item d-flex">
-                <a href="{{route('warehouses.edit', $warehouse->id)}}" type="button" class="btn btn-primary">Edytuj</a>
-                <form action="/warehouses/{{$warehouse->id}}" method="POST" class="ml-2">
+                <a href="{{route('warehouses.edit', $warehouse->id)}}" type="button" class="btn btn-light border-dark">Edytuj</a>
+                <a href="{{route('warehouses.editMap', $warehouse->id)}}" type="button" class="btn btn-light border-dark ml-2">Edytuj współrzędne</a>
+                <form action="/warehouses/{{$warehouse->id}}" method="POST" class="ml-auto">
                     {{csrf_field()}}
                     <input type="hidden" name="_method" value="DELETE">
-                    <input class="btn btn-danger" type="submit" value="Usuń">
+                    <input class="btn btn-light border-dark" type="submit" value="Usuń">
                 </form>
             </li>
         </ul>

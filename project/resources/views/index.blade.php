@@ -6,10 +6,10 @@
     </script>
 
     <div id="map" class="map mt-3 border border-dark"></div>
-    <div class="my-1">
+    {{-- <div class="my-1">
         <button class="btn btn-info" id="addWarehouse">Dodaj skład</button>
         <button class="btn btn-danger" id="stopDrawing">Zatrzymaj rysowanie</button>
-    </div>
+    </div> --}}
 
     <!-- Okienko z atrybutami składu budowlanego -->
     <div class="card border-dark" id="popup" style="width: 15rem;">
@@ -24,8 +24,9 @@
             <li class="list-group-item" id="warehouse-adress">Aleja Grunwaldzka 102, 81-045 Gdańsk</li>
             <li class="list-group-item" id="warehouse-location">Położenie</li>
         </ul>
-        <div class="card-body">
-            <a href="" class="btn btn-success" id="edit-link">Edytuj</a>
+        <div class="card-body d-flex justify-content-between">
+            <a href="" class="btn btn-light border-dark" id="edit-link">Edytuj</a>
+            <a href="" class="btn btn-light border-dark" id="editMap-link">Edytuj Wsp.</a>
         </div>
     </div>    
 @endsection

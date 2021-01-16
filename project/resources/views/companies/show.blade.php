@@ -25,11 +25,11 @@
                     <span>{{$company->updated_at}}</span>
                 </li>
                 <li class="list-group-item d-flex">
-                    <a href="{{route('companies.edit', $company->id)}}" type="button" class="btn btn-primary">Edytuj</a>
+                    <a href="{{route('companies.edit', $company->id)}}" type="button" class="btn btn-light border-dark">Edytuj</a>
                     <form action="/companies/{{$company->id}}" method="POST" class="ml-2">
                         {{csrf_field()}}
                         <input type="hidden" name="_method" value="DELETE">
-                        <input class="btn btn-danger" type="submit" value="Usuń">
+                        <input class="btn btn-light border-dark" type="submit" value="Usuń">
                     </form>
                 </li>
             </ul>

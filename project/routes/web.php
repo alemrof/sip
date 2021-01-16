@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Hash;
 Auth::routes();
 Route::resource('/companies', App\Http\Controllers\CompanyController::class);
 Route::resource('/warehouses', App\Http\Controllers\WarehouseController::class);
+Route::get('/warehouses/{id}/editMap', [App\Http\Controllers\WarehouseController::class, 'editMap'])->name('warehouses.editMap');
+Route::post('/warehouses/{id}/updateMap', [App\Http\Controllers\WarehouseController::class, 'updateMap'])->name('warehouses.updateMap');
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
