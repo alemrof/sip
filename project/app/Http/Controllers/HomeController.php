@@ -23,9 +23,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-        $warehouses = Warehouse::all();
-        return view('home', ['warehouses' => $warehouses]);
+    public function index() {
+        $warehouses = Warehouse::with('company')->get();
+        $warehouses = $warehouses->where('location', '!=' ,null);
+        return view('index', ['warehouses' => $warehouses]);
     }
 }
