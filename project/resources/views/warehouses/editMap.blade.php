@@ -25,7 +25,7 @@
                 <input type="hidden" name="lon" id="newWarehouse-lon">
                 <button type="submit" class="btn btn-light border-dark">Tak</button>
             </form>
-            <a href="{{route('warehouses.index')}}" class="btn btn-light border-dark ml-2">Nie</a>
+            <a href="{{route('home')}}" class="btn btn-light border-dark ml-2">Nie</a>
             <span class="btn btn-light border-dark ml-auto" id="cancelBtn">Anuluj</span>
         </div>
     </div>    
