@@ -28,12 +28,36 @@ Route::post('/warehouses/{id}/updateMap', [App\Http\Controllers\WarehouseControl
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/generate-data', function() {
-    User::create(['name'=>'Tomasz Formela', 'email'=>'tomek@tomek.com', 'password'=>Hash::make('tomek123')]);
+    User::create([
+        'name'=>'Tomasz Formela',
+        'email'=>'tomek@tomek.com', 
+        'password'=>Hash::make('tomek123')
+    ]);
     Company::create(['name'=>'Castorama']);
     Company::create(['name'=>'Leroy Merlin']);
-    Warehouse::create(['name'=>'Skład 1', 'company_id'=>1, 'address'=>'ul. Grunwaldzka 149, 81-450 Gdańsk', 'location'=>new Point(54.396006808244124, 18.577674827404387)]);
-    Warehouse::create(['name'=>'Skład 2', 'company_id'=>1, 'address'=>'ul. Grunwaldzka 149, 81-450 Gdańsk', 'location'=>new Point(54.43233463765607, 18.486433086502654)]);
-    Warehouse::create(['name'=>'Skład 1', 'company_id'=>2, 'address'=>'ul. Grunwaldzka 149, 81-450 Gdańsk', 'location'=>new Point(54.39463073834571, 18.58101521551848)]);
-    Warehouse::create(['name'=>'Skład 2', 'company_id'=>2, 'address'=>'ul. Grunwaldzka 149, 81-450 Gdańsk', 'location'=> new Point(54.35313340101314, 18.521470337609315)]);
+    Warehouse::create([
+        'name'=>'Skład 1',
+        'company_id'=>1,
+        'address'=>'ul. Grunwaldzka 149, 81-450 Gdańsk',
+        'location'=>new Point(54.396006808244124, 18.577674827404387)
+    ]);
+    Warehouse::create([
+        'name'=>'Skład 2',
+        'company_id'=>1,
+        'address'=>'ul. Grunwaldzka 149, 81-450 Gdańsk',
+        'location'=>new Point(54.43233463765607, 18.486433086502654)
+    ]);
+    Warehouse::create([
+        'name'=>'Skład 1',
+        'company_id'=>2,
+        'address'=>'ul. Grunwaldzka 149, 81-450 Gdańsk',
+        'location'=>new Point(54.39463073834571, 18.58101521551848)
+    ]);
+    Warehouse::create([
+        'name'=>'Skład 2',
+        'company_id'=>2,
+        'address'=>'ul. Grunwaldzka 149, 81-450 Gdańsk',
+        'location'=> new Point(54.35313340101314, 18.521470337609315)
+    ]);
     echo 'data generated';
 });
