@@ -28,21 +28,28 @@
 
 ## Uruchamianie projektu z Sail (docker-compose)
 
-Wymaga: 
+### Wymaga: 
 - Docker
 - docker-compose
 
-Uruchamianie:
-1. Zamien w `.env` wartość `DB_HOST` na `DB_HOST=mysql`.
-1. W terminalu wprowadz komendy
-    ```shell
-    sail up -d
-    sail artisan migrate:install
-    ```
-1. Aplikacja jest dostępna pod [localhost](http://localhost)
-1. Seeding danych w bazie [localhost/generate-data](http://localhost/generate-data)
+### Uruchamianie:
 
-Zamykanie:
+Zamien w `.env` wartość `DB_HOST` na `DB_HOST=mysql`.
+
+```shell
+alias sail='bash vendor/bin/sail'   # alias dla wygody
+```
+
+```shell
+sail up -d                          # -d = run in detached mode
+sail artisan migrate:fresh --seed   # creates migration table, 
+                                    # runs migrations and seed db 
+                                    # with example data
+```
+
+Aplikacja jest dostępna pod [localhost:80](http://localhost)
+
+### Zamykanie:
 
 ```shell
 sail down       # podobnie jak docker-compose down
