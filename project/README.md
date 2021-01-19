@@ -1,4 +1,5 @@
 ## Instalacja środowiska dla Windows
+
 - [XAMPP](https://www.apachefriends.org/pl/index.html) - apache, php, mysql.
 - [GIT](https://git-scm.com/)
 - Dowolny edytor kodu, np. [Visual Studio Code](https://code.visualstudio.com/)
@@ -6,6 +7,7 @@
 - [nodejs](https://nodejs.org/dist/v14.15.4/node-v14.15.4-x64.msi) - dla npm - dependency manager for JS
 
 ## Uruchamianie projektu
+
 - XAMPP Control Panel
     - Start Apache (do podglądu/edycji bazy danych przez phpmyadmin)
     - Start MySQL
@@ -20,3 +22,26 @@
     - $ php artisan serve (uruchomienie serwera)
 - Aplikacja jest dostępna pod adresem http://localhost:8000/
 - Wstępne generowanie danych do bazy http://localhost:8000/generatedata
+
+## Uruchamianie projektu z Sail (docker-compose)
+
+Wymaga: 
+- Docker
+- docker-compose
+
+Uruchamianie:
+1. Zamien w `.env` wartość `DB_HOST` na `DB_HOST=mysql`.
+1. W terminalu wprowadz komendy
+    ```shell
+    sail up -d
+    sail artisan migrate:install
+    ```
+1. Aplikacja jest dostępna pod [localhost](http://localhost)
+1. Seeding danych w bazie [localhost/generatedata](http://localhost/generatedata)
+
+Zamykanie:
+
+```shell
+sail down       # podobnie jak docker-compose down
+sail down -v    # to dodatkowo usuwa volumeny (czyści bazę)
+```
