@@ -11,17 +11,20 @@
 - XAMPP Control Panel
     - Start Apache (do podglądu/edycji bazy danych przez phpmyadmin)
     - Start MySQL
-    - Tworzymy bazę danych sip_db, np przy pomocy [phpmyadmin](http://locahost/phpmyadmin)
-- Odpalamy konsolę GIT BASH
-    - $ git clone [https://github.com/glebocki/sip.git](https://github.com/glebocki/sip.git)
-    - Przechodzimy do foldera ./sip/project
-    - $ composer install (instalacja zależności PHP)
-    - Ze względu na brak pełnej kompatybilności z mariadb należy zmodyfikować nieco bibliotekę grimzy
-        - w pliku .\vendor\grimzy\laravel-mysql-spatial\src\Eloquent\.SpatialExpression.php usuwamy 'axis-order=long-lat' z funkcji getValue()
-    - $ npm install (instalacja zależności JS)
-    - $ php artisan serve (uruchomienie serwera)
-- Aplikacja jest dostępna pod adresem http://localhost:8000/
-- Wstępne generowanie danych do bazy http://localhost:8000/generatedata
+    - Tworzymy bazę danych `sip_db`, np przy pomocy [phpmyadmin](http://locahost/phpmyadmin)
+- Odpalamy konsolę __GIT BASH__
+    - Klonujemy repo
+        ```shell
+        git clone https://github.com/glebocki/sip.git
+        ```
+    - Przechodzimy do folderu `cd ./sip/project`
+    - `composer install` (instalacja zależności PHP)
+    - Ze względu na brak pełnej kompatybilności z mariadb należy zmodyfikować nieco bibliotekę _grimzy_
+        - w pliku `.\vendor\grimzy\laravel-mysql-spatial\src\Eloquent\.SpatialExpression.php` usuwamy `'axis-order=long-lat'` z funkcji `getValue()`
+    - `npm install` (instalacja zależności JS)
+    - `php artisan serve` (uruchomienie serwera)
+- Aplikacja jest dostępna pod adresem [localhost:8000](http://localhost:8000/)
+- Wstępne generowanie danych do bazy [localhost:8000/generatedata](http://localhost:8000/generatedata)
 
 ## Uruchamianie projektu z Sail (docker-compose)
 
