@@ -27,7 +27,7 @@ Route::post('/warehouses/{id}/updateMap', [App\Http\Controllers\WarehouseControl
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/generatedata', function() {
+Route::get('/generate-data', function() {
     User::create(['name'=>'Tomasz Formela', 'email'=>'tomek@tomek.com', 'password'=>Hash::make('tomek123')]);
     Company::create(['name'=>'Castorama']);
     Company::create(['name'=>'Leroy Merlin']);

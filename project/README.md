@@ -24,7 +24,7 @@
     - `npm install` (instalacja zależności JS)
     - `php artisan serve` (uruchomienie serwera)
 - Aplikacja jest dostępna pod adresem [localhost:8000](http://localhost:8000/)
-- Wstępne generowanie danych do bazy [localhost:8000/generatedata](http://localhost:8000/generatedata)
+- Wstępne generowanie danych do bazy [localhost:8000/generate-data](http://localhost:8000/generate-data)
 
 ## Uruchamianie projektu z Sail (docker-compose)
 
@@ -40,7 +40,7 @@ Uruchamianie:
     sail artisan migrate:install
     ```
 1. Aplikacja jest dostępna pod [localhost](http://localhost)
-1. Seeding danych w bazie [localhost/generatedata](http://localhost/generatedata)
+1. Seeding danych w bazie [localhost/generate-data](http://localhost/generate-data)
 
 Zamykanie:
 
