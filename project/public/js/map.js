@@ -113,10 +113,10 @@ function updatePopup(id) {
     warehouseAddress.innerHTML = selectedWarehouses[id].get('address');
 
     let editLink = document.querySelector('#edit-link');
-    editLink.href = `http://localhost:8000/warehouses/${selectedWarehouses[id].getId()}/edit`;
+    editLink.href = `/warehouses/${selectedWarehouses[id].getId()}/edit`;
 
     let editMapLink = document.querySelector('#editMap-link');
-    editMapLink.href = `http://localhost:8000/warehouses/${selectedWarehouses[id].getId()}/editMap`;
+    editMapLink.href = `/warehouses/${selectedWarehouses[id].getId()}/editMap`;
 }
 
 // Wybieranie składu
