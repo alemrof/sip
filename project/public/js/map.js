@@ -1,6 +1,8 @@
 let selectedWarehouses = null;
 let selectedWarehouseNumber = 0;
 
+let warehouseIconSrc = '../imgs/warehouse-icon-20px.png';
+
 // Tworzenie źródła na podstawie danych przesłanych z bazy danych
 let vectorSource = new ol.source.Vector();
 for(let warehouse of warehouses) {
@@ -19,7 +21,7 @@ let vectorLayer = new ol.layer.Vector({
     source: vectorSource,
     style: new ol.style.Style({
         image: new ol.style.Icon({
-            src: '../imgs/warehouse-icon-20px.png'
+            src: warehouseIconSrc
         })
     })
 })
@@ -38,7 +40,7 @@ let clusterLayer = new ol.layer.Vector({
         if (!style) {
             style = new ol.style.Style({
                 image: new ol.style.Icon({
-                    src: '../imgs/warehouse-icon-20px.png',
+                    src: warehouseIconSrc,
                 }),
                 // image: new ol.style.Circle({                 // Alternatywny wygląd
                 //     radius: 10,
