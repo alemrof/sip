@@ -21,7 +21,7 @@
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item" id="warehouse-company">Sieć sklepów</li>
-            <li class="list-group-item" id="warehouse-address">Aleja Grunwaldzka 102, 81-045 Gdańsk</li>
+            <li class="list-group-item" id="warehouse-address">Adres XXX, 00-000 Miejscowość</li>
             <li class="list-group-item" id="warehouse-location">Położenie</li>
         </ul>
         <div class="card-footer">
