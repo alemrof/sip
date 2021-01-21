@@ -103,20 +103,22 @@ closer.addEventListener('click', function(e){
 });
 
 function updatePopup(id) {
+    let warehouse = selectedWarehouses[id];
+
     let warehouseName = document.querySelector('#warehouse-name');
-    warehouseName.innerHTML = selectedWarehouses[id].get('name');
+    warehouseName.innerHTML = warehouse.get('name');
     
     let warehouseCompany = document.querySelector('#warehouse-company');
-    warehouseCompany.innerHTML = selectedWarehouses[id].get('company');
+    warehouseCompany.innerHTML = warehouse.get('company');
     
     let warehouseAddress = document.querySelector('#warehouse-address');
-    warehouseAddress.innerHTML = selectedWarehouses[id].get('address');
+    warehouseAddress.innerHTML = warehouse.get('address');
 
     let editLink = document.querySelector('#edit-link');
-    editLink.href = `/warehouses/${selectedWarehouses[id].getId()}/edit`;
+    editLink.href = `/warehouses/${warehouse.getId()}/edit`;
 
     let editMapLink = document.querySelector('#editMap-link');
-    editMapLink.href = `/warehouses/${selectedWarehouses[id].getId()}/editMap`;
+    editMapLink.href = `/warehouses/${warehouse.getId()}/editMap`;
 }
 
 // Wybieranie składu
