@@ -1,11 +1,10 @@
+const warehouseIconSrc = '../imgs/warehouse-icon-20px.png';
 let selectedWarehouses = null;
 let selectedWarehouseNumber = 0;
 
-let warehouseIconSrc = '../imgs/warehouse-icon-20px.png';
-
 // Tworzenie źródła na podstawie danych przesłanych z bazy danych
 let vectorSource = new ol.source.Vector();
-for(let warehouse of warehouses) {
+for (let warehouse of warehouses) {
     let pointFeature = new ol.Feature({
         geometry: new ol.geom.Point(ol.proj.fromLonLat(warehouse.location.coordinates)),
         name: warehouse.name,
@@ -16,16 +15,6 @@ for(let warehouse of warehouses) {
     vectorSource.addFeature(pointFeature);
 }
 
-// Tworzenie warstwy wektorowej
-let vectorLayer = new ol.layer.Vector({
-    source: vectorSource,
-    style: new ol.style.Style({
-        image: new ol.style.Icon({
-            src: warehouseIconSrc
-        })
-    })
-})
-
 let clusterSource = new ol.source.Cluster({
     distance: 20,
     source: vectorSource
@@ -34,7 +23,7 @@ let clusterSource = new ol.source.Cluster({
 let styleCache = {};
 let clusterLayer = new ol.layer.Vector({
     source: clusterSource,
-    style: function(feature) {
+    style: function (feature) {
         let size = feature.get('features').length;
         let style = styleCache[size];
         if (!style) {
@@ -42,7 +31,8 @@ let clusterLayer = new ol.layer.Vector({
                 image: new ol.style.Icon({
                     src: warehouseIconSrc,
                 }),
-                // image: new ol.style.Circle({                 // Alternatywny wygląd
+                // Alternatywny wygląd
+                // image: new ol.style.Circle({
                 //     radius: 10,
                 //     stroke: new ol.style.Stroke({
                 //         color: '#fff',
@@ -68,22 +58,73 @@ let clusterLayer = new ol.layer.Vector({
 });
 
 // Tworzenie mapy
+let gdansk = ol.proj.transform([18.65, 54.35], 'EPSG:4326', 'EPSG:3857');
+let view = new ol.View({
+    center: gdansk,
+    zoom: 11
+});
 var map = new ol.Map({
     target: 'map',
     layers: [
         new ol.layer.Tile({
             source: new ol.source.OSM()
         }),
-        // vectorLayer,
-        clusterLayer,
+        clusterLayer
     ],
-    view: new ol.View({
-    center: ol.proj.fromLonLat([18.65, 54.35]),
-    zoom: 11
-    })
+    view: view
 });
 
-// Wyświetlanie elementu z danym składu budowlanego
+// User position code start
+
+var geolocation = new ol.Geolocation({
+    tracking: true,
+    // enableHighAccuracy must be set to true to have the heading value.
+    trackingOptions: {
+        enableHighAccuracy: true,
+    },
+    projection: view.getProjection()
+});
+
+var accuracyFeature = new ol.Feature();
+
+geolocation.on('change:accuracyGeometry', function () {
+    accuracyFeature.setGeometry(geolocation.getAccuracyGeometry());
+    console.log(geolocation.getAccuracyGeometry());
+});
+
+var positionFeature = new ol.Feature();
+positionFeature.setStyle(
+    new ol.style.Style({
+        image: new ol.style.Circle({
+            radius: 6,
+            fill: new ol.style.Fill({
+                color: '#3399CC',
+            }),
+            stroke: new ol.style.Stroke({
+                color: '#fff',
+                width: 2,
+            }),
+        }),
+    })
+);
+
+geolocation.on('change:position', function () {
+    var coordinates = geolocation.getPosition();
+    view.setCenter(coordinates);
+    positionFeature.setGeometry(coordinates ? new ol.geom.Point(coordinates) : null);
+});
+
+new ol.layer.Vector({
+    map: map,
+    source: new ol.source.Vector({
+        features: [accuracyFeature, positionFeature],
+    }),
+});
+
+// User position code end
+
+
+// Wyświetlanie elementu z danymi składu budowlanego
 var popup = new ol.Overlay({
     positioning: 'bottom-center',
     offset: [0, -20],
@@ -95,7 +136,7 @@ map.addOverlay(popup);
 
 // Zamykanie elementu z danymi składu budowlanego
 let closer = document.querySelector('#closer');
-closer.addEventListener('click', function(e){
+closer.addEventListener('click', function (e) {
     popup.setPosition(undefined);
     selectedWarehouses = null;
     selectedWarehouseNumber = 0;
@@ -107,10 +148,10 @@ function updatePopup(id) {
 
     let warehouseName = document.querySelector('#warehouse-name');
     warehouseName.innerHTML = warehouse.get('name');
-    
+
     let warehouseCompany = document.querySelector('#warehouse-company');
     warehouseCompany.innerHTML = warehouse.get('company');
-    
+
     let warehouseAddress = document.querySelector('#warehouse-address');
     warehouseAddress.innerHTML = warehouse.get('address');
 
@@ -128,7 +169,7 @@ var select = new ol.interaction.Select({
 
 map.addInteraction(select);
 
-select.on('select', function(e) {
+select.on('select', function (e) {
     if (e.target.getFeatures().item(0)) {
         selectedWarehouses = e.target.getFeatures().item(0).get('features');
         selectedWarehouseNumber = 0;
@@ -138,7 +179,6 @@ select.on('select', function(e) {
             if (selectedWarehouses.length > 1) {
                 popupArrows.classList.add('d-flex');
                 popupArrows.classList.remove('d-none');
-
             } else {
                 popupArrows.classList.add('d-none');
                 popupArrows.classList.remove('d-flex');
@@ -146,17 +186,8 @@ select.on('select', function(e) {
 
             let coordinates = e.target.getFeatures().item(0).getGeometry().getCoordinates();
             popup.setPosition(coordinates);
-            
-            // let warehouseName = document.querySelector('#warehouse-name');
-            // warehouseName.innerHTML = selectedWarehouses[selectedWarehouseNumber].get('name');
-            
-            // let warehouseCompany = document.querySelector('#warehouse-company');
-            // warehouseCompany.innerHTML = selectedWarehouses[selectedWarehouseNumber].get('company');
-            
-            // let warehouseAddress = document.querySelector('#warehouse-address');
-            // warehouseAddress.innerHTML = selectedWarehouses[selectedWarehouseNumber].get('address');
             updatePopup(selectedWarehouseNumber);
-            
+
             let warehouseLocation = document.querySelector('#warehouse-location');
             let firstCoordinate = Math.round(ol.proj.toLonLat(coordinates)[0] * 100000) / 100000;
             let secondCoordinate = Math.round(ol.proj.toLonLat(coordinates)[1] * 100000) / 100000;
@@ -166,7 +197,6 @@ select.on('select', function(e) {
         popup.setPosition(undefined);
         selectedWarehouseNumber = 0;
     }
-    
 });
 
 // Dodawanie nowych składów
@@ -175,7 +205,7 @@ var draw = new ol.interaction.Draw({
     type: 'Point'
 });
 
-vectorSource.on('addfeature', function(e) {
+vectorSource.on('addfeature', function (e) {
     map.removeInteraction(draw);
 });
 
@@ -201,5 +231,5 @@ showPreviousWarehouse.addEventListener('click', (e) => {
         selectedWarehouseNumber = selectedWarehouses.length - 1;
         updatePopup(selectedWarehouseNumber);
     }
-        
 })
+
