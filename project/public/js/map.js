@@ -89,7 +89,6 @@ var accuracyFeature = new ol.Feature();
 
 geolocation.on('change:accuracyGeometry', function () {
     accuracyFeature.setGeometry(geolocation.getAccuracyGeometry());
-    console.log(geolocation.getAccuracyGeometry());
 });
 
 var positionFeature = new ol.Feature();
