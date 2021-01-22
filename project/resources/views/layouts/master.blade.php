@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/css/ol.css" type="text/css">
   <style>
     .map {
-      height: 750px;
+      height: 75vh;
       width: 100%;
     }
   </style>
