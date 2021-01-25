@@ -1,3 +1,11 @@
+# Instalacja środowiska
+
+Do pracy nad projektem dostępne są środowiska:
+- [Docker](##uruchamianie-projektu-z-Sail-(docker-compose)) (Laravelowa komenda `sail`)
+- [Windows z XAMPP](##instalacja-środowiska-dla-windows)
+
+---
+
 ## Instalacja środowiska dla Windows
 
 - [XAMPP](https://www.apachefriends.org/pl/index.html) - apache, php, mysql.
@@ -6,7 +14,7 @@
 - [Composer](https://getcomposer.org/) - dependency manager for PHP
 - [nodejs](https://nodejs.org/dist/v14.15.4/node-v14.15.4-x64.msi) - dla npm - dependency manager for JS
 
-## Uruchamianie projektu
+### Uruchamianie projektu
 
 - XAMPP Control Panel
     - Start Apache (do podglądu/edycji bazy danych przez phpmyadmin)
@@ -25,6 +33,8 @@
     - `php artisan serve` (uruchomienie serwera)
 - Aplikacja jest dostępna pod adresem [localhost:8000](http://localhost:8000/)
 - Wstępne generowanie danych do bazy [localhost:8000/generate-data](http://localhost:8000/generate-data)
+
+---
 
 ## Uruchamianie projektu z Sail (docker-compose)
 
