@@ -28,7 +28,13 @@ Do pracy nad projektem dostępne są środowiska:
     - Przechodzimy do folderu `cd ./sip/project`
     - `composer install` (instalacja zależności PHP)
     - Ze względu na brak pełnej kompatybilności z mariadb należy zmodyfikować nieco bibliotekę _grimzy_
-        - w pliku `.\vendor\grimzy\laravel-mysql-spatial\src\Eloquent\.SpatialExpression.php` usuwamy `'axis-order=long-lat'` z funkcji `getValue()`
+        - w pliku `.\vendor\grimzy\laravel-mysql-spatial\src\Eloquent\SpatialExpression.php` usuwamy `'axis-order=long-lat'` z funkcji `getValue()`. Funkcja ma wyglądać tak:
+        ```php
+        public function getValue()
+        {
+            return "ST_GeomFromText(?, ?)";
+        }
+        ```
     - `npm install` (instalacja zależności JS)
     - `php artisan serve` (uruchomienie serwera)
 - Aplikacja jest dostępna pod adresem [localhost:8000](http://localhost:8000/)
@@ -41,16 +47,17 @@ Do pracy nad projektem dostępne są środowiska:
 ### Wymaga: 
 - Docker
 - docker-compose
+- composer
 
 ### Uruchamianie:
 
 Zamien w `.env` wartość `DB_HOST` na `DB_HOST=mysql`.
 
 ```shell
-alias sail='bash vendor/bin/sail'   # alias dla wygody
-```
+composer install
 
-```shell
+alias sail='bash vendor/bin/sail'   # alias dla wygody
+
 sail up -d                          # -d = run in detached mode
 sail artisan migrate:fresh --seed   # creates migration table, 
                                     # runs migrations and seed db 
