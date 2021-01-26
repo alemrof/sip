@@ -1,7 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Database\Seeders\DatabaseSeeder;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\WarehouseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +19,12 @@ use Database\Seeders\DatabaseSeeder;
 */
 
 Auth::routes();
-Route::resource('/companies', App\Http\Controllers\CompanyController::class);
-Route::resource('/warehouses', App\Http\Controllers\WarehouseController::class);
-Route::get('/warehouses/{id}/editMap', [App\Http\Controllers\WarehouseController::class, 'editMap'])->name('warehouses.editMap');
-Route::post('/warehouses/{id}/updateMap', [App\Http\Controllers\WarehouseController::class, 'updateMap'])->name('warehouses.updateMap');
+Route::resource('/companies', CompanyController::class);
+Route::resource('/warehouses', WarehouseController::class);
+Route::get('/warehouses/{id}/editMap', [WarehouseController::class, 'editMap'])->name('warehouses.editMap');
+Route::post('/warehouses/{id}/updateMap', [WarehouseController::class, 'updateMap'])->name('warehouses.updateMap');
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/generate-data', function() {
     (new DatabaseSeeder())->run();
