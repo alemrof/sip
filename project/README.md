@@ -26,6 +26,7 @@ Do pracy nad projektem dostępne są środowiska:
         git clone https://github.com/glebocki/sip.git
         ```
     - Przechodzimy do folderu `cd ./sip/project`
+    - Zamien w `.env` wartość `DB_HOST` na `DB_HOST=127.0.0.1`.
     - `composer install` (instalacja zależności PHP)
     - Ze względu na brak pełnej kompatybilności z mariadb należy zmodyfikować nieco bibliotekę _grimzy_
         - w pliku `.\vendor\grimzy\laravel-mysql-spatial\src\Eloquent\SpatialExpression.php` usuwamy `'axis-order=long-lat'` z funkcji `getValue()`. Funkcja ma wyglądać tak:
@@ -50,8 +51,6 @@ Do pracy nad projektem dostępne są środowiska:
 - composer
 
 ### Uruchamianie:
-
-Zamien w `.env` wartość `DB_HOST` na `DB_HOST=mysql`.
 
 ```shell
 composer install
