@@ -24,6 +24,39 @@
             <li class="list-group-item" id="warehouse-address">Adres XXX, 00-000 Miejscowość</li>
             <li class="list-group-item" id="warehouse-location">Położenie</li>
         </ul>
+        <div class="card-body">
+            <h5 class="card-title">Godziny otwarcia:</h5>
+            <table>
+                <tr>
+                    <td>poniedziałek</td>
+                    <td>00:00-00:00</td>
+                </tr>
+                <tr>
+                    <td>wtorek</td>
+                    <td>00:00-00:00</td>
+                </tr>
+                <tr>
+                    <td>środa</td>
+                    <td>00:00-00:00</td>
+                </tr>
+                <tr>
+                    <td>czwartek</td>
+                    <td>00:00-00:00</td>
+                </tr>
+                <tr>
+                    <td>piątek</td>
+                    <td>00:00-00:00</td>
+                </tr>
+                <tr>
+                    <td>sobota</td>
+                    <td>00:00-00:00</td>
+                </tr>
+                <tr>
+                    <td>niedziela</td>
+                    <td>00:00-00:00</td>
+                </tr>
+            </table>
+        </div>
         <div class="card-footer">
             <div class="d-flex justify-content-between">
                 <a href="" class="btn btn-light btn-sm border-dark" id="edit-link">Edytuj</a>
