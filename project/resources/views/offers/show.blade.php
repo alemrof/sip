@@ -28,14 +28,18 @@
                     <span class="mr-auto">Cena:</span>
                     <span>{{$product->pivot->price}}</span>
                 </li>
-                <li class="list-group-item d-flex">
-                    <a href="{{route('offers.edit', [$warehouse->id, $product->pivot->id])}}" type="button" class="btn btn-light border-dark">Edytuj cenę</a>
-                    <form action="{{route('offers.destroy', [$warehouse->id, $product->id])}}" method="POST" class="ml-auto">
-                        {{csrf_field()}}
-                        <input type="hidden" name="_method" value="DELETE">
-                        <input class="btn btn-light border-dark" type="submit" value="Usuń">
-                    </form>
-                </li>
+                @auth
+                    @if (auth()->user()->isAdmin())
+                        <li class="list-group-item d-flex">
+                            <a href="{{route('offers.edit', [$warehouse->id, $product->pivot->id])}}" type="button" class="btn btn-light border-dark">Edytuj cenę</a>
+                            <form action="{{route('offers.destroy', [$warehouse->id, $product->id])}}" method="POST" class="ml-auto">
+                                {{csrf_field()}}
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input class="btn btn-light border-dark" type="submit" value="Usuń">
+                            </form>
+                        </li>     
+                    @endif
+                @endauth
             </ul>
         </div>
     </div>

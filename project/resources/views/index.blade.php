@@ -27,8 +27,12 @@
         <div class="card-footer">
             <div class="d-flex justify-content-between">
                 <a href="" class="btn btn-light btn-sm border-dark" id="route-link"><i class="fas fa-route"></i></a>
-                <a href="" class="btn btn-light btn-sm border-dark" id="edit-link">Edytuj</a>
-                <a href="" class="btn btn-light btn-sm border-dark" id="editMap-link">Edytuj Wsp.</a>
+                @auth
+                    @if (auth()->user()->isAdmin())
+                        <a href="" class="btn btn-light btn-sm border-dark" id="edit-link">Edytuj</a>
+                        <a href="" class="btn btn-light btn-sm border-dark" id="editMap-link">Edytuj Wsp.</a>
+                    @endif
+                @endauth
             </div>
             <div class="d-flex justify-content-between pb-0" id="popupArrows">
                 <a href=""><i class="fas fa-long-arrow-alt-left fa-3x" id="popupPreviousWarehouse"></i></a>
