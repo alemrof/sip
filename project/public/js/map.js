@@ -1,6 +1,7 @@
 const warehouseIconSrc = '../imgs/warehouse-icon-20px.png';
 let selectedWarehouses = null;
 let selectedWarehouseNumber = 0;
+let userCoordinates = [18.65, 54.35];
 
 // Tworzenie źródła na podstawie danych przesłanych z bazy danych
 let vectorSource = new ol.source.Vector();
@@ -14,6 +15,17 @@ for (let warehouse of warehouses) {
     pointFeature.setId(warehouse.id);
     vectorSource.addFeature(pointFeature);
 }
+
+let routeSource = new ol.source.Vector();
+let routeLayer = new ol.layer.Vector({
+    source: routeSource,
+    style: new ol.style.Style({
+        stroke: new ol.style.Stroke({
+            color: '#0066ff',
+            width: 3,
+        }),
+    })
+})
 
 let clusterSource = new ol.source.Cluster({
     distance: 20,
@@ -69,7 +81,8 @@ var map = new ol.Map({
         new ol.layer.Tile({
             source: new ol.source.OSM()
         }),
-        clusterLayer
+        clusterLayer,
+        routeLayer
     ],
     view: view
 });
@@ -109,6 +122,7 @@ positionFeature.setStyle(
 
 geolocation.on('change:position', function () {
     var coordinates = geolocation.getPosition();
+    userCoordinates = ol.proj.toLonLat(coordinates);
     view.setCenter(coordinates);
     positionFeature.setGeometry(coordinates ? new ol.geom.Point(coordinates) : null);
 });
@@ -139,11 +153,13 @@ closer.addEventListener('click', function (e) {
     popup.setPosition(undefined);
     selectedWarehouses = null;
     selectedWarehouseNumber = 0;
+    routeSource.clear();
     return false;
 });
 
 function updatePopup(id) {
     let warehouse = selectedWarehouses[id];
+    let coordinates = warehouse.getGeometry().getCoordinates();
 
     let warehouseName = document.querySelector('#warehouse-name');
     warehouseName.innerHTML = warehouse.get('name');
@@ -154,12 +170,51 @@ function updatePopup(id) {
     let warehouseAddress = document.querySelector('#warehouse-address');
     warehouseAddress.innerHTML = warehouse.get('address');
 
+    let warehouseLocation = document.querySelector('#warehouse-location');
+    let firstCoordinate = Math.round(ol.proj.toLonLat(coordinates)[0] * 100000) / 100000;
+    let secondCoordinate = Math.round(ol.proj.toLonLat(coordinates)[1] * 100000) / 100000;
+    warehouseLocation.innerHTML = firstCoordinate + ', ' + secondCoordinate;
+
     let editLink = document.querySelector('#edit-link');
     editLink.href = `/warehouses/${warehouse.getId()}/edit`;
 
     let editMapLink = document.querySelector('#editMap-link');
     editMapLink.href = `/warehouses/${warehouse.getId()}/editMap`;
 }
+
+let routeLink = document.querySelector('#route-link');
+routeLink.addEventListener('click', function (e) {
+    e.preventDefault();
+    warehouse = selectedWarehouses[selectedWarehouseNumber];
+    if (warehouse) {
+        let request = new XMLHttpRequest();
+        request.open('POST', "https://api.openrouteservice.org/v2/directions/driving-car");
+
+        request.setRequestHeader('Accept', 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8');
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.setRequestHeader('Authorization', '5b3ce3597851110001cf6248d497e3ae60ae4e0da2dddd72b6f0a3ac');
+
+        request.onreadystatechange = function () {
+            if (this.readyState === 4) {
+                let result = JSON.parse(this.responseText);
+                let polyline = result.routes[0].geometry;
+                let route = new ol.format.Polyline({
+                }).readGeometry(polyline, {
+                    dataProjection: 'EPSG:4326',
+                    featureProjection: 'EPSG:3857'
+                });
+                let routeFeature = new ol.Feature({
+                    geometry: route
+                });
+                routeSource.addFeature(routeFeature);
+            }
+        };
+        let warehouseCoordinates = ol.proj.toLonLat(warehouse.getGeometry().getCoordinates());
+        const body = `{"coordinates":[[${userCoordinates[0]}, ${userCoordinates[1]}],[${warehouseCoordinates[0]},${warehouseCoordinates[1]}]]}`;
+
+        request.send(body);
+    }
+})
 
 // Wybieranie składu
 var select = new ol.interaction.Select({
@@ -169,6 +224,7 @@ var select = new ol.interaction.Select({
 map.addInteraction(select);
 
 select.on('select', function (e) {
+    routeSource.clear();
     if (e.target.getFeatures().item(0)) {
         selectedWarehouses = e.target.getFeatures().item(0).get('features');
         selectedWarehouseNumber = 0;
@@ -186,11 +242,6 @@ select.on('select', function (e) {
             let coordinates = e.target.getFeatures().item(0).getGeometry().getCoordinates();
             popup.setPosition(coordinates);
             updatePopup(selectedWarehouseNumber);
-
-            let warehouseLocation = document.querySelector('#warehouse-location');
-            let firstCoordinate = Math.round(ol.proj.toLonLat(coordinates)[0] * 100000) / 100000;
-            let secondCoordinate = Math.round(ol.proj.toLonLat(coordinates)[1] * 100000) / 100000;
-            warehouseLocation.innerHTML = firstCoordinate + ', ' + secondCoordinate;
         }
     } else {
         popup.setPosition(undefined);
