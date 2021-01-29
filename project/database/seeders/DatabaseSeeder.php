@@ -73,8 +73,8 @@ class DatabaseSeeder extends Seeder
         foreach($warehouses as $wh) {
             $weekDays = ["monday", "wednesday", "tuesday", "thursday", "friday", "saturday", "sunday"];
             foreach ($weekDays as $day) {
-                $startHour = Carbon::createFromTime(9, 0, 0, "Europe/Warsaw");
-                $endHour = Carbon::createFromTime(18, 0, 0, "Europe/Warsaw");
+                $startHour = Carbon::createFromTime(rand(6, 10), 0, 0, "Europe/Warsaw");
+                $endHour = Carbon::createFromTime(rand(16, 22), 0, 0, "Europe/Warsaw");
                 $this->createOpeningHours($wh->id, $day, $startHour, $endHour);
             }
         }
