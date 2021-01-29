@@ -29,31 +29,31 @@
                 <table>
                     <tr>
                         <td>poniedziałek</td>
-                        <td>00:00-00:00</td>
+                        <td id="monday-hours">00:00-00:00</td>
                     </tr>
                     <tr>
                         <td>wtorek</td>
-                        <td>00:00-00:00</td>
+                        <td id="tuesday-hours">00:00-00:00</td>
                     </tr>
                     <tr>
                         <td>środa</td>
-                        <td>00:00-00:00</td>
+                        <td id="wednesday-hours">00:00-00:00</td>
                     </tr>
                     <tr>
                     <td>czwartek</td>
-                        <td>00:00-00:00</td>
+                        <td id="thursday-hours">00:00-00:00</td>
                     </tr>
                     <tr>
                         <td>piątek</td>
-                        <td>00:00-00:00</td>
+                        <td id="friday-hours">00:00-00:00</td>
                     </tr>
                     <tr>
                         <td>sobota</td>
-                        <td>00:00-00:00</td>
+                        <td id="saturday-hours">00:00-00:00</td>
                     </tr>
                     <tr>
                         <td>niedziela</td>
-                        <td>00:00-00:00</td>
+                        <td id="sunday-hours">00:00-00:00</td>
                     </tr>
                 </table>
             </div>

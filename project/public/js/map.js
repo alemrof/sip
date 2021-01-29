@@ -143,7 +143,9 @@ closer.addEventListener('click', function (e) {
 });
 
 function updatePopup(id) {
+    console.log(selectedWarehouses);
     let warehouse = selectedWarehouses[id];
+    console.log("warehouse", warehouse);
 
     let warehouseName = document.querySelector('#warehouse-name');
     warehouseName.innerHTML = warehouse.get('name');
@@ -154,11 +156,23 @@ function updatePopup(id) {
     let warehouseAddress = document.querySelector('#warehouse-address');
     warehouseAddress.innerHTML = warehouse.get('address');
 
+    // Warehouse Hours Tab
+    let hours = openingHours.filter(e => e.warehouse_id === warehouse.id_);
+    let days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+    days.forEach(function (day) {
+        let dayHours = hours.filter(e => e.weekday == day)[0];
+        document.querySelector("#" + day + "-hours").innerHTML = formatHours(dayHours.start_hour, dayHours.end_hour);
+    });
+
     let editLink = document.querySelector('#edit-link');
     editLink.href = `/warehouses/${warehouse.getId()}/edit`;
 
     let editMapLink = document.querySelector('#editMap-link');
     editMapLink.href = `/warehouses/${warehouse.getId()}/editMap`;
+}
+
+function formatHours(start, end) {
+    return start.substring(0, 5) + "-" + end.substring(0, 5);
 }
 
 // Wybieranie składu

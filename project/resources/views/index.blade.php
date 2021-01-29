@@ -3,6 +3,7 @@
 @section('content')
     <script>
         var warehouses = JSON.parse('{!! json_encode($warehouses) !!}');
+        var openingHours = JSON.parse('{!! json_encode($openingHours) !!}');
     </script>
 
     <div id="map" class="map mt-3 border border-dark"></div>
