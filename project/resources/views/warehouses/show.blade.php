@@ -38,7 +38,8 @@
             </li>
             <div class="hl"></div>
             <li class="list-group-item d-flex">
-                <a href="{{route('warehouses.edit', $warehouse->id)}}" type="button" class="btn btn-light border-dark">Edytuj</a>
+                <a href="{{route('offers.index', $warehouse->id)}}" type="button" class="btn btn-light border-dark">Oferta</a>
+                <a href="{{route('warehouses.edit', $warehouse->id)}}" type="button" class="btn btn-light border-dark ml-2">Edytuj</a>
                 <a href="{{route('warehouses.editMap', $warehouse->id)}}" type="button" class="btn btn-light border-dark ml-2">Edytuj współrzędne</a>
                 <form action="/warehouses/{{$warehouse->id}}" method="POST" class="ml-auto">
                     {{csrf_field()}}
