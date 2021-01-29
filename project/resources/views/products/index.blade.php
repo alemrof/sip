@@ -45,8 +45,8 @@
               <th>Zaktualizowano</th>
             </tr>
           </tfoot>
-          @foreach ($products as $product)
           <tbody>
+            @foreach ($products as $product)
               <tr onclick="window.location='/products/{{$product->id}}'">
                   <td>{{$product->id}}</td>
                   <td>{{$product->name}}</td>
@@ -55,9 +55,8 @@
                   <td>{{$product->created_at}}</td>
                   <td>{{$product->updated_at}}</td>
               </tr>
-            </tbody>    
-          @endforeach
-          
+            @endforeach
+          </tbody>    
         </table>
       </div>
     </div>

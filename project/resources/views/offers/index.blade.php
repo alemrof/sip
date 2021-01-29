@@ -43,8 +43,8 @@
               <th>Cena</th>
             </tr>
           </tfoot>
-          @foreach ($products as $product)
           <tbody>
+          @foreach ($products as $product)
               <tr onclick="window.location='/warehouses/{{$warehouse->id}}/offer/{{$product->pivot->id}}'">
                   <td>{{$product->id}}</td>
                   <td>{{$product->name}}</td>
@@ -52,9 +52,8 @@
                   <td>{{$product->manufacturer}}</td>
                   <td>{{$product->pivot->price}}</td>
               </tr>
-            </tbody>    
           @endforeach
-          
+          </tbody>
         </table>
       </div>
     </div>
