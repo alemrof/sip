@@ -22,5 +22,21 @@ Baza danych
   </a>
 </li>
 
+<!-- Nav Item - kategorie produktów -->
+<li class="nav-item">
+  <a class="nav-link" href="{{route('categories.index')}}">
+    <i class="fas fa-archive"></i>
+    <span>Kategorie produktów</span>
+  </a>
+</li>
+
+<!-- Nav Item - produkty -->
+<li class="nav-item">
+  <a class="nav-link" href="{{route('products.index')}}">
+    <i class="fas fa-shopping-cart"></i>
+    <span>Produkty</span>
+  </a>
+</li>
+
 <!-- Divider -->
 <hr class="sidebar-divider">
