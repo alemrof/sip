@@ -143,9 +143,7 @@ closer.addEventListener('click', function (e) {
 });
 
 function updatePopup(id) {
-    console.log(selectedWarehouses);
     let warehouse = selectedWarehouses[id];
-    console.log("warehouse", warehouse);
 
     let warehouseName = document.querySelector('#warehouse-name');
     warehouseName.innerHTML = warehouse.get('name');
