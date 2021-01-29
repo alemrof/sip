@@ -44,10 +44,3 @@ Route::get('/generate-data', function() {
     (new DatabaseSeeder())->run();
     echo 'data generated';
 });
-
-Route::get('/test', function() {
-    $start = Carbon::createFromTime(9, 0, 0, "Europe/Warsaw");
-    $end = Carbon::createFromTime(18, 0, 0, "Europe/Warsaw");
-    $result = $end->diff($start)->format('%H:%I');
-    echo($result);
-});
