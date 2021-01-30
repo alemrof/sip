@@ -1,5 +1,6 @@
 const warehouseIconSrc = '../imgs/warehouse-icon-20px.png';
-let selectedWarehouses = null;
+const params = new URLSearchParams(window.location.search);
+let selectedWarehouses = [];
 let selectedWarehouseNumber = 0;
 let userCoordinates = [18.65, 54.35];
 
@@ -123,7 +124,9 @@ positionFeature.setStyle(
 geolocation.on('change:position', function () {
     var coordinates = geolocation.getPosition();
     userCoordinates = ol.proj.toLonLat(coordinates);
-    view.setCenter(coordinates);
+    if (selectedWarehouses.length < 1) {
+        view.setCenter(coordinates);
+    }
     positionFeature.setGeometry(coordinates ? new ol.geom.Point(coordinates) : null);
 });
 
@@ -151,7 +154,7 @@ map.addOverlay(popup);
 let closer = document.querySelector('#closer');
 closer.addEventListener('click', function (e) {
     popup.setPosition(undefined);
-    selectedWarehouses = null;
+    selectedWarehouses = [];
     selectedWarehouseNumber = 0;
     routeSource.clear();
     return false;
@@ -175,11 +178,16 @@ function updatePopup(id) {
     let secondCoordinate = Math.round(ol.proj.toLonLat(coordinates)[1] * 100000) / 100000;
     warehouseLocation.innerHTML = firstCoordinate + ', ' + secondCoordinate;
 
+    let offerLink = document.querySelector('#offer-link');
+    if (offerLink) offerLink.href = `/warehouses/${warehouse.getId()}/offer`;
+
     let editLink = document.querySelector('#edit-link');
-    editLink.href = `/warehouses/${warehouse.getId()}/edit`;
+    if (editLink) editLink.href = `/warehouses/${warehouse.getId()}/edit`;
 
     let editMapLink = document.querySelector('#editMap-link');
-    editMapLink.href = `/warehouses/${warehouse.getId()}/editMap`;
+    if (editMapLink) editMapLink.href = `/warehouses/${warehouse.getId()}/editMap`;
+
+    popup.setPosition(coordinates);
 }
 
 let routeLink = document.querySelector('#route-link');
@@ -226,8 +234,11 @@ map.addInteraction(select);
 select.on('select', function (e) {
     routeSource.clear();
     if (e.target.getFeatures().item(0)) {
-        selectedWarehouses = e.target.getFeatures().item(0).get('features');
         selectedWarehouseNumber = 0;
+
+        if (e.target.getFeatures().item(0).get('features')) {
+            selectedWarehouses = e.target.getFeatures().item(0).get('features');            
+        }
 
         if (selectedWarehouses) {
             let popupArrows = document.querySelector('#popupArrows');
@@ -239,13 +250,12 @@ select.on('select', function (e) {
                 popupArrows.classList.remove('d-flex');
             }
 
-            let coordinates = e.target.getFeatures().item(0).getGeometry().getCoordinates();
-            popup.setPosition(coordinates);
             updatePopup(selectedWarehouseNumber);
         }
     } else {
         popup.setPosition(undefined);
         selectedWarehouseNumber = 0;
+        select.getFeatures().clear();
     }
 });
 
@@ -283,3 +293,34 @@ showPreviousWarehouse.addEventListener('click', (e) => {
     }
 })
 
+let warehouseSearch = document.querySelector('#warehouse-search');
+warehouseSearch.addEventListener('click', (e) => {
+    let warehouseSearchName = document.querySelector('#warehouse-search-name');
+    let serachedWarehouse = warehouseSearchName.value;
+    selectedWarehouses = [];
+    select.getFeatures().clear();
+    
+    for (let warehouse of warehouses) {
+        if (warehouse.name.includes(serachedWarehouse)) {
+            selectedWarehouses.push(vectorSource.getFeatureById(warehouse.id));
+            select.getFeatures().push(vectorSource.getFeatureById(warehouse.id));
+        }
+    }
+    if (selectedWarehouses.length > 0) {
+        select.dispatchEvent('select');
+    } else {
+        warehouseSearchName.value = "";
+    }
+})
+
+if (params.has('id')) {
+    const id = params.get('id');
+    selectedWarehouses = [];
+    select.getFeatures().clear();
+    if (vectorSource.getFeatureById(id)) {
+        selectedWarehouses.push(vectorSource.getFeatureById(id));
+        select.getFeatures().push(vectorSource.getFeatureById(id));
+        select.dispatchEvent('select');
+        view.setCenter(selectedWarehouses[0].getGeometry().getCoordinates());
+    }
+}

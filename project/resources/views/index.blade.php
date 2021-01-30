@@ -1,15 +1,25 @@
 @extends('layouts.master')
 
+@section('topbar-search')
+<!-- Topbar Search -->
+  <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+    <div class="input-group">
+      <input type="text" class="form-control bg-light border-0 small" placeholder="Wyszukaj skład..." aria-label="Search" aria-describedby="basic-addon2" id="warehouse-search-name">
+      <div class="input-group-append">
+        <button class="btn btn-dark" type="button" id="warehouse-search">
+          <i class="fas fa-search fa-sm"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+@endsection
+
 @section('content')
     <script>
         var warehouses = JSON.parse('{!! json_encode($warehouses) !!}');
     </script>
 
     <div id="map" class="map mt-3 border border-dark"></div>
-    {{-- <div class="my-1">
-        <button class="btn btn-info" id="addWarehouse">Dodaj skład</button>
-        <button class="btn btn-danger" id="stopDrawing">Zatrzymaj rysowanie</button>
-    </div> --}}
 
     <!-- Okienko z atrybutami składu budowlanego -->
     <div class="card border-dark" id="popup" style="width: 15rem;">
@@ -27,10 +37,11 @@
         <div class="card-footer">
             <div class="d-flex justify-content-between">
                 <a href="" class="btn btn-light btn-sm border-dark" id="route-link"><i class="fas fa-route"></i></a>
+                <a href="" class="btn btn-light btn-sm border-dark" id="offer-link">Oferta</a>
                 @auth
                     @if (auth()->user()->isAdmin())
-                        <a href="" class="btn btn-light btn-sm border-dark" id="edit-link">Edytuj</a>
-                        <a href="" class="btn btn-light btn-sm border-dark" id="editMap-link">Edytuj Wsp.</a>
+                        <a href="" class="btn btn-light btn-sm border-dark" id="edit-link"><i class="fas fa-edit"></i></a>
+                        <a href="" class="btn btn-light btn-sm border-dark" id="editMap-link"><i class="fas fa-map-marked"></i></a>
                     @endif
                 @endauth
             </div>

@@ -39,6 +39,7 @@
             <div class="hl"></div>
             <li class="list-group-item d-flex">
                 <a href="{{route('offers.index', $warehouse->id)}}" type="button" class="btn btn-light border-dark">Oferta</a>
+                <a href="{{route('home', ['id' => $warehouse->id])}}" type="button" class="btn btn-light border-dark ml-2"><i class="fas fa-map-marked-alt"></i></a>
                 @auth
                     @if (auth()->user()->isAdmin())
                         <a href="{{route('warehouses.edit', $warehouse->id)}}" type="button" class="btn btn-light border-dark ml-2">Edytuj</a>
