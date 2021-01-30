@@ -26,6 +26,7 @@
         </ul>
         <div class="card-footer">
             <div class="d-flex justify-content-between">
+                <a href="" class="btn btn-light btn-sm border-dark" id="route-link"><i class="fas fa-route"></i></a>
                 <a href="" class="btn btn-light btn-sm border-dark" id="edit-link">Edytuj</a>
                 <a href="" class="btn btn-light btn-sm border-dark" id="editMap-link">Edytuj Wsp.</a>
             </div>

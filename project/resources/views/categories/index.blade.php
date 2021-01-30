@@ -41,17 +41,16 @@
               <th>Zaktualizowano</th>
             </tr>
           </tfoot>
-          @foreach ($categories as $category)
           <tbody>
+            @foreach ($categories as $category)
               <tr onclick="window.location='/categories/{{$category->id}}'">
                   <td>{{$category->id}}</td>
                   <td>{{$category->name}}</td>
                   <td>{{$category->created_at}}</td>
                   <td>{{$category->updated_at}}</td>
               </tr>
-            </tbody>    
-          @endforeach
-          
+            @endforeach
+          </tbody>
         </table>
       </div>
     </div>

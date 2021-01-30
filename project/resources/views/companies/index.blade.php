@@ -41,17 +41,16 @@
               <th>Zaktualizowano</th>
             </tr>
           </tfoot>
-          @foreach ($companies as $company)
           <tbody>
+            @foreach ($companies as $company)
               <tr onclick="window.location='/companies/{{$company->id}}'">
                   <td>{{$company->id}}</td>
                   <td>{{$company->name}}</td>
                   <td>{{$company->created_at}}</td>
                   <td>{{$company->updated_at}}</td>
               </tr>
-            </tbody>    
-          @endforeach
-          
+            @endforeach
+          </tbody>
         </table>
       </div>
     </div>
