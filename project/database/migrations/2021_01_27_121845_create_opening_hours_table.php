@@ -15,7 +15,7 @@ class CreateOpeningHoursTable extends Migration
     {
         Schema::create('opening_hours', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("warehouse_id");
+            $table->foreignId("warehouse_id")->constrained()->onDelete('cascade');
             $table->string("weekday");
             $table->time("start_hour");
             $table->time("end_hour");

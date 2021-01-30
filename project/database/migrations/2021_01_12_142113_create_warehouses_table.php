@@ -15,8 +15,7 @@ class CreateWarehousesTable extends Migration
     {
         Schema::create('warehouses', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('company_id')->constrained()->onDelete('cascade');
-            $table->foreignId('company_id')->default(1);
+            $table->foreignId('company_id')->constrained()->onDelete('cascade');
             $table->string('name')->default('test');
             $table->string('address')->default('test');
             $table->point('location')->nullable();
