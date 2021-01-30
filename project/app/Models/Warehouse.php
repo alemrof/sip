@@ -21,6 +21,10 @@ class Warehouse extends Model
         return $this->belongsTo(Company::class);
     }
 
+    public function openingHours() {
+        return $this->hasMany(OpeningHours::class);
+    }
+    
     public function products() {
         return $this->belongsToMany(Product::class)->withPivot('id', 'price');;
     }

@@ -2,15 +2,17 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Company;
-use App\Models\Warehouse;
-use App\Models\Category;
 use App\Models\Product;
-use Grimzy\LaravelMysqlSpatial\Types\Point;
+use App\Models\Category;
+use App\Models\Warehouse;
+use App\Models\OpeningHours;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Grimzy\LaravelMysqlSpatial\Types\Point;
 
 class DatabaseSeeder extends Seeder
 {
@@ -25,11 +27,12 @@ class DatabaseSeeder extends Seeder
         Role::create(['name'=>'Admin']);
         
         User::create([
-            'role_id'=>1,
-            'name'=>'User',
-            'email'=>'user@user.com', 
-            'password'=>Hash::make('password')
+            'role_id' => 1,
+            'name' => 'Tomasz Formela',
+            'email' => 'tomek@tomek.com',
+            'password' => Hash::make('tomek123')
         ]);
+
         User::create([
             'role_id'=>2,
             'name'=>'Admin',
@@ -37,33 +40,44 @@ class DatabaseSeeder extends Seeder
             'password'=>Hash::make('password')
         ]);
 
-        Company::create(['name'=>'Castorama']);
-        Company::create(['name'=>'Leroy Merlin']);
+        $castorama = Company::create(['name' => 'Castorama']);
+        $leroyMerlin = Company::create(['name' => 'Leroy Merlin']);
 
-        Warehouse::create([
-            'name'=>'Castorama Gdańsk Oliwa',
-            'company_id'=>1,
-            'address'=>'aleja Grunwaldzka 262, 80-314 Gdańsk',
-            'location'=>new Point(54.396006808244124, 18.577674827404387)
+        $wh1 = Warehouse::create([
+            'name' => 'Castorama Gdańsk Oliwa',
+            'company_id' => $castorama->id,
+            'address' => 'aleja Grunwaldzka 262, 80-314 Gdańsk',
+            'location' => new Point(54.396006808244124, 18.577674827404387)
         ]);
-        Warehouse::create([
-            'name'=>'Castorama Odyseusza',
-            'company_id'=>1,
-            'address'=>'Odyseusza 2, 80-299 Gdańsk',
-            'location'=>new Point(54.43233463765607, 18.486433086502654)
+        $wh2 = Warehouse::create([
+            'name' => 'Castorama Odyseusza',
+            'company_id' => $castorama->id,
+            'address' => 'Odyseusza 2, 80-299 Gdańsk',
+            'location' => new Point(54.43233463765607, 18.486433086502654)
         ]);
-        Warehouse::create([
-            'name'=>'Leroy Merlin Gdańsk Oliwa',
-            'company_id'=>2,
-            'address'=>'aleja Grunwaldzka 309, 80-309 Gdańsk',
-            'location'=>new Point(54.39463073834571, 18.58101521551848)
+        $wh3 = Warehouse::create([
+            'name' => 'Leroy Merlin Gdańsk Oliwa',
+            'company_id' => $leroyMerlin->id,
+            'address' => 'aleja Grunwaldzka 309, 80-309 Gdańsk',
+            'location' => new Point(54.39463073834571, 18.58101521551848)
         ]);
-        Warehouse::create([
-            'name'=>'Leroy Merlin Gdańsk',
-            'company_id'=>2,
-            'address'=>'Szczęśliwa 7, 80-176 Gdańsk',
-            'location'=> new Point(54.35313340101314, 18.521470337609315)
+        $wh4 = Warehouse::create([
+            'name' => 'Leroy Merlin Gdańsk',
+            'company_id' => $leroyMerlin->id,
+            'address' => 'Szczęśliwa 7, 80-176 Gdańsk',
+            'location' => new Point(54.35313340101314, 18.521470337609315)
         ]);
+
+        // Opening Hours
+        $warehouses = [$wh1, $wh2, $wh3, $wh4];
+        foreach($warehouses as $wh) {
+            $weekDays = ["monday", "wednesday", "tuesday", "thursday", "friday", "saturday", "sunday"];
+            foreach ($weekDays as $day) {
+                $startHour = Carbon::createFromTime(rand(6, 10), 0, 0, "Europe/Warsaw");
+                $endHour = Carbon::createFromTime(rand(16, 22), 0, 0, "Europe/Warsaw");
+                $this->createOpeningHours($wh->id, $day, $startHour, $endHour);
+            }
+        }
 
         Category::create(['name'=>'Cementy i zaprawy']);
         Category::create(['name'=>'Izolacja']);
@@ -151,6 +165,14 @@ class DatabaseSeeder extends Seeder
         $warehouse->products()->attach(7, ['price' => 4.20]);
         $warehouse->products()->attach(8, ['price' => 5]);
         $warehouse->products()->attach(9, ['price' => 64]);
+    }
 
+    private function createOpeningHours(int $id, string $day, $startHour, $endHour) {
+        OpeningHours::create([
+            "warehouse_id" => $id,
+            "weekday" => $day,
+            "start_hour" => $startHour,
+            "end_hour" => $endHour,
+        ]);
     }
 }

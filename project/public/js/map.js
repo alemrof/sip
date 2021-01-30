@@ -173,6 +173,14 @@ function updatePopup(id) {
     let warehouseAddress = document.querySelector('#warehouse-address');
     warehouseAddress.innerHTML = warehouse.get('address');
 
+    // Warehouse Hours Tab
+    let hours = openingHours.filter(e => e.warehouse_id === warehouse.id_);
+    let days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+    days.forEach(function (day) {
+        let dayHours = hours.filter(e => e.weekday == day)[0];
+        document.querySelector("#" + day + "-hours").innerHTML = formatHours(dayHours.start_hour, dayHours.end_hour);
+    });
+    
     let warehouseLocation = document.querySelector('#warehouse-location');
     let firstCoordinate = Math.round(ol.proj.toLonLat(coordinates)[0] * 100000) / 100000;
     let secondCoordinate = Math.round(ol.proj.toLonLat(coordinates)[1] * 100000) / 100000;
@@ -188,6 +196,10 @@ function updatePopup(id) {
     if (editMapLink) editMapLink.href = `/warehouses/${warehouse.getId()}/editMap`;
 
     popup.setPosition(coordinates);
+}
+
+function formatHours(start, end) {
+    return start.substring(0, 5) + "-" + end.substring(0, 5);
 }
 
 let routeLink = document.querySelector('#route-link');
