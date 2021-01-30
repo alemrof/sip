@@ -71,3 +71,10 @@ Aplikacja jest dostępna pod [localhost:80](http://localhost)
 sail down       # podobnie jak docker-compose down
 sail down -v    # to dodatkowo usuwa volumeny (czyści bazę)
 ```
+
+### Export zawartości bazy
+
+```shell
+docker exec project_mysql_1 mysqldump sip_db > sip_db.sql
+docker exec project_mysql_1 mysqldump --no-data sip_db > sip_db.sql  
+```
