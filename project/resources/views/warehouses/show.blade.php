@@ -39,14 +39,19 @@
             <div class="hl"></div>
             <li class="list-group-item d-flex">
                 <a href="{{route('offers.index', $warehouse->id)}}" type="button" class="btn btn-light border-dark">Oferta</a>
-                <a href="{{route('warehouses.edit', $warehouse->id)}}" type="button" class="btn btn-light border-dark ml-2">Edytuj</a>
-                <a href="{{route('warehouses.editMap', $warehouse->id)}}" type="button" class="btn btn-light border-dark ml-2">Edytuj współrzędne</a>
-                <form action="/warehouses/{{$warehouse->id}}" method="POST" class="ml-auto">
-                    {{csrf_field()}}
-                    <input type="hidden" name="_method" value="DELETE">
-                    <input class="btn btn-light border-dark" type="submit" value="Usuń">
-                </form>
-            </li>
+                <a href="{{route('home', ['id' => $warehouse->id])}}" type="button" class="btn btn-light border-dark ml-2"><i class="fas fa-map-marked-alt"></i></a>
+                @auth
+                    @if (auth()->user()->isAdmin())
+                        <a href="{{route('warehouses.edit', $warehouse->id)}}" type="button" class="btn btn-light border-dark ml-2">Edytuj</a>
+                        <a href="{{route('warehouses.editMap', $warehouse->id)}}" type="button" class="btn btn-light border-dark ml-2">Edytuj współrzędne</a>
+                        <form action="/warehouses/{{$warehouse->id}}" method="POST" class="ml-auto">
+                            {{csrf_field()}}
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input class="btn btn-light border-dark" type="submit" value="Usuń">
+                        </form>
+                    @endif
+                @endauth
+            </li>    
         </ul>
     </div>
 </div>

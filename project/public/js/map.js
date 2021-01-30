@@ -1,6 +1,8 @@
 const warehouseIconSrc = '../imgs/warehouse-icon-20px.png';
-let selectedWarehouses = null;
+const params = new URLSearchParams(window.location.search);
+let selectedWarehouses = [];
 let selectedWarehouseNumber = 0;
+let userCoordinates = [18.65, 54.35];
 
 // Tworzenie źródła na podstawie danych przesłanych z bazy danych
 let vectorSource = new ol.source.Vector();
@@ -14,6 +16,17 @@ for (let warehouse of warehouses) {
     pointFeature.setId(warehouse.id);
     vectorSource.addFeature(pointFeature);
 }
+
+let routeSource = new ol.source.Vector();
+let routeLayer = new ol.layer.Vector({
+    source: routeSource,
+    style: new ol.style.Style({
+        stroke: new ol.style.Stroke({
+            color: '#0066ff',
+            width: 3,
+        }),
+    })
+})
 
 let clusterSource = new ol.source.Cluster({
     distance: 20,
@@ -69,7 +82,8 @@ var map = new ol.Map({
         new ol.layer.Tile({
             source: new ol.source.OSM()
         }),
-        clusterLayer
+        clusterLayer,
+        routeLayer
     ],
     view: view
 });
@@ -109,7 +123,10 @@ positionFeature.setStyle(
 
 geolocation.on('change:position', function () {
     var coordinates = geolocation.getPosition();
-    view.setCenter(coordinates);
+    userCoordinates = ol.proj.toLonLat(coordinates);
+    if (selectedWarehouses.length < 1) {
+        view.setCenter(coordinates);
+    }
     positionFeature.setGeometry(coordinates ? new ol.geom.Point(coordinates) : null);
 });
 
@@ -137,13 +154,15 @@ map.addOverlay(popup);
 let closer = document.querySelector('#closer');
 closer.addEventListener('click', function (e) {
     popup.setPosition(undefined);
-    selectedWarehouses = null;
+    selectedWarehouses = [];
     selectedWarehouseNumber = 0;
+    routeSource.clear();
     return false;
 });
 
 function updatePopup(id) {
     let warehouse = selectedWarehouses[id];
+    let coordinates = warehouse.getGeometry().getCoordinates();
 
     let warehouseName = document.querySelector('#warehouse-name');
     warehouseName.innerHTML = warehouse.get('name');
@@ -161,17 +180,61 @@ function updatePopup(id) {
         let dayHours = hours.filter(e => e.weekday == day)[0];
         document.querySelector("#" + day + "-hours").innerHTML = formatHours(dayHours.start_hour, dayHours.end_hour);
     });
+    
+    let warehouseLocation = document.querySelector('#warehouse-location');
+    let firstCoordinate = Math.round(ol.proj.toLonLat(coordinates)[0] * 100000) / 100000;
+    let secondCoordinate = Math.round(ol.proj.toLonLat(coordinates)[1] * 100000) / 100000;
+    warehouseLocation.innerHTML = firstCoordinate + ', ' + secondCoordinate;
+
+    let offerLink = document.querySelector('#offer-link');
+    if (offerLink) offerLink.href = `/warehouses/${warehouse.getId()}/offer`;
 
     let editLink = document.querySelector('#edit-link');
-    editLink.href = `/warehouses/${warehouse.getId()}/edit`;
+    if (editLink) editLink.href = `/warehouses/${warehouse.getId()}/edit`;
 
     let editMapLink = document.querySelector('#editMap-link');
-    editMapLink.href = `/warehouses/${warehouse.getId()}/editMap`;
+    if (editMapLink) editMapLink.href = `/warehouses/${warehouse.getId()}/editMap`;
+
+    popup.setPosition(coordinates);
 }
 
 function formatHours(start, end) {
     return start.substring(0, 5) + "-" + end.substring(0, 5);
 }
+
+let routeLink = document.querySelector('#route-link');
+routeLink.addEventListener('click', function (e) {
+    e.preventDefault();
+    warehouse = selectedWarehouses[selectedWarehouseNumber];
+    if (warehouse) {
+        let request = new XMLHttpRequest();
+        request.open('POST', "https://api.openrouteservice.org/v2/directions/driving-car");
+
+        request.setRequestHeader('Accept', 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8');
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.setRequestHeader('Authorization', '5b3ce3597851110001cf6248d497e3ae60ae4e0da2dddd72b6f0a3ac');
+
+        request.onreadystatechange = function () {
+            if (this.readyState === 4) {
+                let result = JSON.parse(this.responseText);
+                let polyline = result.routes[0].geometry;
+                let route = new ol.format.Polyline({
+                }).readGeometry(polyline, {
+                    dataProjection: 'EPSG:4326',
+                    featureProjection: 'EPSG:3857'
+                });
+                let routeFeature = new ol.Feature({
+                    geometry: route
+                });
+                routeSource.addFeature(routeFeature);
+            }
+        };
+        let warehouseCoordinates = ol.proj.toLonLat(warehouse.getGeometry().getCoordinates());
+        const body = `{"coordinates":[[${userCoordinates[0]}, ${userCoordinates[1]}],[${warehouseCoordinates[0]},${warehouseCoordinates[1]}]]}`;
+
+        request.send(body);
+    }
+})
 
 // Wybieranie składu
 var select = new ol.interaction.Select({
@@ -181,9 +244,13 @@ var select = new ol.interaction.Select({
 map.addInteraction(select);
 
 select.on('select', function (e) {
+    routeSource.clear();
     if (e.target.getFeatures().item(0)) {
-        selectedWarehouses = e.target.getFeatures().item(0).get('features');
         selectedWarehouseNumber = 0;
+
+        if (e.target.getFeatures().item(0).get('features')) {
+            selectedWarehouses = e.target.getFeatures().item(0).get('features');            
+        }
 
         if (selectedWarehouses) {
             let popupArrows = document.querySelector('#popupArrows');
@@ -195,18 +262,12 @@ select.on('select', function (e) {
                 popupArrows.classList.remove('d-flex');
             }
 
-            let coordinates = e.target.getFeatures().item(0).getGeometry().getCoordinates();
-            popup.setPosition(coordinates);
             updatePopup(selectedWarehouseNumber);
-
-            let warehouseLocation = document.querySelector('#warehouse-location');
-            let firstCoordinate = Math.round(ol.proj.toLonLat(coordinates)[0] * 100000) / 100000;
-            let secondCoordinate = Math.round(ol.proj.toLonLat(coordinates)[1] * 100000) / 100000;
-            warehouseLocation.innerHTML = firstCoordinate + ', ' + secondCoordinate;
         }
     } else {
         popup.setPosition(undefined);
         selectedWarehouseNumber = 0;
+        select.getFeatures().clear();
     }
 });
 
@@ -244,3 +305,34 @@ showPreviousWarehouse.addEventListener('click', (e) => {
     }
 })
 
+let warehouseSearch = document.querySelector('#warehouse-search');
+warehouseSearch.addEventListener('click', (e) => {
+    let warehouseSearchName = document.querySelector('#warehouse-search-name');
+    let serachedWarehouse = warehouseSearchName.value;
+    selectedWarehouses = [];
+    select.getFeatures().clear();
+    
+    for (let warehouse of warehouses) {
+        if (warehouse.name.includes(serachedWarehouse)) {
+            selectedWarehouses.push(vectorSource.getFeatureById(warehouse.id));
+            select.getFeatures().push(vectorSource.getFeatureById(warehouse.id));
+        }
+    }
+    if (selectedWarehouses.length > 0) {
+        select.dispatchEvent('select');
+    } else {
+        warehouseSearchName.value = "";
+    }
+})
+
+if (params.has('id')) {
+    const id = params.get('id');
+    selectedWarehouses = [];
+    select.getFeatures().clear();
+    if (vectorSource.getFeatureById(id)) {
+        selectedWarehouses.push(vectorSource.getFeatureById(id));
+        select.getFeatures().push(vectorSource.getFeatureById(id));
+        select.dispatchEvent('select');
+        view.setCenter(selectedWarehouses[0].getGeometry().getCoordinates());
+    }
+}

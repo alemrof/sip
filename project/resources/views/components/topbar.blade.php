@@ -6,17 +6,7 @@
     <i class="fa fa-bars"></i>
   </button>
 
-  <!-- Topbar Search -->
-  {{-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-    <div class="input-group">
-      <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-      <div class="input-group-append">
-        <button class="btn btn-dark" type="button">
-          <i class="fas fa-search fa-sm"></i>
-        </button>
-      </div>
-    </div>
-  </form> --}}
+  @yield('topbar-search')
 
   <!-- Topbar Navbar -->
   <ul class="navbar-nav ml-auto">
@@ -24,13 +14,13 @@
     @guest
       @if (Route::has('login'))
           <li class="nav-item">
-              <a class="nav-link text-dark" href="{{ route('login') }}">{{ __('Login') }}</a>
+              <a class="nav-link text-dark" href="{{ route('login') }}">{{ __('Logowanie') }}</a>
           </li>
       @endif
       
       @if (Route::has('register'))
           <li class="nav-item">
-              <a class="nav-link text-dark" href="{{ route('register') }}">{{ __('Register') }}</a>
+              <a class="nav-link text-dark" href="{{ route('register') }}">{{ __('Rejestracja') }}</a>
           </li>
       @endif
     @else
@@ -44,7 +34,7 @@
               <a class="dropdown-item" href="{{ route('logout') }}"
                   onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
-                  {{ __('Logout') }}
+                  {{ __('Wyloguj') }}
               </a>
 
               <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
