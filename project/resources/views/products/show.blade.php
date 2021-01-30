@@ -32,14 +32,18 @@
                     <span class="mr-auto">Data aktualizacji:</span>
                     <span>{{$product->updated_at}}</span>
                 </li>
-                <li class="list-group-item d-flex">
-                    <a href="{{route('products.edit', $product->id)}}" type="button" class="btn btn-light border-dark">Edytuj</a>
-                    <form action="/products/{{$product->id}}" method="POST" class="ml-2">
-                        {{csrf_field()}}
-                        <input type="hidden" name="_method" value="DELETE">
-                        <input class="btn btn-light border-dark" type="submit" value="Usuń">
-                    </form>
-                </li>
+                @auth
+                    @if (auth()->user()->isAdmin())
+                        <li class="list-group-item d-flex">
+                            <a href="{{route('products.edit', $product->id)}}" type="button" class="btn btn-light border-dark">Edytuj</a>
+                            <form action="/products/{{$product->id}}" method="POST" class="ml-2">
+                                {{csrf_field()}}
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input class="btn btn-light border-dark" type="submit" value="Usuń">
+                            </form>
+                        </li>
+                    @endif
+                @endauth
             </ul>
         </div>
     </div>
