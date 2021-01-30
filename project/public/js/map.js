@@ -305,8 +305,9 @@ showPreviousWarehouse.addEventListener('click', (e) => {
     }
 })
 
-let warehouseSearch = document.querySelector('#warehouse-search');
-warehouseSearch.addEventListener('click', (e) => {
+let warehouseSearch = document.querySelector('#warehouse-search-form');
+warehouseSearch.addEventListener('submit', (e) => {
+    e.preventDefault() // Stom form submission
     let warehouseSearchName = document.querySelector('#warehouse-search-name');
     let serachedWarehouse = warehouseSearchName.value;
     selectedWarehouses = [];
@@ -323,7 +324,8 @@ warehouseSearch.addEventListener('click', (e) => {
     } else {
         warehouseSearchName.value = "";
     }
-})
+    return false; // stop form submission
+}, false);
 
 if (params.has('id')) {
     const id = params.get('id');
