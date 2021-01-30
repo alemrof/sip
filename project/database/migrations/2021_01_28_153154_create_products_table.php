@@ -15,7 +15,7 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->default(1);
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->string('name')->default('brak');
             $table->string('manufacturer')->default('brak');
             $table->timestamps();

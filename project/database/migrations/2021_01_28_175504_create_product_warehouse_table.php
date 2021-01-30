@@ -15,8 +15,8 @@ class CreateProductWarehouseTable extends Migration
     {
         Schema::create('product_warehouse', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('product_id');
-            $table->unsignedInteger('warehouse_id');
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->foreignId('warehouse_id')->constrained()->onDelete('cascade');
             $table->decimal('price', 5, 2)->default(0);
             $table->timestamps();
         });

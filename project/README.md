@@ -76,5 +76,7 @@ sail down -v    # to dodatkowo usuwa volumeny (czyści bazę)
 
 ```shell
 docker exec project_mysql_1 mysqldump sip_db > sip_db.sql
-docker exec project_mysql_1 mysqldump --no-data sip_db > sip_db.sql  
+
+# clean sql, no comments
+docker exec project_mysql_1 mysqldump --no-data --skip-comments --skip-add-drop-table sip_db | grep -v '^\/\*![0-9]\{5\}.*\/;$' > sip_db.sql
 ```
