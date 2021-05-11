@@ -13,6 +13,7 @@
       </div>
     </div>
   </form>
+  <a href="/search" type="button" class="btn btn-light border-dark ml-2">Szukaj Produktu</a>
 @endsection
 
 @section('content')

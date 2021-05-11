@@ -180,7 +180,7 @@ function updatePopup(id) {
         let dayHours = hours.filter(e => e.weekday == day)[0];
         document.querySelector("#" + day + "-hours").innerHTML = formatHours(dayHours.start_hour, dayHours.end_hour);
     });
-    
+
     let warehouseLocation = document.querySelector('#warehouse-location');
     let firstCoordinate = Math.round(ol.proj.toLonLat(coordinates)[0] * 100000) / 100000;
     let secondCoordinate = Math.round(ol.proj.toLonLat(coordinates)[1] * 100000) / 100000;
@@ -249,7 +249,7 @@ select.on('select', function (e) {
         selectedWarehouseNumber = 0;
 
         if (e.target.getFeatures().item(0).get('features')) {
-            selectedWarehouses = e.target.getFeatures().item(0).get('features');            
+            selectedWarehouses = e.target.getFeatures().item(0).get('features');
         }
 
         if (selectedWarehouses) {
@@ -312,7 +312,7 @@ warehouseSearch.addEventListener('submit', (e) => {
     let serachedWarehouse = warehouseSearchName.value;
     selectedWarehouses = [];
     select.getFeatures().clear();
-    
+
     for (let warehouse of warehouses) {
         if (warehouse.name.includes(serachedWarehouse)) {
             selectedWarehouses.push(vectorSource.getFeatureById(warehouse.id));
@@ -338,3 +338,45 @@ if (params.has('id')) {
         view.setCenter(selectedWarehouses[0].getGeometry().getCoordinates());
     }
 }
+
+function send(form) {
+    let productSearchName = document.querySelector('#product-search-name');
+    let searchedproduct = productSearchName.value;
+    let ChosenWarehouses=[];
+    for (let prod of products) {
+        if (deepEqual(prod.name,searchedproduct)) {
+            ChosenWarehouses.push(prod);
+        }
+         $("#secret").val(ChosenWarehouses[0])
+
+    }
+    //alert('Please correct the errors in the form and js!');
+}
+
+function deepEqual(object1, object2) {
+    const keys1 = Object.keys(object1);
+    const keys2 = Object.keys(object2);
+
+    if (keys1.length !== keys2.length) {
+        return false;
+    }
+
+    for (const key of keys1) {
+        const val1 = object1[key];
+        const val2 = object2[key];
+        const areObjects = isObject(val1) && isObject(val2);
+        if (
+            areObjects && !deepEqual(val1, val2) ||
+            !areObjects && val1 !== val2
+        ) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function isObject(object) {
+    return object != null && typeof object === 'object';
+}
+

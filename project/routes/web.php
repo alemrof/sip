@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SearchController;
 use Carbon\Carbon;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Support\Facades\Auth;
@@ -27,8 +28,8 @@ Auth::routes();
 Route::resource('/companies', CompanyController::class);
 Route::resource('/categories', CategoryController::class);
 Route::resource('/products', ProductController::class);
-
 Route::resource('/warehouses', WarehouseController::class);
+Route::resource('/search', SearchController::class);
 Route::get('/warehouses/{id}/editMap', [WarehouseController::class, 'editMap'])->name('warehouses.editMap');
 Route::post('/warehouses/{id}/updateMap', [WarehouseController::class, 'updateMap'])->name('warehouses.updateMap');
 
