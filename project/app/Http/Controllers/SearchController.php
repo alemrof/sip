@@ -23,7 +23,7 @@ class SearchController extends Controller
         $companies = Company::all();
         $categories = Category::all();
         $products = DB::select('
-                            select distinct name,warehouse_id from
+                            select distinct name,warehouse_id, price from
                                         (SELECT c.name as category, k.name, k.manufacturer,k.company_id,k.price,k.warehouse_id,k.category_id
                                         from categories as c
                                         INNER JOIN
@@ -56,7 +56,7 @@ class SearchController extends Controller
 
         if ($request['comp'] == 'Dowolna')
             $queryResult = DB::select('
-                            select distinct name,warehouse_id from
+                            select distinct name,warehouse_id,price from
                                         (SELECT c.name as category, k.name, k.manufacturer,k.company_id,k.price,k.warehouse_id
                                         from categories as c
                                         INNER JOIN
@@ -78,7 +78,7 @@ class SearchController extends Controller
                             WHERE (j.category = ?)',[$request['cat']]);
         else
             $queryResult = DB::select('
-                            select distinct name,warehouse_id from
+                            select distinct name,warehouse_id,price from
                                         (SELECT c.name as category, k.name, k.manufacturer,k.company_id,k.price,k.warehouse_id
                                         from categories as c
                                         INNER JOIN

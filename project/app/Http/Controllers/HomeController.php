@@ -24,12 +24,20 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index() {
-        $warehouses = Warehouse::with('company')->get();
-        $warehouses = $warehouses->where('location', '!=' ,null);
-        $openingHours = OpeningHours::all();
+    public function index($id=0) {
+        if ($id == 0){
+            $warehouses = Warehouse::with('company')->get();
+            $warehouses = $warehouses->where('location', '!=' ,null);
+            $openingHours = OpeningHours::all();
+        }
+        else{
+            $warehouses = Warehouse::with('company')->get();
+            $warehouses = $warehouses->where('id', '=' ,$id);
+            $openingHours = OpeningHours::all();
+        }
+
         return view(
-            'index', 
+            'index',
             [
                 'warehouses' => $warehouses,
                 'openingHours' => $openingHours

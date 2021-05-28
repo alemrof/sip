@@ -343,13 +343,20 @@ function send(form) {
     let productSearchName = document.querySelector('#product-search-name');
     let searchedproduct = productSearchName.value;
     let ChosenWarehouses=[];
+    let whWithLowPrice = null;
     for (let prod of products) {
-        if (deepEqual(prod.name,searchedproduct)) {
-            ChosenWarehouses.push(prod);
+        if (deepEqual(prod.name, searchedproduct)) {
+            if (whWithLowPrice == null)
+                whWithLowPrice = prod;
+            else {
+                if (prod.price <= whWithLowPrice.price)
+                    whWithLowPrice = prod;
+            }
         }
-         $("#secret").val(ChosenWarehouses[0])
-
     }
+    $("#secret").val(whWithLowPrice.warehouse_id)
+
+
     //alert('Please correct the errors in the form and js!');
 }
 

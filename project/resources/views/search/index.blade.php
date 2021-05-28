@@ -37,13 +37,15 @@
   </div>
   <div class="col-md-2">
     <div class="form-group">
-      <label>Max cena</label>
-      <input type="text" id="product-search-max-price" class="form-control bg-white  border-1 small"  aria-label="Search" aria-describedby="basic-addon2">
+      <label>Szukaj dla </label>
+        <select class="form-control" id="sel2" >
+
+                <option>Najniższej ceny</option>
+                <option>Najbliższego składu</option>
+        </select>
+
     </div>
-    <div class="form-group">
-      <label>Max dystans (km)</label>
-      <input type="text" id="product-search-max-distance" class="form-control bg-white  border-1 small"  aria-label="Search" aria-describedby="basic-addon2">
-    </div>
+
   </div>
   <div >
     <div class="form-group ui-widget">
