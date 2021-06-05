@@ -10,8 +10,6 @@
 <script>
   let products = JSON.parse('{!! json_encode($products) !!}');
   let names = products.map(products => products.name);
-
-
 </script>
 
 <form name="product-search-form" class=" mr-auto ml-md-3 my-2 my-md-0 mw-100 "id="product-search-form" method="get" action="/" onsubmit="return send(this)">
@@ -38,12 +36,10 @@
   <div class="col-md-2">
     <div class="form-group">
       <label>Szukaj dla </label>
-        <select class="form-control" id="sel2" >
-
+        <select class="form-control" id="sel3" >
                 <option>Najniższej ceny</option>
                 <option>Najbliższego składu</option>
         </select>
-
     </div>
 
   </div>
@@ -99,7 +95,6 @@
 <script>
 $(function () {
     let list = names;
-    alert(names);
       $("#product-search-name").autocomplete({
           source: list,
       });

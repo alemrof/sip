@@ -1,3 +1,4 @@
+
 const warehouseIconSrc = '../imgs/warehouse-icon-20px.png';
 const params = new URLSearchParams(window.location.search);
 let selectedWarehouses = [];
@@ -342,19 +343,36 @@ if (params.has('id')) {
 function send(form) {
     let productSearchName = document.querySelector('#product-search-name');
     let searchedproduct = productSearchName.value;
-    let ChosenWarehouses=[];
-    let whWithLowPrice = null;
+    let whSearched = null;
+    let minDist= 0;
+    let newDist= 0;
     for (let prod of products) {
         if (deepEqual(prod.name, searchedproduct)) {
-            if (whWithLowPrice == null)
-                whWithLowPrice = prod;
-            else {
-                if (prod.price <= whWithLowPrice.price)
-                    whWithLowPrice = prod;
+
+            if(document.querySelector('#sel3').value == "Najbliższego składu") {
+                if (whSearched == null){
+                    whSearched = prod;
+                    minDist=ol.sphere.getDistance(userCoordinates, [prod.x, prod.y]);
+                }
+                else {
+                   newDist = ol.sphere.getDistance(userCoordinates, [prod.x, prod.y]);
+                    if (newDist < minDist) {
+                        minDist = newDist;
+                        whSearched = prod;
+                    }
+                }
+            }
+            else{
+                if (whSearched == null)
+                    whSearched = prod;
+                else {
+                    if (prod.price <= whSearched.price)
+                        whSearched = prod;
+                }
             }
         }
     }
-    $("#secret").val(whWithLowPrice.warehouse_id)
+    $("#secret").val(whSearched.warehouse_id)
 
 
     //alert('Please correct the errors in the form and js!');
@@ -379,7 +397,6 @@ function deepEqual(object1, object2) {
             return false;
         }
     }
-
     return true;
 }
 

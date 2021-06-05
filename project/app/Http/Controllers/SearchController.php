@@ -23,14 +23,14 @@ class SearchController extends Controller
         $companies = Company::all();
         $categories = Category::all();
         $products = DB::select('
-                            select distinct name,warehouse_id, price from
-                                        (SELECT c.name as category, k.name, k.manufacturer,k.company_id,k.price,k.warehouse_id,k.category_id
+                            select distinct name,warehouse_id, price,x, y  from
+                                        (SELECT c.name as category, k.name, k.manufacturer,k.company_id,k.price,k.warehouse_id,k.category_id, ST_X(k.location) as x, ST_Y(k.location) as y
                                         from categories as c
                                         INNER JOIN
-                                            (SELECT  p.name, p.category_id, p.manufacturer,pww.company_id ,pww.price,pww.warehouse_id
+                                            (SELECT  p.name, p.category_id, p.manufacturer,pww.company_id ,pww.price,pww.warehouse_id,pww.location
                                             FROM products as p
                                             INNER JOIN
-                                                (select pwh.warehouse_id, pwh.product_id,pwh.price,w.company_id
+                                                (select pwh.warehouse_id, pwh.product_id,pwh.price,w.company_id, w.location
                                                     from product_warehouse as pwh
                                                     inner join warehouses as w
                                                     on pwh.warehouse_id = w.id
@@ -43,7 +43,8 @@ class SearchController extends Controller
                             on
                             g.id=j.company_id
                             WHERE (j.category_id = ?)',[1]);
-
+                            //print_r($products);
+                            //die;
           return view('search.index',['companies' => $companies, 'categories' => $categories, 'products' => $products]);
     }
 
@@ -55,15 +56,15 @@ class SearchController extends Controller
         ]);
 
         if ($request['comp'] == 'Dowolna')
-            $queryResult = DB::select('
-                            select distinct name,warehouse_id,price from
-                                        (SELECT c.name as category, k.name, k.manufacturer,k.company_id,k.price,k.warehouse_id
+            $queryResult = DB::select(DB::raw('
+                            select distinct name,warehouse_id,price,x,y from
+                                        (SELECT c.name as category, k.name, k.manufacturer,k.company_id,k.price,k.warehouse_id, ST_X(k.location) as x, ST_Y(k.location) as y
                                         from categories as c
                                         INNER JOIN
-                                            (SELECT  p.name, p.category_id, p.manufacturer,pww.company_id ,pww.price,pww.warehouse_id
+                                            (SELECT  p.name, p.category_id, p.manufacturer,pww.company_id ,pww.price,pww.warehouse_id, pww.location
                                             FROM products as p
                                             INNER JOIN
-                                                (select pwh.warehouse_id, pwh.product_id,pwh.price,w.company_id
+                                                (select pwh.warehouse_id, pwh.product_id,pwh.price,w.company_id, w.location
                                                     from product_warehouse as pwh
                                                     inner join warehouses as w
                                                     on pwh.warehouse_id = w.id
@@ -75,17 +76,17 @@ class SearchController extends Controller
                              (select companies.id,companies.name as company from companies) as g
                             on
                             g.id=j.company_id
-                            WHERE (j.category = ?)',[$request['cat']]);
+                            WHERE (j.category = ?)'),[$request['cat']]);
         else
-            $queryResult = DB::select('
-                            select distinct name,warehouse_id,price from
-                                        (SELECT c.name as category, k.name, k.manufacturer,k.company_id,k.price,k.warehouse_id
+            $queryResult = DB::select(DB::raw('
+                            select distinct name,warehouse_id,price,x,y from
+                                        (SELECT c.name as category, k.name, k.manufacturer,k.company_id,k.price,k.warehouse_id,ST_X(k.location) as x, ST_Y(k.location) as y
                                         from categories as c
                                         INNER JOIN
-                                            (SELECT  p.name, p.category_id, p.manufacturer,pww.company_id ,pww.price,pww.warehouse_id
+                                            (SELECT  p.name, p.category_id, p.manufacturer,pww.company_id ,pww.price,pww.warehouse_id,pww.location
                                             FROM products as p
                                             INNER JOIN
-                                                (select pwh.warehouse_id, pwh.product_id,pwh.price,w.company_id
+                                                (select pwh.warehouse_id, pwh.product_id,pwh.price,w.company_id,w.location
                                                     from product_warehouse as pwh
                                                     inner join warehouses as w
                                                     on pwh.warehouse_id = w.id
@@ -97,7 +98,7 @@ class SearchController extends Controller
                              (select companies.id,companies.name as company from companies) as g
                             on
                             g.id=j.company_id
-                            WHERE (j.category = ? AND g.company = ?)',[$request['cat'], $request['comp']]);
+                            WHERE (j.category = ? AND g.company = ?)'),[$request['cat'], $request['comp']]);
         return response()->json($queryResult);
     }
 }
