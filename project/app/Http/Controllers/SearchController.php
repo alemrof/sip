@@ -43,8 +43,7 @@ class SearchController extends Controller
                             on
                             g.id=j.company_id
                             WHERE (j.category_id = ?)',[1]);
-                            //print_r($products);
-                            //die;
+
           return view('search.index',['companies' => $companies, 'categories' => $categories, 'products' => $products]);
     }
 
