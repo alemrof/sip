@@ -20,6 +20,7 @@ class SearchController extends Controller
 
     public function index()
     {
+
         $companies = Company::all();
         $categories = Category::all();
         $products = DB::select('
@@ -49,7 +50,7 @@ class SearchController extends Controller
 
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
-        $data = $request->validate([
+        $request->validate([
             'cat' => 'required|max:255',
             'comp' => 'required|max:255'
         ]);
@@ -100,4 +101,5 @@ class SearchController extends Controller
                             WHERE (j.category = ? AND g.company = ?)'),[$request['cat'], $request['comp']]);
         return response()->json($queryResult);
     }
+
 }

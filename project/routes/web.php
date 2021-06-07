@@ -30,18 +30,20 @@ Route::resource('/categories', CategoryController::class);
 Route::resource('/products', ProductController::class);
 Route::resource('/warehouses', WarehouseController::class);
 Route::resource('/search', SearchController::class);
+
 Route::get('/warehouses/{id}/editMap', [WarehouseController::class, 'editMap'])->name('warehouses.editMap');
 Route::post('/warehouses/{id}/updateMap', [WarehouseController::class, 'updateMap'])->name('warehouses.updateMap');
-
 Route::get('/warehouses/{id}/offer', [ProductWarehouseController::class, 'index'])->name('offers.index');
 Route::get('/warehouses/{warehouse_id}/offer/{id}', [ProductWarehouseController::class, 'show'])->name('offers.show');
 Route::get('/warehouses/{id}/offer/create', [ProductWarehouseController::class, 'create'])->name('offers.create');
 Route::post('/warehouses/{id}/offer/store', [ProductWarehouseController::class, 'store'])->name('offers.store');
+
 Route::get('/warehouses/{warehouse_id}/offer/{id}/edit', [ProductWarehouseController::class, 'edit'])->name('offers.edit');
 Route::put('/warehouses/{warehouse_id}/offer/{id}', [ProductWarehouseController::class, 'update'])->name('offers.update');
 Route::delete('/warehouses/{warehouse_id}/offer/{id}', [ProductWarehouseController::class, 'destroy'])->name('offers.destroy');
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::post('/Home/updateCoords', [HomeController::class, 'updateCoords'])->name('updateCoords');
 
 Route::get('/generate-data', function() {
     (new DatabaseSeeder())->run();

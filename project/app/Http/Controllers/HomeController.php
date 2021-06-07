@@ -25,6 +25,7 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index($id=0) {
+
         if ($id == 0){
             $warehouses = Warehouse::with('company')->get();
             $warehouses = $warehouses->where('location', '!=' ,null);
@@ -44,4 +45,17 @@ class HomeController extends Controller
             ]
         );
     }
+    public function updateCoords(Request $request)
+    {
+        $data = $request->validate([
+            'x' => 'required',
+            'y' => 'required'
+        ]);
+
+        session()->put('x',(float)$data['x']);
+        session()->put('y',(float)$data['y']);
+        session()->save();
+        return response()->json($data);
+    }
+
 }

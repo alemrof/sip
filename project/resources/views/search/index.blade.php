@@ -10,6 +10,8 @@
 <script>
   let products = JSON.parse('{!! json_encode($products) !!}');
   let names = products.map(products => products.name);
+  alert(userCoordinates[0]);
+
 </script>
 
 <form name="product-search-form" class=" mr-auto ml-md-3 my-2 my-md-0 mw-100 "id="product-search-form" method="get" action="/" onsubmit="return send(this)">

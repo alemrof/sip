@@ -105,6 +105,12 @@
   <!-- Custom scripts for all pages-->
   <script src="{{asset('js/sb-admin-2.js')}}"></script>
 
+  <script>
+      let userCoordinates =[];
+      userCoordinates[0] = JSON.parse("{{ json_encode(session()->get('x',18)) }}");
+      userCoordinates[1] = JSON.parse("{{ json_encode(session()->get('y',54)) }}");
+  </script>
+
   @yield('custom-scripts')
 
 </body>
