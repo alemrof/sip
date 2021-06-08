@@ -33,6 +33,10 @@ class Warehouse extends Model
         return $this->belongsToMany(Product::class)->withPivot('id', 'price');;
     }
 
+    public function warehouseImages() {
+        return $this->hasMany(WarehouseImage::class);
+    }
+
     public function calculateRating() {
         $comments = $this->warehouseComments;
         $ratingSum = 0;

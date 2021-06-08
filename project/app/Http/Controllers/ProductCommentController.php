@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\WarehouseComment;
-use App\Models\Warehouse;
+use App\Models\ProductComment;
+use App\Models\Product;
 
-class WarehouseCommentController extends Controller
+class ProductCommentController extends Controller
 {
     public function __construct()
     {
@@ -20,44 +20,42 @@ class WarehouseCommentController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function store(Request $request, $warehouse_id)
+    public function store(Request $request, $product_id)
     {
         $this->validate($request, [
             'content'=>'required|max:255'
         ]);
-        $comment = new WarehouseComment;
+        $comment = new ProductComment;
         $comment->content = $request->content;
         $comment->rating = $request->rating;
-        $comment->warehouse_id = $warehouse_id;
+        $comment->product_id = $product_id;
         $comment->user_id = auth()->user()->id;
         $comment->save();
 
         if ($comment->rating != 0)
         {
-            $warehouse = Warehouse::find($warehouse_id);
-            if ($warehouse) 
+            $product = Product::find($product_id);
+            if ($product) 
             {
-                $warehouse->calculateRating();
+                $product->calculateRating();
             }
         }
-
-        // return redirect('/warehouses/' . $warehouse_id);
         return back()
             ->with('success', 'Dziękujemy za Twoją ocenę!.');
     }
 
     public function destroy(Request $request)
     {
-        $comment = WarehouseComment::find($request->id);
+        $comment = ProductComment::find($request->id);
         if ($comment) 
         {
-            WarehouseComment::find($request->id)->delete();
-            $warehouse = Warehouse::find($request->warehouse_id);
-            if ($warehouse) 
+            ProductComment::find($request->id)->delete();
+            $product = Product::find($request->product_id);
+            if ($product) 
             {
-                $warehouse->calculateRating();
+                $product->calculateRating();
             }
         }
-        return redirect('/warehouses/'. $request->warehouse_id);
+        return redirect('/products/'. $request->product_id);
     }
 }

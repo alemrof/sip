@@ -50,7 +50,8 @@ class ProductController extends Controller
         ]);
         Product::create($request->all());
 
-        return redirect('/products');
+        return redirect('/products')
+            ->with('success', 'Dodano nowy produkt.');
     }
 
     /**
@@ -63,7 +64,10 @@ class ProductController extends Controller
     {
         $product = Product::with('category')->find($id);
         if ($product) {
-            return view('products.show', compact('product'));
+            $comments = $product->productComments;
+            $images = $product->productImages;
+
+            return view('products.show', compact('product', 'comments', 'images'));
         } else {
             return redirect('/products');
         }
@@ -107,7 +111,8 @@ class ProductController extends Controller
             
             Product::find($id)->update($request->all());
         }
-        return redirect('/products');
+        return redirect('/products')
+            ->with('success', 'Pomyślnie zedytowano produkt.');
     }
 
     /**
@@ -122,6 +127,7 @@ class ProductController extends Controller
         if ($product) {
             Product::find($id)->delete();
         }
-        return redirect('/products');
+        return redirect('/products')
+            ->with('success', 'Pomyślnie usunięto produkt.');
     }
 }

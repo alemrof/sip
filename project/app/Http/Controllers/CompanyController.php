@@ -46,7 +46,8 @@ class CompanyController extends Controller
         ]);
 
         Company::create($request->all());
-        return redirect('/companies');
+        return redirect('/companies')
+            ->with('success', 'Dodano nową sieć magazynów.');
     }
 
     /**
@@ -97,7 +98,8 @@ class CompanyController extends Controller
             ]);
             Company::find($id)->update($request->all());
         }
-        return redirect('/companies');
+        return redirect('/companies')
+            ->with('success', 'Pomyślnie zedytowano sieć magazynów.');
     }
 
     /**
@@ -112,6 +114,7 @@ class CompanyController extends Controller
         if ($company) {
             Company::find($id)->delete();
         }
-        return redirect('/companies');
+        return redirect('/companies')
+            ->with('success', 'Pomyślnie usunięto sieć magazynów.');
     }
 }

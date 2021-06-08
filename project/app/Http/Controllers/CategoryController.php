@@ -46,7 +46,8 @@ class CategoryController extends Controller
         ]);
 
         Category::create($request->all());
-        return redirect('/categories');
+        return redirect('/categories')
+            ->with('success', 'Dodano nową kategorię produktów.');
     }
 
     /**
@@ -97,7 +98,8 @@ class CategoryController extends Controller
             ]);
             Category::find($id)->update($request->all());
         }
-        return redirect('/categories');
+        return redirect('/categories')
+            ->with('success', 'Pomyślnie zedytowano kategorię produktów.');
     }
 
     /**
@@ -112,6 +114,7 @@ class CategoryController extends Controller
         if ($category) {
             Category::find($id)->delete();
         }
-        return redirect('/categories');
+        return redirect('/categories')
+            ->with('success', 'Pomyślnie usunięto kategorię produktów.');
     }
 }
