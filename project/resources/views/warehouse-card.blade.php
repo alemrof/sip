@@ -24,7 +24,7 @@
                 </ul>
             </div>
         {{-- Hours --}}
-            <div class="tab-pane" id="hours" role="tabpanel" aria-labelledby="hours-tab"> 
+            <div class="tab-pane" id="hours" role="tabpanel" aria-labelledby="hours-tab">
                 <h5 class="card-title">Godziny otwarcia:</h5>
                 <table>
                     <tr>

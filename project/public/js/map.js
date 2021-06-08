@@ -1,8 +1,16 @@
+
 const warehouseIconSrc = '../imgs/warehouse-icon-20px.png';
+const posIconSrc = '../imgs/pos-icon-20px.png';
 const params = new URLSearchParams(window.location.search);
 let selectedWarehouses = [];
 let selectedWarehouseNumber = 0;
-let userCoordinates = [18.65, 54.35];
+let posChange=false;
+
+$('#coord-x').val(userCoordinates[0]);
+$('#coord-y').val(userCoordinates[1]);
+$('#coordsText1').val(userCoordinates[0]);
+$('#coordsText2').val(userCoordinates[1]);
+
 
 // Tworzenie źródła na podstawie danych przesłanych z bazy danych
 let vectorSource = new ol.source.Vector();
@@ -180,7 +188,7 @@ function updatePopup(id) {
         let dayHours = hours.filter(e => e.weekday == day)[0];
         document.querySelector("#" + day + "-hours").innerHTML = formatHours(dayHours.start_hour, dayHours.end_hour);
     });
-    
+
     let warehouseLocation = document.querySelector('#warehouse-location');
     let firstCoordinate = Math.round(ol.proj.toLonLat(coordinates)[0] * 100000) / 100000;
     let secondCoordinate = Math.round(ol.proj.toLonLat(coordinates)[1] * 100000) / 100000;
@@ -250,7 +258,7 @@ select.on('select', function (e) {
         selectedWarehouseNumber = 0;
 
         if (e.target.getFeatures().item(0).get('features')) {
-            selectedWarehouses = e.target.getFeatures().item(0).get('features');            
+            selectedWarehouses = e.target.getFeatures().item(0).get('features');
         }
 
         if (selectedWarehouses) {
@@ -313,7 +321,7 @@ warehouseSearch.addEventListener('submit', (e) => {
     let serachedWarehouse = warehouseSearchName.value;
     selectedWarehouses = [];
     select.getFeatures().clear();
-    
+
     for (let warehouse of warehouses) {
         if (warehouse.name.includes(serachedWarehouse)) {
             selectedWarehouses.push(vectorSource.getFeatureById(warehouse.id));
@@ -339,3 +347,202 @@ if (params.has('id')) {
         view.setCenter(selectedWarehouses[0].getGeometry().getCoordinates());
     }
 }
+
+//Wyszukiwanie produktow wg roznych kryteriow
+function send(form) {
+    let productSearchName = document.querySelector('#product-search-name');
+    let searchedproduct = productSearchName.value;
+    let whSearched = null;
+    let minDist= 0;
+    let newDist= 0;
+    for (let prod of products) {
+        if (deepEqual(prod.name, searchedproduct)) {
+            if(document.querySelector('#sel3').value == "Najbliższego składu") {
+                let warehouseCoordinates = [prod.x,prod.y];
+                if (whSearched == null){
+                    whSearched = prod;
+                    minDist=ol.sphere.getDistance(userCoordinates, [prod.x, prod.y]);
+
+                    let req = new XMLHttpRequest();
+                    req.open('POST', "https://api.openrouteservice.org/v2/directions/driving-car");
+
+                    req.setRequestHeader('Accept', 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8');
+                    req.setRequestHeader('Content-Type', 'application/json');
+                    req.setRequestHeader('Authorization', '5b3ce3597851110001cf6248d497e3ae60ae4e0da2dddd72b6f0a3ac');
+
+                    req.onreadystatechange = function () {
+                        if (this.readyState === 4) {
+                            let result = JSON.parse(this.responseText);
+                            console.log(result);
+                            minDist = result.routes[0].summary.distance;
+
+                        }
+                    };
+                    const body = `{"coordinates":[[${userCoordinates[0]}, ${userCoordinates[1]}],[${warehouseCoordinates[0]},${warehouseCoordinates[1]}]]}`;
+                    req.send(body);
+                }
+                else {
+                    newDist = ol.sphere.getDistance(userCoordinates, [prod.x, prod.y]);
+                    let req = new XMLHttpRequest();
+                    req.open('POST', "https://api.openrouteservice.org/v2/directions/driving-car");
+
+                    req.setRequestHeader('Accept', 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8');
+                    req.setRequestHeader('Content-Type', 'application/json');
+                    req.setRequestHeader('Authorization', '5b3ce3597851110001cf6248d497e3ae60ae4e0da2dddd72b6f0a3ac');
+
+                    req.onreadystatechange = function () {
+                        if (this.readyState === 4) {
+                            let result = JSON.parse(this.responseText);
+                            console.log(result);
+                            minDist = result.routes[0].summary.distance;
+                        }
+                    };
+                    const body = `{"coordinates":[[${userCoordinates[0]}, ${userCoordinates[1]}],[${warehouseCoordinates[0]},${warehouseCoordinates[1]}]]}`;
+                    req.send(body);
+
+                    if (newDist < minDist) {
+                        minDist = newDist;
+                        whSearched = prod;
+                    }
+                }
+            }
+            else{
+                if (whSearched == null)
+                    whSearched = prod;
+                else {
+                    if (prod.price <= whSearched.price)
+                        whSearched = prod;
+                }
+            }
+        }
+    }
+    $("#secret").val(whSearched.warehouse_id)
+
+
+
+}
+
+//Porownywanie dwoch objektow
+function deepEqual(object1, object2) {
+    const keys1 = Object.keys(object1);
+    const keys2 = Object.keys(object2);
+
+    if (keys1.length !== keys2.length) {
+        return false;
+    }
+
+    for (const key of keys1) {
+        const val1 = object1[key];
+        const val2 = object2[key];
+        const areObjects = isObject(val1) && isObject(val2);
+        if (
+            areObjects && !deepEqual(val1, val2) ||
+            !areObjects && val1 !== val2
+        ) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function isObject(object) {
+    return object != null && typeof object === 'object';
+}
+
+//Ustawianie pozycji na mapie
+
+self.map.on("singleclick", function(evt){
+    if (posChange==true)
+        setPinOnMap(evt);
+})
+function setPinOnMap(evt){
+    var self = this;
+
+    var latLong = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
+    var lat     = latLong[1];
+    var long    = latLong[0];
+    userCoordinates= latLong;
+    $('#coordsText1').val(userCoordinates[0]);
+    $('#coordsText2').val(userCoordinates[1]);
+
+    if(self.dinamicPinLayer !== undefined){
+        console.log("moove")
+        self.iconGeometry.setCoordinates(evt.coordinate);
+        //or create another pin
+    } else {
+        self.iconGeometry = new ol.geom.Point(evt.coordinate);
+        var iconFeature = new ol.Feature({
+            geometry: self.iconGeometry,
+            name: 'Null'
+
+        });
+        var iconStyle = new ol.style.Style({
+            image: new ol.style.Icon(({
+                anchor: [0.1, 0.1],
+                anchorXUnits: 'fraction',
+                anchorYUnits: 'pixels',
+                size: [24, 24],
+                opacity: 1,
+                src: posIconSrc
+            }))
+        });
+
+        iconFeature.setStyle(iconStyle);
+
+        var vectorSource = new ol.source.Vector({
+            features: [iconFeature]
+        });
+        self.dinamicPinLayer = new ol.layer.Vector({
+            source: vectorSource
+        });
+        self.map.addLayer(self.dinamicPinLayer);
+    }
+
+
+}
+
+function posButtonChange(button){
+    if (posChange == false)
+        posChange=true;
+    else if (posChange == true)
+        posChange=false;
+}
+
+$(document).ready(function (){
+    $('#change-button').on('click', function (){
+        var text = $('#change-button').text();
+        if (text == "Ustaw nowa pozycje"){
+            $(this).text('Zakończ ustawianie')
+            $('#coordsText2').addClass("d-none")
+            $('#coordsText1').addClass("d-none")
+            $('#warehouse-search-name').addClass("d-none")
+            $('#warehouse-search-button').addClass("d-none")
+            $('#update-coords-button').addClass("d-none")
+        }
+        else{
+            $(this).text('Ustaw nowa pozycje');
+        $('#coordsText2').removeClass('d-none')
+        $('#coordsText1').removeClass('d-none')
+        $('#warehouse-search-name').removeClass('d-none')
+        $('#warehouse-search-button').removeClass('d-none')
+        $('#update-coords-button').removeClass('d-none')
+                let formData = {
+                    x: parseFloat(document.getElementById("coordsText1").value),
+                    y: parseFloat(document.getElementById("coordsText2").value),
+                    _token : $('meta[name="csrf-token"]').attr('content'),
+                };
+                $.ajax({
+                    type:'POST',
+                    url:'/Home/updateCoords',
+                    dataType: 'json',
+                    data: formData,
+                    success: function (data) {
+                        },
+
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+        }
+    })
+});

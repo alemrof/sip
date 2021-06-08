@@ -12,7 +12,7 @@ class ProductController extends Controller
     {
         $this->middleware(['auth', 'isAdmin'], ['except' => ['index', 'show']]);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -108,7 +108,7 @@ class ProductController extends Controller
                 'company_id'=>'required',
                 'manufacturer'=>'required|max:15'
             ]);
-            
+
             Product::find($id)->update($request->all());
         }
         return redirect('/products')
