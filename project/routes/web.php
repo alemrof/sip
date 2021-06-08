@@ -10,6 +10,7 @@ use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductWarehouseController;
+use App\Http\Controllers\WarehouseCommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,9 @@ Route::post('/warehouses/{id}/offer/store', [ProductWarehouseController::class, 
 Route::get('/warehouses/{warehouse_id}/offer/{id}/edit', [ProductWarehouseController::class, 'edit'])->name('offers.edit');
 Route::put('/warehouses/{warehouse_id}/offer/{id}', [ProductWarehouseController::class, 'update'])->name('offers.update');
 Route::delete('/warehouses/{warehouse_id}/offer/{id}', [ProductWarehouseController::class, 'destroy'])->name('offers.destroy');
+
+Route::post('/warehouses/{warehouse_id}/comment/store', [WarehouseCommentController::class, 'store'])->name('comment.store');
+Route::delete('/warehouses/{warehouse_id}/comment/{id}', [WarehouseCommentController::class, 'destroy'])->name('comment.destroy');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 

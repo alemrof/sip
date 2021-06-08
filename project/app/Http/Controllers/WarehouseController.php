@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Warehouse;
 use App\Models\Company;
+use App\Models\WarehouseComment;
 use Grimzy\LaravelMysqlSpatial\Types\Point;
 
 class WarehouseController extends Controller
@@ -63,8 +64,11 @@ class WarehouseController extends Controller
     public function show($id)
     {
         $warehouse = Warehouse::with('company')->find($id);
+        
         if ($warehouse) {
-            return view('warehouses.show', compact('warehouse'));
+            $comments = $warehouse->warehouseComments;
+            
+            return view('warehouses.show', compact('warehouse', 'comments'));
         } else {
             return redirect('/warehouses');
         }

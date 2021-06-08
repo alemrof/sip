@@ -23,20 +23,35 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Role::create(['name'=>'User']);
-        Role::create(['name'=>'Admin']);
+        $userRole = Role::create(['name'=>'User']);
+        $adminRole = Role::create(['name'=>'Admin']);
+        $moderatorRole = Role::create(['name'=>'Moderator']);
         
         User::create([
-            'role_id' => 1,
-            'name' => 'Tomasz Formela',
-            'email' => 'tomek@tomek.com',
-            'password' => Hash::make('tomek123')
+            'role_id' => $userRole->id,
+            'name' => 'Użytkownik 1',
+            'email' => 'user1@mail.com',
+            'password' => Hash::make('password')
         ]);
 
         User::create([
-            'role_id'=>2,
+            'role_id' => $userRole->id,
+            'name' => 'Użytkownik 2',
+            'email' => 'user2@mail.com',
+            'password' => Hash::make('password')
+        ]);
+
+        User::create([
+            'role_id'=> $adminRole->id,
             'name'=>'Admin',
-            'email'=>'admin@admin.com', 
+            'email'=>'admin@mail.com', 
+            'password'=>Hash::make('password')
+        ]);
+
+        User::create([
+            'role_id'=> $moderatorRole->id,
+            'name'=>'Moderator',
+            'email'=>'moderator@mail.com', 
             'password'=>Hash::make('password')
         ]);
 
@@ -47,25 +62,29 @@ class DatabaseSeeder extends Seeder
             'name' => 'Castorama Gdańsk Oliwa',
             'company_id' => $castorama->id,
             'address' => 'aleja Grunwaldzka 262, 80-314 Gdańsk',
-            'location' => new Point(54.396006808244124, 18.577674827404387)
+            'location' => new Point(54.396006808244124, 18.577674827404387),
+            'rating' => 0
         ]);
         $wh2 = Warehouse::create([
             'name' => 'Castorama Odyseusza',
             'company_id' => $castorama->id,
             'address' => 'Odyseusza 2, 80-299 Gdańsk',
-            'location' => new Point(54.43233463765607, 18.486433086502654)
+            'location' => new Point(54.43233463765607, 18.486433086502654),
+            'rating' => 0
         ]);
         $wh3 = Warehouse::create([
             'name' => 'Leroy Merlin Gdańsk Oliwa',
             'company_id' => $leroyMerlin->id,
             'address' => 'aleja Grunwaldzka 309, 80-309 Gdańsk',
-            'location' => new Point(54.39463073834571, 18.58101521551848)
+            'location' => new Point(54.39463073834571, 18.58101521551848),
+            'rating' => 0
         ]);
         $wh4 = Warehouse::create([
             'name' => 'Leroy Merlin Gdańsk',
             'company_id' => $leroyMerlin->id,
             'address' => 'Szczęśliwa 7, 80-176 Gdańsk',
-            'location' => new Point(54.35313340101314, 18.521470337609315)
+            'location' => new Point(54.35313340101314, 18.521470337609315),
+            'rating' => 0
         ]);
 
         // Opening Hours

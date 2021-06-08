@@ -217,6 +217,7 @@ routeLink.addEventListener('click', function (e) {
         request.onreadystatechange = function () {
             if (this.readyState === 4) {
                 let result = JSON.parse(this.responseText);
+                console.log(result);
                 let polyline = result.routes[0].geometry;
                 let route = new ol.format.Polyline({
                 }).readGeometry(polyline, {

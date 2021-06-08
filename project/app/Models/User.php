@@ -53,4 +53,32 @@ class User extends Authenticatable
             return false;
         }
     }
+
+    public function isModerator() {
+        $role = $this->role->name;
+        if ($role == 'Admin' || $role == 'Moderator') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function warehouseComments() {
+        return $this->hasMany(WarehouseComment::class);
+    }
+
+    public function hasComment($warehouse_id) {
+        $warehouse = Warehouse::with('company')->find($warehouse_id);
+        if ($warehouse) {
+            $comments = $warehouse->warehouseComments;
+            foreach ($comments as $comment)
+            {
+                if ($comment->user_id == $this->id)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

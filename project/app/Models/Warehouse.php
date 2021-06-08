@@ -24,8 +24,36 @@ class Warehouse extends Model
     public function openingHours() {
         return $this->hasMany(OpeningHours::class);
     }
+
+    public function warehouseComments() {
+        return $this->hasMany(WarehouseComment::class);
+    }
     
     public function products() {
         return $this->belongsToMany(Product::class)->withPivot('id', 'price');;
+    }
+
+    public function calculateRating() {
+        $comments = $this->warehouseComments;
+        $ratingSum = 0;
+        $numberOfRatings = 0;
+
+        foreach ($comments as $comment)
+        {
+            if ($comment->rating != 0)
+            {
+                $ratingSum += $comment->rating;
+                $numberOfRatings++;
+            }
+        }
+        if ($numberOfRatings > 0)
+        {
+            $this->rating = $ratingSum / $numberOfRatings;
+        }
+        else
+        {
+            $this->rating = 0;
+        }
+        $this->save();
     }
 }
