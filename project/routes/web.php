@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SearchController;
 use Carbon\Carbon;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Support\Facades\Auth;
@@ -34,16 +35,17 @@ Auth::routes();
 Route::resource('/companies', CompanyController::class);
 Route::resource('/categories', CategoryController::class);
 Route::resource('/products', ProductController::class);
-
 Route::resource('/warehouses', WarehouseController::class);
+Route::resource('/search', SearchController::class);
+
 Route::get('/warehouses/{id}/editMap', [WarehouseController::class, 'editMap'])->name('warehouses.editMap');
 Route::post('/warehouses/{id}/updateMap', [WarehouseController::class, 'updateMap'])->name('warehouses.updateMap');
-
 Route::get('/warehouses/{id}/offer', [ProductWarehouseController::class, 'index'])->name('offers.index');
 Route::get('/warehouses/{id}/offer/create', [ProductWarehouseController::class, 'create'])->name('offers.create');
 Route::get('/warehouses/{warehouse_id}/offer/{id}', [ProductWarehouseController::class, 'show'])->name('offers.show');
 
 Route::post('/warehouses/{id}/offer/store', [ProductWarehouseController::class, 'store'])->name('offers.store');
+
 Route::get('/warehouses/{warehouse_id}/offer/{id}/edit', [ProductWarehouseController::class, 'edit'])->name('offers.edit');
 Route::put('/warehouses/{warehouse_id}/offer/{id}', [ProductWarehouseController::class, 'update'])->name('offers.update');
 Route::delete('/warehouses/{warehouse_id}/offer/{id}', [ProductWarehouseController::class, 'destroy'])->name('offers.destroy');
@@ -61,8 +63,9 @@ Route::post('/products/{id}/image/store', [ProductImageController::class, 'store
 Route::delete('/products/{products_id}/image/{id}', [ProductImageController::class, 'destroy'])->name('product.image.destroy');
 
 
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::post('/Home/updateCoords', [HomeController::class, 'updateCoords'])->name('updateCoords');
 
 Route::get('/generate-data', function() {
     (new DatabaseSeeder())->run();
