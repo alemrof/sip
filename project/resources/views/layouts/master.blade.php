@@ -62,6 +62,7 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
+          <x-alert></x-alert>
 
           <!-- Page Heading -->
           @yield('content')

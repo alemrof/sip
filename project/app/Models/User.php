@@ -67,10 +67,25 @@ class User extends Authenticatable
         return $this->hasMany(WarehouseComment::class);
     }
 
-    public function hasComment($warehouse_id) {
+    public function hasWarehouseComment($warehouse_id) {
         $warehouse = Warehouse::with('company')->find($warehouse_id);
         if ($warehouse) {
             $comments = $warehouse->warehouseComments;
+            foreach ($comments as $comment)
+            {
+                if ($comment->user_id == $this->id)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public function hasProductComment($product_id) {
+        $product = Product::find($product_id);
+        if ($product) {
+            $comments = $product->productComments;
             foreach ($comments as $comment)
             {
                 if ($comment->user_id == $this->id)

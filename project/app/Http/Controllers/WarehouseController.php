@@ -52,7 +52,8 @@ class WarehouseController extends Controller
         ]);
         Warehouse::create($request->all());
 
-        return redirect('/warehouses');
+        return redirect('/warehouses')
+            ->with('success', 'Dodano nowy magazyn.');
     }
 
     /**
@@ -67,8 +68,9 @@ class WarehouseController extends Controller
         
         if ($warehouse) {
             $comments = $warehouse->warehouseComments;
+            $images = $warehouse->warehouseImages;
             
-            return view('warehouses.show', compact('warehouse', 'comments'));
+            return view('warehouses.show', compact('warehouse', 'comments', 'images'));
         } else {
             return redirect('/warehouses');
         }
@@ -112,7 +114,8 @@ class WarehouseController extends Controller
             
             Warehouse::find($id)->update($request->all());
         }
-        return redirect('/warehouses');
+        return redirect('/warehouses')
+            ->with('success', 'Pomyślnie zedytowano magazyn.');
     }
 
     /**
@@ -127,7 +130,8 @@ class WarehouseController extends Controller
         if ($warehouse) {
             Warehouse::find($id)->delete();
         }
-        return redirect('/warehouses');
+        return redirect('/warehouses')
+            ->with('success', 'Pomyślnie usunięto magazyn.');
     }
 
     public function editMap($id)

@@ -27,8 +27,8 @@
                 @auth
                     @if (auth()->user()->isAdmin())
                         <li class="list-group-item d-flex">
-                            <a href="{{route('companies.edit', $category->id)}}" type="button" class="btn btn-light border-dark">Edytuj</a>
-                            <form action="/companies/{{$category->id}}" method="POST" class="ml-2">
+                            <a href="{{route('categories.edit', $category->id)}}" type="button" class="btn btn-light border-dark">Edytuj</a>
+                            <form action="/categories/{{$category->id}}" method="POST" class="ml-2">
                                 {{csrf_field()}}
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input class="btn btn-light border-dark" type="submit" value="Usuń">

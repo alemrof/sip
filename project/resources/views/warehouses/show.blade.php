@@ -2,6 +2,7 @@
 
 @section('custom-styles')
 <link rel="stylesheet" href="{{asset('css/stars.css')}}">
+<link rel="stylesheet" href="{{asset('css/carouselCustomStyle.css')}}">
 @endsection
 
 @section('content')
@@ -18,64 +19,166 @@
                 <span style="margin: auto">{{$warehouse->rating}}</span>        
             @endif
         </h5>
-        <ul class="nav nav-tabs card-header-tabs" id="warehouse-tabs" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active" href="#description" role="tab" aria-controls="description" aria-selected="true">Opis</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#comments" role="tab" aria-controls="comments" aria-selected="false">Opinie</a>
-          </li>
-        </ul>
     </div>
+    
     <div class="card-body">
+        <!-- Wybór zakładki -->
+        <ul class="nav nav-tabs card-header-tabs" id="show-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" href="#description" role="tab" aria-controls="description" aria-selected="true">Opis</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#comments" role="tab" aria-controls="comments" aria-selected="false">Opinie</a>
+            </li>
+        </ul>
+        <!-- Koniec wyboru zakładki -->
+
+        {{-- Zakładki --}}
         <div class="tab-content mt-3">
-        {{-- Description --}}
+            {{-- Opis --}}
             <div class="tab-pane active" id="description" role="tabpanel">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span class="mr-auto">Id:</span>
-                        <span>{{$warehouse->id}}</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span class="mr-auto">Sieć sklepów:</span>
-                        <span>{{$warehouse->company->name}}</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span class="mr-auto">Adres:</span>
-                        <span>{{$warehouse->address}}</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span class="mr-auto">Współrzędne:</span>
-                        <span>{{$warehouse->location}}</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span class="mr-auto">Data utworzenia:</span>
-                        <span>{{$warehouse->created_at}}</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span class="mr-auto">Data aktualizacji:</span>
-                        <span>{{$warehouse->updated_at}}</span>
-                    </li>
-                    <div class="hl"></div>
-                    <li class="list-group-item d-flex">
-                        <a href="{{route('offers.index', $warehouse->id)}}" type="button" class="btn btn-light border-dark">Oferta</a>
-                        <a href="{{route('home', ['id' => $warehouse->id])}}" type="button" class="btn btn-light border-dark ml-2"><i class="fas fa-map-marked-alt"></i></a>
-                        @auth
-                            @if (auth()->user()->isAdmin())
-                                <a href="{{route('warehouses.edit', $warehouse->id)}}" type="button" class="btn btn-light border-dark ml-2">Edytuj</a>
-                                <a href="{{route('warehouses.editMap', $warehouse->id)}}" type="button" class="btn btn-light border-dark ml-2">Edytuj współrzędne</a>
-                                <form action="/warehouses/{{$warehouse->id}}" method="POST" class="ml-auto">
-                                    {{csrf_field()}}
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <input class="btn btn-light border-dark" type="submit" value="Usuń">
-                                </form>
+                <div class="row">
+                    {{-- Atrybuty --}}
+                    <div class="col col-12 col-xl-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span class="mr-auto">Id:</span>
+                                <span>{{$warehouse->id}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span class="mr-auto">Sieć sklepów:</span>
+                                <span>{{$warehouse->company->name}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span class="mr-auto">Adres:</span>
+                                <span>{{$warehouse->address}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span class="mr-auto">Współrzędne:</span>
+                                <span>{{$warehouse->location}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span class="mr-auto">Data utworzenia:</span>
+                                <span>{{$warehouse->created_at}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span class="mr-auto">Data aktualizacji:</span>
+                                <span>{{$warehouse->updated_at}}</span>
+                            </li>
+                            <div class="hl"></div>
+                            <li class="list-group-item d-flex">
+                                <a href="{{route('offers.index', $warehouse->id)}}" type="button" class="btn btn-light border-dark">Oferta</a>
+                                <a href="{{route('home', ['id' => $warehouse->id])}}" type="button" class="btn btn-light border-dark ml-2"><i class="fas fa-map-marked-alt"></i></a>
+                                @auth
+                                    @if (auth()->user()->isAdmin())
+                                        <a href="{{route('warehouses.edit', $warehouse->id)}}" type="button" class="btn btn-light border-dark ml-2">Edytuj</a>
+                                        <a href="{{route('warehouses.editMap', $warehouse->id)}}" type="button" class="btn btn-light border-dark ml-2">Edytuj współrzędne</a>
+                                        <form action="/warehouses/{{$warehouse->id}}" method="POST" class="ml-auto">
+                                            {{csrf_field()}}
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input class="btn btn-light border-dark" type="submit" value="Usuń">
+                                        </form>
+                                    @endif
+                                @endauth
+                            </li>
+                        </ul>
+                    </div>
+                    {{-- Koniec atrybutów --}}
+
+                    {{-- Galeria --}}
+                    <div class="col col-12 col-xl-6 d-flex justify-content-center align-self-center">
+                        
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
+                            @if (count($images) > 0)
+                                <img src="{{asset('imgs/'.$images[0]->name)}}" class="img-thumbnail show-thumbnail-img" alt="...">
+                            @else
+                                <p>Brak zdjęć. Dodaj pierwsze zdjęcie!</p>
                             @endif
-                        @endauth
-                    </li>
-                </ul>
+                        </button>
+                    </div>
+                    {{-- Koniec galerii --}}
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Galeria zdjęć</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="carouselWarehouseImages" class="carousel slide" data-ride="carousel" data-interval="false">
+                                        <div class="carousel-inner">
+                                            @if (count($images) > 0)
+                                                <div class="carousel-item active">
+                                                    <img src="{{asset('imgs/'.$images[0]->name)}}" class="d-block w-100" alt="...">
+                                                    @auth
+                                                        @if (auth()->user()->isAdmin())
+                                                            <form action="/warehouses/{{$warehouse->id}}/image/{{$images[0]->id}}" method="POST" class="ml-auto">
+                                                                {{csrf_field()}}
+                                                                <input type="hidden" name="_method" value="DELETE">
+                                                                <button class="btn btn-danger carousel-delete-image" type="submit">
+                                                                    <i class="fas fa-trash-alt"></i>
+                                                                </button>
+                                                            </form>
+                                                        @endif
+                                                    @endauth
+                                                </div>
+                                                @for ($i = 1; $i < count($images); $i++)
+                                                    <div class="carousel-item">
+                                                        <img src="{{asset('imgs/'.$images[$i]->name)}}" class="d-block w-100" alt="...">
+                                                        @auth
+                                                            @if (auth()->user()->isAdmin())
+                                                                <form action="/warehouses/{{$warehouse->id}}/image/{{$images[$i]->id}}" method="POST" class="ml-auto">
+                                                                    {{csrf_field()}}
+                                                                    <input type="hidden" name="_method" value="DELETE">
+                                                                    <button class="btn btn-danger carousel-delete-image" type="submit">
+                                                                        <i class="fas fa-trash-alt"></i>
+                                                                    </button>
+                                                                </form>
+                                                            @endif
+                                                        @endauth
+                                                    </div>    
+                                                @endfor
+                                            @endif
+                                        </div>
+                                        <a class="carousel-control-prev" href="#carouselWarehouseImages" role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Poprzednie</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carouselWarehouseImages" role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Następne</span>
+                                        </a>
+                                    </div>    
+                                </div>
+                                <div class="modal-footer">
+                                    <form action="{{ route('warehouse.image.store', $warehouse->id) }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <input type="file" name="image" class="form-control">
+                                            </div>
+                                    
+                                            <div class="col-md-4 d-flex justify-content-end">
+                                                <button type="submit" class="btn btn-success border-dark ml-auto">Dodaj</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- Koniec modal --}}
+                </div>
             </div>
+            {{-- Koniec opisu --}}
             
-        {{-- comments --}}
+
+            {{-- Opinie --}}
             <div class="tab-pane" id="comments" role="tabpanel" aria-labelledby="comments-tab"> 
                 <ul class="list-group list-group-flush">
                     @if ($warehouse->rating == 0)
@@ -123,8 +226,8 @@
                         <ul class="list-group">
                             <li class="list-group-item">
                                 @auth
-                                    @if (!auth()->user()->hasComment($warehouse->id))
-                                    <form action="{{route('comment.store', $warehouse->id)}}" method="POST">
+                                    @if (!auth()->user()->hasWarehouseComment($warehouse->id))
+                                    <form action="{{route('warehouse.comment.store', $warehouse->id)}}" method="POST">
                                         {{csrf_field()}}
                             
                                         {{-- Komentarz --}}
@@ -154,12 +257,14 @@
                     </li>
                 </ul>
             </div>
+            {{-- Koniec opinii --}}
         </div>
+        {{-- Koniec zakładek --}}
     </div>
 </div>
 
 @endsection
 
 @section('custom-scripts')
-    <script src="{{asset('js/warehouse-tabs.js')}}"></script>
+    <script src="{{asset('js/show-tabs.js')}}"></script>
 @endsection

@@ -1,0 +1,14 @@
+.carousel-control-prev, .carousel-control-next {
+    height: 50%;
+    top: 25%;
+}
+
+.carousel-delete-image {
+    position: absolute; 
+    right: 1%; 
+    top: 1%
+}
+
+.show-thumbnail-img {
+    max-height: 350px;
+}

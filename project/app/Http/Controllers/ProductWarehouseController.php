@@ -48,7 +48,6 @@ class ProductWarehouseController extends Controller
         } else {
             return redirect('/warehouses/' . $id);
         }
-        
     }
 
     /**
@@ -71,7 +70,8 @@ class ProductWarehouseController extends Controller
         } else {
             return redirect('/warehouses/');
         }
-        return redirect('/warehouses/' . $request->warehouse_id . '/offer');
+        return redirect('/warehouses/' . $request->warehouse_id . '/offer')
+            ->with('success', 'Dodano produkt do oferty magazynu.');
     }
 
     /**
@@ -145,7 +145,8 @@ class ProductWarehouseController extends Controller
         } else {
             return redirect('/warehouses/');
         }
-        return redirect('/warehouses/' . $request->warehouse_id . '/offer');
+        return redirect('/warehouses/' . $request->warehouse_id . '/offer')
+            ->with('success', 'Zaktualizowano ofertę magazynu.');
     }
 
     /**
@@ -160,6 +161,7 @@ class ProductWarehouseController extends Controller
         if ($warehouse) {
             $warehouse->products()->detach($id);
         }
-        return redirect('/warehouses/'. $warehouse_id . '/offer');
+        return redirect('/warehouses/'. $warehouse_id . '/offer')
+            ->with('success', 'Usunięto produkt z oferty magazynu.');
     }
 }
