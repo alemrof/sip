@@ -19,6 +19,7 @@ class CreateWarehousesTable extends Migration
             $table->string('name')->default('test');
             $table->string('address')->default('test');
             $table->point('location')->nullable();
+            $table->double('rating', 2,1)->default(0);
             $table->timestamps();
         });
     }
