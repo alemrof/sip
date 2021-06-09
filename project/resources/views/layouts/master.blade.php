@@ -108,8 +108,8 @@
 
   <script>
       let userCoordinates =[];
-      userCoordinates[0] = JSON.parse("{{ json_encode(session()->get('x',18)) }}");
-      userCoordinates[1] = JSON.parse("{{ json_encode(session()->get('y',54)) }}");
+      userCoordinates[0] = JSON.parse("{{ json_encode(session()->get('x',18.65)) }}");
+      userCoordinates[1] = JSON.parse("{{ json_encode(session()->get('y',54.35)) }}");
   </script>
 
   @yield('custom-scripts')
