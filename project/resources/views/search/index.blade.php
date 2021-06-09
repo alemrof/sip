@@ -13,7 +13,7 @@
   let warehouses = JSON.parse('{!! json_encode($warehouses) !!}');
 </script>
 
-<form name="product-search-form" class=" mr-auto ml-md-3 my-2 my-md-0 mw-100 "id="product-search-form" method="get" action="/search/showProducts" onsubmit="return send(this)">
+<form name="product-search-form" class=" mr-auto ml-md-3 my-2 my-md-0 mw-100 "id="product-search-form" method="get" action="/search/showProducts" >
 
   <div class="col-md-6">
     <div class="form-group">
