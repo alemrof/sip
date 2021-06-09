@@ -348,79 +348,7 @@ if (params.has('id')) {
     }
 }
 
-//Wyszukiwanie produktow wg roznych kryteriow
-function send(form) {
-    let productSearchName = document.querySelector('#product-search-name');
-    let searchedproduct = productSearchName.value;
-    let whSearched = null;
-    let minDist= 0;
-    let newDist= 0;
-    for (let prod of products) {
-        if (deepEqual(prod.name, searchedproduct)) {
-            if(document.querySelector('#sel3').value == "Najbliższego składu") {
-                let warehouseCoordinates = [prod.x,prod.y];
-                if (whSearched == null){
-                    whSearched = prod;
-                    minDist=ol.sphere.getDistance(userCoordinates, [prod.x, prod.y]);
 
-                    let req = new XMLHttpRequest();
-                    req.open('POST', "https://api.openrouteservice.org/v2/directions/driving-car");
-
-                    req.setRequestHeader('Accept', 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8');
-                    req.setRequestHeader('Content-Type', 'application/json');
-                    req.setRequestHeader('Authorization', '5b3ce3597851110001cf6248d497e3ae60ae4e0da2dddd72b6f0a3ac');
-
-                    req.onreadystatechange = function () {
-                        if (this.readyState === 4) {
-                            let result = JSON.parse(this.responseText);
-                            console.log(result);
-                            minDist = result.routes[0].summary.distance;
-
-                        }
-                    };
-                    const body = `{"coordinates":[[${userCoordinates[0]}, ${userCoordinates[1]}],[${warehouseCoordinates[0]},${warehouseCoordinates[1]}]]}`;
-                    req.send(body);
-                }
-                else {
-                    newDist = ol.sphere.getDistance(userCoordinates, [prod.x, prod.y]);
-                    let req = new XMLHttpRequest();
-                    req.open('POST', "https://api.openrouteservice.org/v2/directions/driving-car");
-
-                    req.setRequestHeader('Accept', 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8');
-                    req.setRequestHeader('Content-Type', 'application/json');
-                    req.setRequestHeader('Authorization', '5b3ce3597851110001cf6248d497e3ae60ae4e0da2dddd72b6f0a3ac');
-
-                    req.onreadystatechange = function () {
-                        if (this.readyState === 4) {
-                            let result = JSON.parse(this.responseText);
-                            console.log(result);
-                            minDist = result.routes[0].summary.distance;
-                        }
-                    };
-                    const body = `{"coordinates":[[${userCoordinates[0]}, ${userCoordinates[1]}],[${warehouseCoordinates[0]},${warehouseCoordinates[1]}]]}`;
-                    req.send(body);
-
-                    if (newDist < minDist) {
-                        minDist = newDist;
-                        whSearched = prod;
-                    }
-                }
-            }
-            else{
-                if (whSearched == null)
-                    whSearched = prod;
-                else {
-                    if (prod.price <= whSearched.price)
-                        whSearched = prod;
-                }
-            }
-        }
-    }
-    $("#secret").val(whSearched.warehouse_id)
-
-
-
-}
 
 //Porownywanie dwoch objektow
 function deepEqual(object1, object2) {
