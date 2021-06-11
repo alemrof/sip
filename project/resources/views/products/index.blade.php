@@ -35,6 +35,7 @@
               <th>Nazwa</th>
               <th>Kategoria</th>
               <th>Producent</th>
+              <th>Ocena</th>
               <th>Stworzono</th>
               <th>Zaktualizowano</th>
             </tr>
@@ -45,6 +46,7 @@
               <th>Nazwa</th>
               <th>Kategoria</th>
               <th>Producent</th>
+              <th>Ocena</th>
               <th>Stworzono</th>
               <th>Zaktualizowano</th>
             </tr>
@@ -56,6 +58,7 @@
                   <td>{{$product->name}}</td>
                   <td>{{$product->category->name}}</td>
                   <td>{{$product->manufacturer}}</td>
+                  <td>{{$product->rating}}</td>
                   <td>{{$product->created_at}}</td>
                   <td>{{$product->updated_at}}</td>
               </tr>

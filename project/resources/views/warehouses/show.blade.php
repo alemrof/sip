@@ -202,18 +202,21 @@
                                         <p class="starability-result" data-rating="{{$comment->rating}}">
                                             Oceniono na: {{$comment->created_at}} gwiazdki
                                         </p>
-                                        <p class="mb-1">{{$comment->content}}</p>
-                                        @auth
-                                            @if (auth()->user()->isModerator())
-                                                <form action="/warehouses/{{$warehouse->id}}/comment/{{$comment->id}}" method="POST" class="ml-auto">
-                                                    {{csrf_field()}}
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <button class="btn btn-outline-danger" type="submit">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </button>
-                                                </form>
-                                            @endif
-                                        @endauth
+                                        <div class="d-flex justify-content-between">
+                                            <p class="mb-1">{{$comment->content}}</p>
+                                            @auth
+                                                @if (auth()->user()->isModerator())
+                                                    <form action="/warehouses/{{$warehouse->id}}/comment/{{$comment->id}}" method="POST" class="ml-auto">
+                                                        {{csrf_field()}}
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <button class="btn btn-outline-danger" type="submit">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </button>
+                                                    </form>
+                                                @endif
+                                            @endauth
+                                        </div>
+                                        
                                     </li>
                                     <div class="hl"></div>
                                 @endforeach
