@@ -21,7 +21,7 @@ class WarehouseImageController extends Controller
             'image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
         $imageName = "warehouse_" . time() . '.' . $request->image->extension();
-        $request->image->move(public_path('imgs'), $imageName);
+        $request->image->move(public_path('imgs/warehouses'), $imageName);
 
         $image = new WarehouseImage;
         $image->name = $imageName;
@@ -39,9 +39,9 @@ class WarehouseImageController extends Controller
         if ($image) 
         {
             WarehouseImage::find($request->id)->delete();
-            if (File::exists(public_path('imgs').'/'.$image->name))
+            if (File::exists(public_path('imgs/warehouses').'/'.$image->name))
             {
-                File::delete(public_path('imgs').'/'.$image->name);
+                File::delete(public_path('imgs/warehouses').'/'.$image->name);
             }
         }
         return back()
