@@ -35,6 +35,7 @@
               <th>Nazwa Sieci</th>
               <th>Nazwa składu</th>
               <th>Adres</th>
+              <th>Ocena</th>
               <th>Współrzędne</th>
               <th>Stworzono</th>
               <th>Zaktualizowano</th>
@@ -46,6 +47,7 @@
               <th>Nazwa Sieci</th>
               <th>Nazwa składu</th>
               <th>Adres</th>
+              <th>Ocena</th>
               <th>Współrzędne</th>
               <th>Stworzono</th>
               <th>Zaktualizowano</th>
@@ -58,6 +60,7 @@
                   <td>{{$warehouse->company->name}}</td>
                   <td>{{$warehouse->name}}</td>
                   <td>{{$warehouse->address}}</td>
+                  <td>{{$warehouse->rating}}</td>
                   <td>{{$warehouse->location}}</td>
                   <td>{{$warehouse->created_at}}</td>
                   <td>{{$warehouse->updated_at}}</td>

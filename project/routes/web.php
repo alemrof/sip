@@ -15,6 +15,7 @@ use App\Http\Controllers\WarehouseCommentController;
 use App\Http\Controllers\WarehouseImageController;
 use App\Http\Controllers\ProductCommentController;
 use App\Http\Controllers\ProductImageController;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -61,6 +62,11 @@ Route::delete('/products/{product_id}/comment/{id}', [ProductCommentController::
 
 Route::post('/products/{id}/image/store', [ProductImageController::class, 'store'])->name('product.image.store');
 Route::delete('/products/{products_id}/image/{id}', [ProductImageController::class, 'destroy'])->name('product.image.destroy');
+
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
