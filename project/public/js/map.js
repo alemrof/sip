@@ -1,8 +1,8 @@
-
 const warehouseIconSrc = '../imgs/warehouse-icon-20px.png';
 const posIconSrc = '../imgs/pos-icon-20px.png';
 const params = new URLSearchParams(window.location.search);
 let selectedWarehouses = [];
+let intermediatePoints = [];
 let selectedWarehouseNumber = 0;
 let posChange=false;
 
@@ -10,7 +10,6 @@ $('#coord-x').val(userCoordinates[0]);
 $('#coord-y').val(userCoordinates[1]);
 $('#coordsText1').val(userCoordinates[0]);
 $('#coordsText2').val(userCoordinates[1]);
-
 
 // Tworzenie źródła na podstawie danych przesłanych z bazy danych
 let vectorSource = new ol.source.Vector();
@@ -32,6 +31,22 @@ let routeLayer = new ol.layer.Vector({
         stroke: new ol.style.Stroke({
             color: '#0066ff',
             width: 3,
+        }),
+    })
+})
+
+let userSource = new ol.source.Vector();
+let userLayer = new ol.layer.Vector({
+    source: userSource,
+    style: new ol.style.Style({
+        image: new ol.style.Circle({
+            radius: 4,
+            stroke: new ol.style.Stroke({
+                color: '#a60e03',
+            }),
+            fill: new ol.style.Fill({
+                color: '#bf382e',
+            }),
         }),
     })
 })
@@ -91,59 +106,60 @@ var map = new ol.Map({
             source: new ol.source.OSM()
         }),
         clusterLayer,
-        routeLayer
+        routeLayer,
+        userLayer
     ],
     view: view
 });
 
 // User position code start
 
-var geolocation = new ol.Geolocation({
-    tracking: true,
-    // enableHighAccuracy must be set to true to have the heading value.
-    trackingOptions: {
-        enableHighAccuracy: true,
-    },
-    projection: view.getProjection()
-});
+// var geolocation = new ol.Geolocation({
+//     tracking: true,
+//     // enableHighAccuracy must be set to true to have the heading value.
+//     trackingOptions: {
+//         enableHighAccuracy: true,
+//     },
+//     projection: view.getProjection()
+// });
 
-var accuracyFeature = new ol.Feature();
+// var accuracyFeature = new ol.Feature();
 
-geolocation.on('change:accuracyGeometry', function () {
-    accuracyFeature.setGeometry(geolocation.getAccuracyGeometry());
-});
+// geolocation.on('change:accuracyGeometry', function () {
+//     accuracyFeature.setGeometry(geolocation.getAccuracyGeometry());
+// });
 
-var positionFeature = new ol.Feature();
-positionFeature.setStyle(
-    new ol.style.Style({
-        image: new ol.style.Circle({
-            radius: 6,
-            fill: new ol.style.Fill({
-                color: '#3399CC',
-            }),
-            stroke: new ol.style.Stroke({
-                color: '#fff',
-                width: 2,
-            }),
-        }),
-    })
-);
+// var positionFeature = new ol.Feature();
+// positionFeature.setStyle(
+//     new ol.style.Style({
+//         image: new ol.style.Circle({
+//             radius: 6,
+//             fill: new ol.style.Fill({
+//                 color: '#3399CC',
+//             }),
+//             stroke: new ol.style.Stroke({
+//                 color: '#fff',
+//                 width: 2,
+//             }),
+//         }),
+//     })
+// );
 
-geolocation.on('change:position', function () {
-    var coordinates = geolocation.getPosition();
-    userCoordinates = ol.proj.toLonLat(coordinates);
-    if (selectedWarehouses.length < 1) {
-        view.setCenter(coordinates);
-    }
-    positionFeature.setGeometry(coordinates ? new ol.geom.Point(coordinates) : null);
-});
+// geolocation.on('change:position', function () {
+//     var coordinates = geolocation.getPosition();
+//     userCoordinates = ol.proj.toLonLat(coordinates);
+//     if (selectedWarehouses.length < 1) {
+//         view.setCenter(coordinates);
+//     }
+//     positionFeature.setGeometry(coordinates ? new ol.geom.Point(coordinates) : null);
+// });
 
-new ol.layer.Vector({
-    map: map,
-    source: new ol.source.Vector({
-        features: [accuracyFeature, positionFeature],
-    }),
-});
+// new ol.layer.Vector({
+//     map: map,
+//     source: new ol.source.Vector({
+//         features: [accuracyFeature, positionFeature],
+//     }),
+// });
 
 // User position code end
 
@@ -238,9 +254,15 @@ routeLink.addEventListener('click', function (e) {
                 routeSource.addFeature(routeFeature);
             }
         };
+        
+        let body = `{"coordinates":[[${userCoordinates[0]}, ${userCoordinates[1]}],`
+        for (let point of intermediatePoints)
+        {
+            pointCoordinates = ol.proj.transform(point.getGeometry().getCoordinates(), 'EPSG:3857', 'EPSG:4326');
+            body += `[${pointCoordinates[0]}, ${pointCoordinates[1]}],`
+        }
         let warehouseCoordinates = ol.proj.toLonLat(warehouse.getGeometry().getCoordinates());
-        const body = `{"coordinates":[[${userCoordinates[0]}, ${userCoordinates[1]}],[${warehouseCoordinates[0]},${warehouseCoordinates[1]}]]}`;
-
+        body += `[${warehouseCoordinates[0]},${warehouseCoordinates[1]}]]}`;
         request.send(body);
     }
 })
@@ -254,24 +276,32 @@ map.addInteraction(select);
 
 select.on('select', function (e) {
     routeSource.clear();
+
     if (e.target.getFeatures().item(0)) {
-        selectedWarehouseNumber = 0;
-
-        if (e.target.getFeatures().item(0).get('features')) {
-            selectedWarehouses = e.target.getFeatures().item(0).get('features');
+        if (e.target.getFeatures().item(0).get('name') == "Intermediate Point") {
+            pointContextmenuObject = e.target.getFeatures().item(0);
+            pointContextmenu.setPosition(pointContextmenuObject.getGeometry().getCoordinates());
         }
+        else {
+            selectedWarehouseNumber = 0;
 
-        if (selectedWarehouses) {
-            let popupArrows = document.querySelector('#popupArrows');
-            if (selectedWarehouses.length > 1) {
-                popupArrows.classList.add('d-flex');
-                popupArrows.classList.remove('d-none');
-            } else {
-                popupArrows.classList.add('d-none');
-                popupArrows.classList.remove('d-flex');
+            if (e.target.getFeatures().item(0).get('features')) {
+                
+                selectedWarehouses = e.target.getFeatures().item(0).get('features');
             }
 
-            updatePopup(selectedWarehouseNumber);
+            if (selectedWarehouses.length > 0) {
+                let popupArrows = document.querySelector('#popupArrows');
+                if (selectedWarehouses.length > 1) {
+                    popupArrows.classList.add('d-flex');
+                    popupArrows.classList.remove('d-none');
+                } else {
+                    popupArrows.classList.add('d-none');
+                    popupArrows.classList.remove('d-flex');
+                }
+
+                updatePopup(selectedWarehouseNumber);
+            }
         }
     } else {
         popup.setPosition(undefined);
@@ -314,6 +344,8 @@ showPreviousWarehouse.addEventListener('click', (e) => {
     }
 })
 
+
+
 let warehouseSearch = document.querySelector('#warehouse-search-form');
 warehouseSearch.addEventListener('submit', (e) => {
     e.preventDefault() // Stom form submission
@@ -348,8 +380,6 @@ if (params.has('id')) {
     }
 }
 
-
-
 //Porownywanie dwoch objektow
 function deepEqual(object1, object2) {
     const keys1 = Object.keys(object1);
@@ -383,6 +413,7 @@ self.map.on("singleclick", function(evt){
     if (posChange==true)
         setPinOnMap(evt);
 })
+
 function setPinOnMap(evt){
     var self = this;
 
@@ -425,8 +456,6 @@ function setPinOnMap(evt){
         });
         self.map.addLayer(self.dinamicPinLayer);
     }
-
-
 }
 
 function posButtonChange(button){
@@ -474,3 +503,95 @@ $(document).ready(function (){
         }
     })
 });
+
+// Menu kontekstowe 
+let contextmenu = new ol.Overlay({
+    positioning: 'top-left',
+    element: document.querySelector('#contextmenu'),
+    autoPan: true
+});
+
+let contextmenuObject = null;
+
+map.addOverlay(contextmenu);
+
+document.querySelector('#contextmenuUserPositionButton').addEventListener('click', function (evt) {
+    setPinOnMap(contextmenuObject);
+    resetContextmenu();
+});
+
+document.querySelector('#contextmenuIntermediatePositionButton').addEventListener('click', function (evt) {
+    addUserPoint(userSource, contextmenuObject.coordinate, "Intermediate Point");
+    resetContextmenu();
+});
+
+document.querySelector('#contextmenuClearButton').addEventListener('click', function (evt) {
+    userSource.clear();
+    intermediatePoints.length = 0;
+    resetContextmenu();
+});
+
+document.querySelector('#contextMenuCancelButton').addEventListener('click', function (evt) {
+    resetContextmenu();
+});
+
+map.on('contextmenu', function(e) {
+    e.preventDefault();
+    resetPointContextmenu();
+    contextmenuObject = e;
+    contextmenu.setPosition(e.coordinate);
+});
+
+function resetContextmenu() {
+    contextmenu.setPosition(undefined);
+    contextmenuObject = null;
+}
+
+map.on('singleclick', resetContextmenu);
+// Koniec menu kontekstowego
+
+// Menu kontekstowe dla istniejących punktów
+let pointContextmenu = new ol.Overlay({
+    positioning: 'top-left',
+    element: document.querySelector('#pointContextmenu'),
+    autoPan: true
+});
+
+let pointContextmenuObject = null;
+
+map.addOverlay(pointContextmenu);
+
+document.querySelector('#pointContextmenuRemoveButton').addEventListener('click', function (evt) {
+    removeUserPoint(userSource, pointContextmenuObject);
+    resetPointContextmenu();
+});
+
+document.querySelector('#pointContextMenuCancelButton').addEventListener('click', function (evt) {
+    resetPointContextmenu();
+});
+
+function resetPointContextmenu() {
+    pointContextmenu.setPosition(undefined);
+    pointContextmenuObject = null;
+}
+
+map.on('singleclick', resetPointContextmenu);
+// Koniec menu kontekstowego
+
+// Wstawianie punktu na wybranym źródle
+function addUserPoint(vectorSource, coordinates, geometryName) {
+    let pointFeature = new ol.Feature({
+        geometry: new ol.geom.Point(coordinates),
+        name: geometryName,
+    });
+    vectorSource.addFeature(pointFeature);
+    intermediatePoints.push(pointFeature);
+}
+
+function removeUserPoint(vectorSource, point) {
+    let index = intermediatePoints.indexOf(point)
+    if (index >= 0) {
+        intermediatePoints.splice(index, 1);
+    }
+    vectorSource.removeFeature(point);
+}
