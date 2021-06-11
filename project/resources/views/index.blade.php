@@ -44,6 +44,7 @@
 
     <!-- Okienko z atrybutami składu budowlanego -->
     @include('warehouse-card')
+    @include('contextmenu')
 
 @endsection
 
