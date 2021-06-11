@@ -20,7 +20,7 @@ class ProductImageController extends Controller
             'image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
         $imageName = "product_" . time() . '.' . $request->image->extension();
-        $request->image->move(public_path('imgs'), $imageName);
+        $request->image->move(public_path('imgs/products'), $imageName);
 
         $image = new ProductImage;
         $image->name = $imageName;
@@ -38,9 +38,9 @@ class ProductImageController extends Controller
         if ($image) 
         {
             ProductImage::find($request->id)->delete();
-            if (File::exists(public_path('imgs').'/'.$image->name))
+            if (File::exists(public_path('imgs/products/').$image->name))
             {
-                File::delete(public_path('imgs').'/'.$image->name);
+                File::delete(public_path('imgs/products/').$image->name);
             }
         }
         return back()

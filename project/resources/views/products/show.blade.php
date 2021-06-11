@@ -83,7 +83,7 @@
                             <!-- Button trigger modal -->
                             <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
                                 @if (count($images) > 0)
-                                    <img src="{{asset('imgs/'.$images[0]->name)}}" class="img-thumbnail show-thumbnail-img" alt="...">
+                                    <img src="{{asset('imgs/products/'.$images[0]->name)}}" class="img-thumbnail show-thumbnail-img" alt="...">
                                 @else
                                     <p>Brak zdjęć. Dodaj pierwsze zdjęcie!</p>
                                 @endif
@@ -106,7 +106,7 @@
                                             <div class="carousel-inner">
                                                 @if (count($images) > 0)
                                                     <div class="carousel-item active">
-                                                        <img src="{{asset('imgs/'.$images[0]->name)}}" class="d-block w-100" alt="...">
+                                                        <img src="{{asset('imgs/products/'.$images[0]->name)}}" class="d-block w-100" alt="...">
                                                         @auth
                                                             @if (auth()->user()->isAdmin())
                                                                 <form action="/products/{{$product->id}}/image/{{$images[0]->id}}" method="POST" class="ml-auto">
@@ -121,7 +121,7 @@
                                                     </div>
                                                     @for ($i = 1; $i < count($images); $i++)
                                                         <div class="carousel-item">
-                                                            <img src="{{asset('imgs/'.$images[$i]->name)}}" class="d-block w-100" alt="...">
+                                                            <img src="{{asset('imgs/products/'.$images[$i]->name)}}" class="d-block w-100" alt="...">
                                                             @auth
                                                                 @if (auth()->user()->isAdmin())
                                                                     <form action="/products/{{$product->id}}/image/{{$images[$i]->id}}" method="POST" class="ml-auto">
