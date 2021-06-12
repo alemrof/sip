@@ -9,6 +9,7 @@ use App\Models\Company;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Warehouse;
+use App\Models\WarehouseImage;
 use App\Models\OpeningHours;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -834,6 +835,233 @@ class DatabaseSeeder extends Seeder
             'rating' => 0
         ]);
 
+        // Warehouse images
+        WarehouseImage::create(['name' => 'warehouse_1623438511.jpg', 'warehouse_id' => $wh1->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623438517.jpg', 'warehouse_id' => $wh1->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623438525.jpg', 'warehouse_id' => $wh1->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623438547.jpg', 'warehouse_id' => $wh2->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623438554.jpg', 'warehouse_id' => $wh2->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623438561.jpg', 'warehouse_id' => $wh2->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623438576.jpg', 'warehouse_id' => $wh2->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623438511.jpg', 'warehouse_id' => $wh2->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623438583.jpg', 'warehouse_id' => $wh2->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623438589.png', 'warehouse_id' => $wh2->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623438601.png', 'warehouse_id' => $wh3->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623438608.png', 'warehouse_id' => $wh3->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623438622.png', 'warehouse_id' => $wh4->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623438664.jpg', 'warehouse_id' => $wh5->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623438669.jpg', 'warehouse_id' => $wh5->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623438675.jpg', 'warehouse_id' => $wh5->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623438689.jpg', 'warehouse_id' => $wh6->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623438698.jpg', 'warehouse_id' => $wh6->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623438706.jpg', 'warehouse_id' => $wh6->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623438729.jpg', 'warehouse_id' => $wh7->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623438737.jpg', 'warehouse_id' => $wh7->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623438751.jpg', 'warehouse_id' => $wh8->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623438758.jpg', 'warehouse_id' => $wh8->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623438766.jpg', 'warehouse_id' => $wh8->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623438779.jpg', 'warehouse_id' => $wh9->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623438793.jpg', 'warehouse_id' => $wh10->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623438800.jpg', 'warehouse_id' => $wh10->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623438819.jpg', 'warehouse_id' => $wh11->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623438833.jpg', 'warehouse_id' => $wh11->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623438853.jpg', 'warehouse_id' => $wh13->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623438861.jpg', 'warehouse_id' => $wh13->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623438880.jpg', 'warehouse_id' => $wh14->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623438889.jpg', 'warehouse_id' => $wh14->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623438903.jpg', 'warehouse_id' => $wh15->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623438909.jpg', 'warehouse_id' => $wh15->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623438924.jpg', 'warehouse_id' => $wh16->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623438931.jpg', 'warehouse_id' => $wh16->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623438945.jpg', 'warehouse_id' => $wh17->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623438958.jpg', 'warehouse_id' => $wh17->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623438972.jpg', 'warehouse_id' => $wh18->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623438979.jpg', 'warehouse_id' => $wh18->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623438993.jpg', 'warehouse_id' => $wh19->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439009.jpg', 'warehouse_id' => $wh20->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439017.jpg', 'warehouse_id' => $wh20->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439031.jpg', 'warehouse_id' => $wh21->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439046.jpg', 'warehouse_id' => $wh22->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439053.jpg', 'warehouse_id' => $wh22->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439068.jpg', 'warehouse_id' => $wh23->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439076.jpg', 'warehouse_id' => $wh23->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439091.jpg', 'warehouse_id' => $wh24->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439098.jpg', 'warehouse_id' => $wh24->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439112.jpg', 'warehouse_id' => $wh25->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439126.jpg', 'warehouse_id' => $wh25->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439137.jpg', 'warehouse_id' => $wh26->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439151.jpg', 'warehouse_id' => $wh27->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439160.jpg', 'warehouse_id' => $wh27->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439172.jpg', 'warehouse_id' => $wh28->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439181.jpg', 'warehouse_id' => $wh30->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439198.jpg', 'warehouse_id' => $wh31->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439205.jpg', 'warehouse_id' => $wh31->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439245.jpg', 'warehouse_id' => $wh34->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439256.jpg', 'warehouse_id' => $wh35->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439264.jpg', 'warehouse_id' => $wh35->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439283.jpg', 'warehouse_id' => $wh37->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439290.jpg', 'warehouse_id' => $wh37->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439301.jpg', 'warehouse_id' => $wh38->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439310.jpg', 'warehouse_id' => $wh38->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439321.jpg', 'warehouse_id' => $wh39->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439327.jpg', 'warehouse_id' => $wh39->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439338.jpg', 'warehouse_id' => $wh40->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439345.jpg', 'warehouse_id' => $wh40->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439356.jpg', 'warehouse_id' => $wh41->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439366.jpg', 'warehouse_id' => $wh42->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439377.jpg', 'warehouse_id' => $wh43->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439386.jpg', 'warehouse_id' => $wh43->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439397.jpg', 'warehouse_id' => $wh44->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439405.jpg', 'warehouse_id' => $wh44->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439420.jpg', 'warehouse_id' => $wh45->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439428.jpg', 'warehouse_id' => $wh45->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439439.jpg', 'warehouse_id' => $wh46->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439446.jpg', 'warehouse_id' => $wh46->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439457.jpg', 'warehouse_id' => $wh47->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439465.jpg', 'warehouse_id' => $wh47->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439475.jpg', 'warehouse_id' => $wh48->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439485.jpg', 'warehouse_id' => $wh49->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439494.jpg', 'warehouse_id' => $wh50->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439518.jpg', 'warehouse_id' => $wh51->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439533.jpg', 'warehouse_id' => $wh52->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439540.jpg', 'warehouse_id' => $wh52->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439552.jpg', 'warehouse_id' => $wh52->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439564.jpg', 'warehouse_id' => $wh53->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439581.jpg', 'warehouse_id' => $wh53->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439591.jpg', 'warehouse_id' => $wh53->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439601.jpg', 'warehouse_id' => $wh53->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439615.jpg', 'warehouse_id' => $wh54->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439624.jpg', 'warehouse_id' => $wh54->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439632.jpg', 'warehouse_id' => $wh54->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439643.jpg', 'warehouse_id' => $wh55->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439653.jpg', 'warehouse_id' => $wh55->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439667.jpg', 'warehouse_id' => $wh56->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439677.jpg', 'warehouse_id' => $wh56->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439687.jpg', 'warehouse_id' => $wh56->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439718.jpg', 'warehouse_id' => $wh57->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439726.jpg', 'warehouse_id' => $wh57->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439734.jpg', 'warehouse_id' => $wh57->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439755.jpg', 'warehouse_id' => $wh59->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439768.jpg', 'warehouse_id' => $wh60->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439778.jpg', 'warehouse_id' => $wh60->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439796.jpg', 'warehouse_id' => $wh61->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439808.jpg', 'warehouse_id' => $wh62->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439817.jpg', 'warehouse_id' => $wh62->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439828.jpg', 'warehouse_id' => $wh63->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439839.jpg', 'warehouse_id' => $wh64->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439849.jpg', 'warehouse_id' => $wh64->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439864.jpg', 'warehouse_id' => $wh65->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439872.jpg', 'warehouse_id' => $wh65->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439895.jpg', 'warehouse_id' => $wh68->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439903.jpg', 'warehouse_id' => $wh68->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439911.jpg', 'warehouse_id' => $wh68->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439924.jpg', 'warehouse_id' => $wh70->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439935.jpg', 'warehouse_id' => $wh70->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439945.jpg', 'warehouse_id' => $wh71->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439953.jpg', 'warehouse_id' => $wh71->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439961.jpg', 'warehouse_id' => $wh71->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439970.jpg', 'warehouse_id' => $wh72->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623439982.jpg', 'warehouse_id' => $wh73->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623439989.jpg', 'warehouse_id' => $wh73->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623440000.jpg', 'warehouse_id' => $wh74->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623440009.jpg', 'warehouse_id' => $wh74->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623440032.jpg', 'warehouse_id' => $wh76->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623440043.jpg', 'warehouse_id' => $wh76->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623440064.jpg', 'warehouse_id' => $wh78->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623440072.jpg', 'warehouse_id' => $wh78->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623440081.jpg', 'warehouse_id' => $wh79->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623440092.jpg', 'warehouse_id' => $wh80->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623440102.jpg', 'warehouse_id' => $wh81->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623440124.jpg', 'warehouse_id' => $wh83->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623440135.jpg', 'warehouse_id' => $wh84->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623440145.jpg', 'warehouse_id' => $wh85->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623440151.jpg', 'warehouse_id' => $wh85->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623440163.jpg', 'warehouse_id' => $wh86->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623440171.jpg', 'warehouse_id' => $wh87->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623440180.jpg', 'warehouse_id' => $wh88->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623440189.jpg', 'warehouse_id' => $wh89->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623440198.jpg', 'warehouse_id' => $wh90->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623440204.jpg', 'warehouse_id' => $wh90->id]);
+
+        WarehouseImage::create(['name' => 'warehouse_1623440216.jpg', 'warehouse_id' => $wh91->id]);
+        WarehouseImage::create(['name' => 'warehouse_1623440223.jpg', 'warehouse_id' => $wh91->id]);
 
         // Opening Hours
         $warehouses = [$wh1, $wh2, $wh3, $wh4, $wh5, $wh6, $wh7, $wh8, $wh9, 

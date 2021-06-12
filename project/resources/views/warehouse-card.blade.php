@@ -13,7 +13,7 @@
         </ul>
     </div>
     <div class="card-body">
-        <span class="align-middle" id="warehouse-name">Nazwa składu</span>
+        <span class="align-middle"><a href="" id="warehouse-name">Nazwa składu</a></span>
         <div class="tab-content mt-3">
         {{-- Description --}}
             <div class="tab-pane active" id="description" role="tabpanel">
