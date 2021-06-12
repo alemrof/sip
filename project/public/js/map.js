@@ -174,6 +174,9 @@ var popup = new ol.Overlay({
 
 map.addOverlay(popup);
 
+let popupElement = document.querySelector('#popup').parentElement;
+draggable(popupElement);
+
 // Zamykanie elementu z danymi składu budowlanego
 let closer = document.querySelector('#closer');
 closer.addEventListener('click', function (e) {
@@ -181,6 +184,7 @@ closer.addEventListener('click', function (e) {
     selectedWarehouses = [];
     selectedWarehouseNumber = 0;
     routeSource.clear();
+    resetDraggablePosition(popupElement);
     return false;
 });
 
@@ -190,6 +194,7 @@ function updatePopup(id) {
 
     let warehouseName = document.querySelector('#warehouse-name');
     warehouseName.innerHTML = warehouse.get('name');
+    warehouseName.href = `/warehouses/${warehouse.getId()}`;
 
     let warehouseCompany = document.querySelector('#warehouse-company');
     warehouseCompany.innerHTML = warehouse.get('company');
@@ -276,6 +281,7 @@ map.addInteraction(select);
 
 select.on('select', function (e) {
     routeSource.clear();
+    resetDraggablePosition(popupElement);
 
     if (e.target.getFeatures().item(0)) {
         if (e.target.getFeatures().item(0).get('name') == "Intermediate Point") {
@@ -594,4 +600,76 @@ function removeUserPoint(vectorSource, point) {
         intermediatePoints.splice(index, 1);
     }
     vectorSource.removeFeature(point);
+}
+
+// Funkcja umożliwiająca przesuwanie elementów  HTML za pomocą myszy
+'use strict';
+
+/**
+ * Makes an element draggable.
+ *
+ * @param {HTMLElement} element - The element.
+ */
+function draggable(element) {
+    var isMouseDown = false;
+
+    // initial mouse X and Y for `mousedown`
+    var mouseX;
+    var mouseY;
+
+    // element X and Y before and after move
+    var elementX = 0;
+    var elementY = 0;
+
+    // mouse button down over the element
+    element.addEventListener('mousedown', onMouseDown);
+
+    /**
+     * Listens to `mousedown` event.
+     *
+     * @param {Object} event - The event.
+     */
+    function onMouseDown(event) {
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+        isMouseDown = true;
+    }
+
+    // mouse button released
+    document.addEventListener('mouseup', onMouseUp);
+
+    /**
+     * Listens to `mouseup` event.
+     *
+     * @param {Object} event - The event.
+     */
+    function onMouseUp(event) {
+        isMouseDown = false;
+        elementX = parseInt(element.style.left) || 0;
+        elementY = parseInt(element.style.top) || 0;
+    }
+
+    // need to attach to the entire document
+    // in order to take full width and height
+    // this ensures the element keeps up with the mouse
+    document.addEventListener('mousemove', onMouseMove);
+
+    /**
+     * Listens to `mousemove` event.
+     *
+     * @param {Object} event - The event.
+     */
+    function onMouseMove(event) {
+        if (!isMouseDown) return;
+        var deltaX = event.clientX - mouseX;
+        var deltaY = event.clientY - mouseY;
+        element.style.left = elementX + deltaX + 'px';
+        element.style.top = elementY + deltaY + 'px';
+    }
+}
+
+function resetDraggablePosition(element)
+{
+    element.style.left = 0 + 'px';
+    element.style.top = 0 + 'px';
 }
