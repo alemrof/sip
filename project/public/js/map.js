@@ -27,12 +27,23 @@ for (let warehouse of warehouses) {
 let routeSource = new ol.source.Vector();
 let routeLayer = new ol.layer.Vector({
     source: routeSource,
-    style: new ol.style.Style({
-        stroke: new ol.style.Stroke({
-            color: '#0066ff',
-            width: 3,
-        }),
-    })
+    style: function (feature) {
+        return new ol.style.Style({
+            stroke: new ol.style.Stroke({
+                color: '#0066ff',
+                width: 3,
+            }),
+            text: new ol.style.Text({
+                text: `${feature.get("routeLength").toString()} m`,
+                font: 'bold 14px arial',
+                textAlign: 'center',
+                offsetY: -15,
+                fill: new ol.style.Fill({
+                    color: '#0066ff',
+                }),
+            }),
+        })
+    }
 })
 
 let userSource = new ol.source.Vector();
@@ -254,7 +265,8 @@ routeLink.addEventListener('click', function (e) {
                     featureProjection: 'EPSG:3857'
                 });
                 let routeFeature = new ol.Feature({
-                    geometry: route
+                    geometry: route,
+                    routeLength: result.routes[0].summary.distance
                 });
                 routeSource.addFeature(routeFeature);
             }
