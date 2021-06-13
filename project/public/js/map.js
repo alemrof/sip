@@ -434,7 +434,7 @@ self.map.on("singleclick", function(evt){
 
 function setPinOnMap(evt){
     var self = this;
-
+    console.log(evt);
     var latLong = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
     var lat     = latLong[1];
     var long    = latLong[0];
@@ -475,6 +475,9 @@ function setPinOnMap(evt){
         self.map.addLayer(self.dinamicPinLayer);
     }
 }
+
+// Inicjalne ustawienie pozycji użytkownika
+setPinOnMap({coordinate: ol.proj.transform(userCoordinates, 'EPSG:4326', 'EPSG:3857')});
 
 function posButtonChange(button){
     if (posChange == false)
