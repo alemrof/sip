@@ -148,18 +148,21 @@
                                         </div>    
                                     </div>
                                     <div class="modal-footer">
-                                        <form action="{{ route('product.image.store', $product->id) }}" method="POST" enctype="multipart/form-data">
-                                            @csrf
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <input type="file" name="image" class="form-control">
-                                                </div>
-                                        
-                                                <div class="col-md-4 d-flex justify-content-end">
-                                                    <button type="submit" class="btn btn-success border-dark ml-auto">Dodaj</button>
-                                                </div>
-                                            </div>
-                                        </form>
+                                        @auth
+                                            @if (auth()->user()->isAdmin())
+                                                <form action="{{ route('product.image.store', $product->id) }}" method="POST" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <div class="row">
+                                                        <div class="col-md-8">
+                                                            <input type="file" name="image" class="form-control">
+                                                        </div>
+                                                        <div class="col-md-4 d-flex justify-content-end">
+                                                            <button type="submit" class="btn btn-success border-dark ml-auto">Dodaj</button>
+                                                        </div>
+                                                    </div>
+                                                </form>    
+                                            @endif
+                                        @endauth
                                     </div>
                                 </div>
                             </div>
